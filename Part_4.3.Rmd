@@ -1,0 +1,180 @@
+---
+title: "Importing Data"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+## Getting the Data
+
+I have a sample csv file available for you [at this link](./files/SwissData.csv). Please download it and place it in your `RScripts` folder that we created earlier on your desktop.
+
+## File Formats
+
+Data are stored in a wide variety of formats, and R can handle many of these. We're going to work with a simple example today using the very common spread sheet format csv or comma separated value, in which column variables are separated by commas.
+
+<div class="question">
+**Comma Seperated Values**
+
+In general, keeping your data in a plain text format like csv has many advantages including longevity of access, transferability across systems, and perhaps most importantly, encouraging good data handling practices; programs like Excel allow us to indicate information about our data using colours, to merge cells etc, all of which limit the ability of a machine to read our data.
+</div>
+
+## Knowing where your data is
+
+Before we can import our data, we need to know what our working directory is, that is, what folder R thinks we're currently in and what folder our data is in.
+
+We have two functions for this:
+
+* `getwd()` *get working directory*, which tells us where we are; and
+* `setwd()` *set working directory*, which tells R where we want to be.
+
+<span class="important">This next bit is important</span>
+
+We want to set our working directory to the same location as our script. To do this, we'll use the following code:
+
+**Mac and Linux**
+
+<pre>setwd("~/Desktop/RScripts")</pre>
+
+**Windows**
+
+<pre>setwd("~/Desktop/RScripts")</pre>
+
+if that doesn't work, you can try
+
+<pre>setwd("~/../Desktop/RScripts")</pre>
+
+<div class="note">
+**Note**
+
+Every system has a default home directory. We can access that directory with the `~`. On Mac OS and Linux, this is generally your user folder and on Windows it should be your user folder, but may be your documents folder.
+
+The above will work for systems that have not had their default home directories changed.
+</div>
+
+## Importing csv
+
+We can read a csv with the function `read.table()`. `read.table()` has several iterations, such as `read.csv()` specifically for comma separated values and `read.csv2` that accounts for the use of commas in place of decimals in certain countries, but `read.table` will allow us to explore a bit more what's happening on our import.
+
+<div class="question">
+**Swiss data set**
+
+R comes pre-loaded with several data sets that you can play around with. The Swiss data set is one example. This is a data set of standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888. The csv generated for this workshop is derived from this dataset, with a few changes introduced.
+
+You can learn more about the data set with `?swiss`
+</div>
+
+### Inital Exploration
+
+First, let's open our file in a text editor, so you can see the comma separations.
+
+Let's also open it in Excel, so you can see what it looks like in a spread sheet application.
+
+We can see that we have a series of observations, represented as rows containing province names in Switzerland. Each observation has several variables, including things like education level and infant mortality rates.
+
+It's important to note that we have column names (variable) and row names (observations), but that these don't represent data points.
+
+At this point, we should have a sense of what we need to import.
+
+### Import Options
+
+Let's explore the options we can set when reading in this file considering the above. As before, we'll start by just looking at the head.
+
+`read.table()` provides us with several things that we can tell it on import, for instance how our data is separated - this could be comma, tab, or any value really - whether or not our data has row names, if there's a header, and very importantly, if there are values that we want to replace with NA on import.
+
+You can of course get a full list of the options available with `?read.table`, but for the moment we're going to forge ahead with the following:
+
+<pre>head(read.table("SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))</pre>
+
+```{R, echo = FALSE}
+head(read.table("~/Desktop/RScripts/SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))
+```
+
+Let's work through this.
+
+1. First, we identify the file.
+2. Then `sep = ","` indicates the column separator used, in this case a comma.
+3. `row.names = 1` indicates that we have row names and that these appear in the first column, so, import these, but don't include them as data, just labels.
+4. `header = TRUE` indicates that we have a header row naming our variables, so again, import these, but don't include them as data points.
+5. Lastly, `na.strings = c("NULL", "", " ")` tells R to replace any NULL values, blank values, or data points that are just spaces with NA.
+
+<div class="question">
+**Missing values**
+
+NULL values, empty cells, and random spaces routinely show up in data sets, either as artifacts of other applications, user error or errors introduced during data collection. All these will cause issues when it comes time to process our data. We can account for and then deal with these appropriately by replacing these with the value `NA` using `na.strings`.
+
+</div>
+
+At this stage, everything looks good, and we should be set to import our dataset, so we'll do exactly as above, but we'll pull in the full data set and store it in a variable called `SwissData`:
+
+<pre>SwissData <- (read.table("SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))</pre>
+
+```{R, echo = FALSE}
+SwissData <- (read.table("~/Desktop/RScripts/SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))
+```
+
+```{R}
+head(SwissData)
+```
+
+The one last thing we'll do is inquire about our structure
+
+```{R}
+str(SwissData)
+```
+
+And at this point, we should be able to start working with this data set using all of the tools that we've encountered so far. You should be able to look at observations that match only certain criteria, calculate descriptive stats, add data points etc all the basic elements we'd expect to be able to do with a data set. You also know how to look for and learn how to use various functions in R. And lastly, you hopefully have some of the language needed to be able use a search egine to ask 'how do I this in R' and understand some of the answers you might get on various forums or blogs.
+
+## Next steps
+
+Up until now, we've been working through exploring, altering, and asking questions of our data with tools that are built into  base R, that is with tools that come with a basic installation.
+
+In the introduction, we talked about R being more than a programming language, and being a **community of developers and users**.
+
+This community is continually creating new tools, that is new functions, to help you do more and to do this more efficiently. These functions come bundled as packages that you can install. You'll frequently see reference to these packages.
+
+To see what packages you have installed on you system, you can run `installed.packages()`
+
+```{R, results = "hide"}
+installed.packages()
+```
+
+To know what functions are available in a give package you can run `help(package="packageName")`
+
+To install a package that you don't have, you would run `install.packages("PackageName")`
+
+### Tidyverse
+
+Tidyverse is a collection of R packages that is well worth exploring.
+
+#### dplyr
+
+One of these packages, called `dplyr`, allows you to do a lot of what we did today in a more streamlined way.
+
+To install `dplyr` you can run
+
+<pre>install.packages("dplyr")</pre>
+
+And then to see the functions available, you can run
+
+<pre>help(package = "dplyr")</pre>
+
+To learn more about tidyverse and `dplyr` you can visit [https://dplyr.tidyverse.org/](https://dplyr.tidyverse.org/)
+
+#### readxl
+
+Another of these is `readxl`, which has several functions to allow you to import Excel files. It works very much like `read.table` but for Excel files.
+
+To install `readxl` you can run
+
+<pre>install.packages("readxl")</pre>
+
+And then to see the functions available, you can run
+
+<pre>help(package = "readxl")</pre>
+
+To learn more about tidyverse and `readxl` you can visit [https://readxl.tidyverse.org/](https://readxl.tidyverse.org/)

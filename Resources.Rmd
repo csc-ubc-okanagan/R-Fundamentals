@@ -1,0 +1,35 @@
+---
+Title: "Resources"
+pagetitle: "Resources"
+---
+## Resources
+
+### Books
+
+* The content of this workshop was very much inspired by the first several chapters of *Learning R* by Richard Cotton. This book can be accessed through UBC Library at [https://tinyurl.com/y43bkqco](https://tinyurl.com/y43bkqco)
+* Another great resource is *R for Data Science* by Wickham Hadley and Garrett Grolemund. This book can be accessed through UBC Library at [https://tinyurl.com/y49kseaf](https://tinyurl.com/y49kseaf)
+* If you're into text mining, *Text Mining with R* by Julia Sigle and David Robinson is also brilliant. This book can be accessed through UBC Library at [https://tinyurl.com/y632e6v6](https://tinyurl.com/y632e6v6)
+
+### Web Resources
+
+* Datacamp has a huge resource of online learning opportunities for R, with tutorials, cheat sheets, courses etc. You can access that portal here [https://www.datacamp.com/community/tags/r-programming](https://www.datacamp.com/community/tags/r-programming)
+
+### UBC Workshops
+
+* The Research Commons in Vancouver runs a couple of data analysis workshops. A good follow up to this course that introduces using some of the packages from Tidyverse is their *Introduction to R and RStudio*.
+  * Course materials are available online at [https://ubc-library-rc.github.io/r-rstudio/](https://ubc-library-rc.github.io/r-rstudio/)
+  * Workshop dates and registration can be accessed through [this link](https://libcal.library.ubc.ca/calendar/?t=g&q=Introduction%20to%20R%20and%20RStudio&cid=-1&cal=-1&inc=0).
+* The Research Commons also runs a course on *R for Statistical Analysis*.
+  * Course materials are available online at [https://ubc-library-rc.github.io/r-stats/](https://ubc-library-rc.github.io/r-stats/)
+  * Workshop dates and registration can be accessed through [this link](https://libcal.library.ubc.ca/calendar/?t=g&q=R%20for%20Statistical%20Analysis&cid=-1&cal=-1&inc=0)
+  
+<div class="note">
+**Note**
+
+As workshops are only offered periodically, links to dates and registration may not always return valid offerings.
+
+To sign up for notifications of future workshops offered either by the Centre for Scholarly Communications at UBCO or the Research Commons at UBCV, use the following links:
+
+* [CSC UBCO](https://ubc.ca1.qualtrics.com/jfe/form/SV_9EnHKAWtc7djMP3)
+* [RC UBCV](https://ubc.us5.list-manage.com/subscribe?u=e1971ea25e9795a7f96774ae7&id=c4c6a1013e)
+</div>

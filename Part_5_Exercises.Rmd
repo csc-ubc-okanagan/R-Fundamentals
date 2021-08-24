@@ -1,0 +1,210 @@
+---
+title: "Exercises"
+pagetitle: "Exercises"
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+## Part 2
+
+### Exercise 2.1
+
+1. Create a vector called `myNumbers` with 201 values ranging from 100 to 300 *hint* use `c()`
+
+```{R}
+myNumbers <- c(100:300)
+myNumbers
+```
+
+2. Look at the first few and the last few numbers of your new vector *hint* use `head()` and `tail()`.
+
+```{R}
+head(myNumbers)
+
+tail(myNumbers)
+```
+
+3. Calculate the mean of your vector *hint* use `mean()`
+
+```{R}
+mean(myNumbers)
+```
+
+### Exercise 2.2
+
+1. Find the function to calculate standard deviation and median *hint* use `??`
+
+2. Create the following vector stored in a variable called `x`:
+
+```{R}
+x <- c(1:20, 50)
+x
+```
+
+3. By default, `head()` and `tail()` list the first or last 6 data points. Use the help page for the `head()` and `tail()` functions to list the first and last 10 numbers in `x`.
+
+```{R}
+head(x, n=10)
+
+tail(x, n=10)
+```
+
+4. Calculate the standard deviation and median of your vector *hint* use `sd()` and `median()`
+
+```{R}
+sd(x)
+
+median(x)
+```
+
+## Part 3
+
+### Exercise 3.1
+
+* Create three variables that hold one numerical value each:
+  * one integer
+
+```{R}
+integer <- 1L
+
+integer
+```  
+  
+  * one double, real, number
+  
+```{R}
+double <- 2
+
+double
+```
+  
+  * one double, decimal, number
+  
+```{R}
+decimal <- 3.1
+
+decimal
+```
+  
+* Inquire as to the type of data and class of object that R tells you each of your variables are. Also ask R to tell you the length of your variables.
+  * What do you notice?
+  * Do we get a valid response to the class function? If yes, why might this be? A variable with one data point is simply a vector of 1 unit.
+
+```{R}
+typeof(integer)
+
+class(integer)
+
+length(integer)
+
+typeof(double)
+
+class(double)
+
+length(double)
+
+typeof(decimal)
+
+class(decimal)
+
+length(decimal)
+```  
+
+
+* Create a logical vector assigned to a variable with 3 TRUE values and 2 FALSE values in any order.
+
+```{R}
+logicalVector <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+logicalVector
+```
+
+* Inquire as to the type of data and class of object that R tells you each of your variables are. Also ask R to tell you the length of your variables.
+
+  * What do you notice?
+
+```{R}
+typeof(logicalVector)
+
+class(logicalVector)
+
+length(logicalVector)
+```
+
+### Exercise 3.2
+
+Find all the `as.` functions available in R
+
+```{R}
+apropos("^as")
+```
+
+
+### Exercise 3.3
+
+1. How many of the values in `Temperature` are higher than 27 *hint* use `length()`:
+
+```{R}
+length(Temperature[Temperature > 27])
+```
+
+2. Get a summary, similar to this, of the data in `Temperature`.
+
+*Note* your values will be different, but the descriptive categories should be the same.
+
+```{R}
+summary(Temperature)
+```
+
+### Exercise 3.4
+
+Replace the temperatures in `Temperature` that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32, 64 and so on.
+
+```{R}
+TemperatureMultiplied <- replace(Temperature, Temperature > 27, Temperature[Temperature > 27] * 2) ## Vector, condition, values where this condition is true * n
+
+TemperatureMultiplied
+```
+
+## Part 4
+
+### Exercise 4.1
+
+Take a few minutes and try to:
+
+* sort your `Height` vector data from lowest to highest value;
+* list only the unique values in this same data;
+* list a summary of your data as if it were categorical data;
+* sort your summary from above from lowest to highest.
+
+Do the above using the following functions:
+
+* `sort()`
+* `unique()`
+* `as.factor`
+* `summary`
+
+```{R}
+sort(Height)
+
+sort(unique(Height))
+
+sort(summary(as.factor(Height)))
+```
+
+Sort our matrix, by Height and then by Weight. Do this using the function `order()`
+
+<div class="note">
+**Note**
+
+`sort()` rearranges a vector in ascending or descending order while `order()` organizes a multi-dimensional object based on individual vectors.
+</div>
+
+```{R}
+completePhysDataSet[ order(completePhysDataSet[, "Height"], completePhysDataSet[, "Weight"]), ]
+```

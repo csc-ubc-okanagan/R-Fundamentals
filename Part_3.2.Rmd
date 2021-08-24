@@ -1,0 +1,155 @@
+---
+title: "Character and Categorical Data"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+---
+
+## Introduction
+
+When we collect data, we also frequently collect strings of text. For example, we might collect data in a free text field where we ask participants, \"what's your favourite food?\"
+
+Let's build a potential selection of choices into a variable called `myFavouriteFood`:
+
+```{R}
+favouriteFood <- c("Costco hotdogs", "Pizza", "Pork and onion dumplings", "Anything deep fried", "Potato chips")
+
+favouriteFood
+```
+
+<div class="note">
+**Note**
+
+Our text is contained in `" "`. Characters, or strings of text, always need to be encompassed in `" "`, which tells R, we're dealing with natural language here, not units that we can compute, such as numbers, or a conditional test, like logical values.
+</div>
+
+We can ask R about both our `class()` and data type `typeof()`
+
+```{R}
+class(favouriteFood)
+
+typeof(favouriteFood)
+```
+
+We could hold larger chunks of text in a variable if we wanted, and in fact, we can use R for text analysis starting with a single work of text as a data import which we then break apart for analysis. But that's for another workshop or some of the additional resources listed under the resources tab.
+
+## Categorical Data
+
+Often our character data is in fact categorical data. Categorical data, while represented by strings of characters, is not the same as plain old text. So, it would be nice to have a way to work with plain text categorical data as categorical data. With `favourFood`, for example, we have 5 categories, or 5 choices, for participants to select from. It is common practice to code these choices, say from 1 through 5. The numerical data on its own tells us nothing about the categories they represent. For this, we would use labels and somewhere - say in a data dictionary that accompanied our dataset - we would record something like:
+
+* Variable: FavouriteFood
+* Data type: character
+* Description: A selection of 5 choices of food types.
+* Values: "Costco hot dogs", "Pizza", "Pork and onion dumplings", "Anything deep fried", "Potato chips"
+
+| code | value |
+| :--- | :--- |
+| 1 | Costco hot dogs |
+| 2 | Pizza |
+| 3 | Pork and onion dumplings |
+| 4 | Anything deep fried |
+| 5 | Potato chips |
+
+<div class="question">
+**Why might it be useful to store categorical data as integers?**
+
+One reason would be to think about the amount of information we're working with. *Costco hot dogs* is comprised of thirteen letters, or thirteen pieces of information. *Pork and onion dumplings* is a whopping 21.
+
+On their own, this seems relatively trivial. But now imagine you have 10 000 survey results, and for whatever reason, respondents only like hot dogs and dumplings and split 50 50 in their preferences. This would represent 170 000 pieces of information  - when we add up all the letters - that we would need to store and process. If we were only using 0s and 1s, this would be only 10 000 pieces of information to store and process, a fraction of the amount of data.
+
+When we think about using R well, we want to be thinking in part of how to avoid inefficiencies. storing categorical data as integers with referene lables is one way to do this.
+</div>
+
+**Back to R and categories**
+
+R provides us with a semantic class, **factors**, to address this; factors are - just as we suggested above as a solution - integers with labels.
+
+Let's work through this with an example. Say we collected information on eye colour. We can capture possible values in the following vector:
+
+```{R}
+eyeColour <- c("blue", "green", "brown", "hazel", "amber", "grey")
+
+eyeColour
+```
+
+Now let's treat this more like true data capture, and create a random sample of eye colour from 50 participants - we'll look more at `sample()` shortly, for now just copy the code.
+
+```{R}
+set.seed(120)
+
+eyeColour.Sample <- sample(eyeColour, 50, replace = TRUE)
+
+eyeColour.Sample
+```
+
+Let's first ask R what `class()` our object is and what `typeof()` data we're storing
+
+```{R}
+class(eyeColour.Sample)
+
+typeof(eyeColour.Sample)
+```
+
+You'll note that both return \'Character\'. But we know that this is categorical data with text labels, so ideally, `class()` would tell us that we have a vector of a categorical variable, while `typeof()` would tell us that this is store with numeric data values.
+
+So, we have character data that we want held as factor, or categorical data - that is, we want our strings converted to integers where each integer has its original string as its label.
+
+## Converting Between Classes
+
+R allows us to convert data between classes. In the above example, we know that `eyeColour.Sample` is in fact categorical data. R stores categorical data as class `factor`. We can convert our plain text character data to categorical data with the `as.factor()` function:
+
+```{R}
+eyeColour.Sample <- as.factor(eyeColour.Sample)
+
+eyeColour.Sample
+```
+
+We have now overwritten our variable `eyeColour.Sample` and when we call it, R reports on `levels`, that is, categories, and it has dropped our `" "`. Also, note that we're no longer looking strictly at our underlying data and its raw structure, we're looking instead at the labels associated with our data.
+
+If we ask about `class()` and `typeof()` we also now see that this is a factor, comprised of integers, which when called, is displayed with text.
+
+```{R}
+class(eyeColour.Sample)
+
+typeof(eyeColour.Sample)
+
+eyeColour.Sample
+```
+
+We can ask R to tell us only the labels used, as well as the number of labels or categories represented using the functions `levels()` and `nlevels()`
+
+```{R}
+levels(eyeColour.Sample)
+
+nlevels(eyeColour.Sample)
+```
+
+## Asking Questions
+
+We've encountered a number of functions to this point that allow us to ask questions of our data and the objects holding our data. One other useful function is `summary()`, which provides an overview of our data. What `summary()` returns will depend on what you're calling the function on.
+
+```{R}
+summary(eyeColour.Sample)
+```
+
+R allows us to convert between many data structures using `as.`:
+
+* `as.numeric`
+* `as.vector`
+* `as.character`
+
+etc...
+
+## Exercise 3.2
+
+1. Find all the `as.` functions available in R
+
+## What Have we Learned
+
+* R can work with plain text, which needs to be wrapped in `" "`
+* R can hold categorical data numerically while representing it with labels making it semantically significant.
+* R can convert between classes of data

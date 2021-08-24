@@ -1,0 +1,36 @@
+name: "R Fundamentals"
+output_dir: "./docs"
+navbar:
+  title: "R Fundamentals"
+  left:
+    - text: "Part 1: Installation"
+      href: Part_1.html
+    - text: "Part 2: Introduction"
+      href: Part_2.html
+    - text: "Part 3: Data Types"
+      menu:
+        - text: "3.1 Numbers and Logical Values"
+          href: Part_3.1.html
+        - text: "3.2 Characters and Categories"
+          href: Part_3.2.html
+        - text: "3.3 Math and Random Samples"
+          href: Part_3.3.html
+    - text: "Part 4: Matrices and Dataframes"
+      menu:
+        - text: "4.1 Matrix Data"
+          href: Part_4.1.html
+        - text: "4.2 Dataframes"
+          href: Part_4.2.html
+        - text: "4.3 Importing Data"
+          href: Part_4.3.html
+    - text: "Exercises"
+      href: Part_5_Exercises.html
+    - text: "Resources"
+      href: Resources.html
+output:
+  html_document:
+    theme: flatly
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
