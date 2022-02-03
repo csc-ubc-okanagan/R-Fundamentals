@@ -13,8 +13,8 @@
 
 <title>Exercises</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -439,25 +439,89 @@ myNumbers</code></pre>
 <h3>Exercise 2.2</h3>
 <ol style="list-style-type: decimal">
 <li><p>Find the function to calculate standard deviation and median <em>hint</em> use <code>??</code></p></li>
-<li><p>Create the following vector stored in a variable called <code>x</code>:</p></li>
+<li><p>Create a variable called <code>m_func_var</code> that stores all the functions and variables on your system that start with the letter <code>m</code>.</p></li>
 </ol>
-<pre class="r"><code>x &lt;- c(1:20, 50)
-x</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 50</code></pre>
+<pre class="r"><code>m_func_var &lt;- apropos(&quot;^m&quot;)
+
+m_func_var</code></pre>
+<pre><code>##   [1] &quot;mad&quot;                       &quot;mahalanobis&quot;              
+##   [3] &quot;maintainer&quot;                &quot;make_translations_pkg&quot;    
+##   [5] &quot;make.link&quot;                 &quot;make.names&quot;               
+##   [7] &quot;make.packages.html&quot;        &quot;make.rgb&quot;                 
+##   [9] &quot;make.socket&quot;               &quot;make.unique&quot;              
+##  [11] &quot;makeActiveBinding&quot;         &quot;makeARIMA&quot;                
+##  [13] &quot;makeClassRepresentation&quot;   &quot;makeExtends&quot;              
+##  [15] &quot;makeGeneric&quot;               &quot;makeMethodsList&quot;          
+##  [17] &quot;makepredictcall&quot;           &quot;makePrototypeFromClassDef&quot;
+##  [19] &quot;makeRweaveLatexCodeRunner&quot; &quot;makeStandardGeneric&quot;      
+##  [21] &quot;makevars_site&quot;             &quot;makevars_user&quot;            
+##  [23] &quot;manova&quot;                    &quot;mantelhaen.test&quot;          
+##  [25] &quot;Map&quot;                       &quot;mapply&quot;                   
+##  [27] &quot;margin.table&quot;              &quot;marginSums&quot;               
+##  [29] &quot;mat.or.vec&quot;                &quot;match&quot;                    
+##  [31] &quot;match.arg&quot;                 &quot;match.call&quot;               
+##  [33] &quot;match.fun&quot;                 &quot;matchSignature&quot;           
+##  [35] &quot;Math&quot;                      &quot;Math.data.frame&quot;          
+##  [37] &quot;Math.Date&quot;                 &quot;Math.difftime&quot;            
+##  [39] &quot;Math.factor&quot;               &quot;Math.POSIXt&quot;              
+##  [41] &quot;Math2&quot;                     &quot;matlines&quot;                 
+##  [43] &quot;matplot&quot;                   &quot;matpoints&quot;                
+##  [45] &quot;matrix&quot;                    &quot;mauchly.test&quot;             
+##  [47] &quot;max&quot;                       &quot;max.col&quot;                  
+##  [49] &quot;mcnemar.test&quot;              &quot;md5sum&quot;                   
+##  [51] &quot;mdeaths&quot;                   &quot;mean&quot;                     
+##  [53] &quot;mean.Date&quot;                 &quot;mean.default&quot;             
+##  [55] &quot;mean.difftime&quot;             &quot;mean.POSIXct&quot;             
+##  [57] &quot;mean.POSIXlt&quot;              &quot;median&quot;                   
+##  [59] &quot;median.default&quot;            &quot;medpolish&quot;                
+##  [61] &quot;mem.maxNSize&quot;              &quot;mem.maxVSize&quot;             
+##  [63] &quot;memCompress&quot;               &quot;memDecompress&quot;            
+##  [65] &quot;memory.limit&quot;              &quot;memory.profile&quot;           
+##  [67] &quot;memory.size&quot;               &quot;menu&quot;                     
+##  [69] &quot;merge&quot;                     &quot;merge.data.frame&quot;         
+##  [71] &quot;merge.default&quot;             &quot;mergeMethods&quot;             
+##  [73] &quot;message&quot;                   &quot;metaNameUndo&quot;             
+##  [75] &quot;method.skeleton&quot;           &quot;MethodAddCoerce&quot;          
+##  [77] &quot;methods&quot;                   &quot;methodSignatureMatrix&quot;    
+##  [79] &quot;MethodsList&quot;               &quot;MethodsListSelect&quot;        
+##  [81] &quot;methodsPackageMetaName&quot;    &quot;mget&quot;                     
+##  [83] &quot;min&quot;                       &quot;mirror2html&quot;              
+##  [85] &quot;missing&quot;                   &quot;missingArg&quot;               
+##  [87] &quot;Mod&quot;                       &quot;mode&quot;                     
+##  [89] &quot;mode&lt;-&quot;                    &quot;model.extract&quot;            
+##  [91] &quot;model.frame&quot;               &quot;model.frame.default&quot;      
+##  [93] &quot;model.matrix&quot;              &quot;model.matrix.default&quot;     
+##  [95] &quot;model.matrix.lm&quot;           &quot;model.offset&quot;             
+##  [97] &quot;model.response&quot;            &quot;model.tables&quot;             
+##  [99] &quot;model.weights&quot;             &quot;modifyList&quot;               
+## [101] &quot;month.abb&quot;                 &quot;month.name&quot;               
+## [103] &quot;monthplot&quot;                 &quot;months&quot;                   
+## [105] &quot;months.Date&quot;               &quot;months.POSIXt&quot;            
+## [107] &quot;mood.test&quot;                 &quot;morley&quot;                   
+## [109] &quot;mosaicplot&quot;                &quot;mostattributes&lt;-&quot;         
+## [111] &quot;mtcars&quot;                    &quot;mtext&quot;                    
+## [113] &quot;multipleClasses&quot;           &quot;mvfft&quot;                    
+## [115] &quot;my.at&quot;                     &quot;myFirstVector&quot;            
+## [117] &quot;myNumbers&quot;</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>By default, <code>head()</code> and <code>tail()</code> list the first or last 6 data points. Use the help page for the <code>head()</code> and <code>tail()</code> functions to list the first and last 10 numbers in <code>x</code>.</li>
+<li>By default, <code>head()</code> and <code>tail()</code> list the first or last 6 data points of whatever is passed to them. Use the help page for <code>head()</code> and <code>tail()</code> to list the first and last 10 results of <code>m_func_var</code>.</li>
 </ol>
-<pre class="r"><code>head(x, n=10)</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<pre class="r"><code>tail(x, n=10)</code></pre>
-<pre><code>##  [1] 12 13 14 15 16 17 18 19 20 50</code></pre>
+<pre class="r"><code>head(m_func_var, n=10)</code></pre>
+<pre><code>##  [1] &quot;mad&quot;                   &quot;mahalanobis&quot;           &quot;maintainer&quot;           
+##  [4] &quot;make_translations_pkg&quot; &quot;make.link&quot;             &quot;make.names&quot;           
+##  [7] &quot;make.packages.html&quot;    &quot;make.rgb&quot;              &quot;make.socket&quot;          
+## [10] &quot;make.unique&quot;</code></pre>
+<pre class="r"><code>tail(m_func_var, n=10)</code></pre>
+<pre><code>##  [1] &quot;morley&quot;           &quot;mosaicplot&quot;       &quot;mostattributes&lt;-&quot; &quot;mtcars&quot;          
+##  [5] &quot;mtext&quot;            &quot;multipleClasses&quot;  &quot;mvfft&quot;            &quot;my.at&quot;           
+##  [9] &quot;myFirstVector&quot;    &quot;myNumbers&quot;</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Calculate the standard deviation and median of your vector <em>hint</em> use <code>sd()</code> and <code>median()</code></li>
 </ol>
 <pre class="r"><code>sd(x)</code></pre>
-<pre><code>## [1] 10.37052</code></pre>
+<pre><code>## [1] 15.81139</code></pre>
 <pre class="r"><code>median(x)</code></pre>
-<pre><code>## [1] 11</code></pre>
+<pre><code>## [1] 55</code></pre>
 </div>
 </div>
 <div id="part-3" class="section level2">
@@ -513,25 +577,6 @@ decimal</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <pre class="r"><code>length(decimal)</code></pre>
 <pre><code>## [1] 1</code></pre>
-<ul>
-<li>Create a logical vector assigned to a variable with 3 TRUE values and 2 FALSE values in any order.</li>
-</ul>
-<pre class="r"><code>logicalVector &lt;- c(TRUE, FALSE, TRUE, TRUE, FALSE)
-
-logicalVector</code></pre>
-<pre><code>## [1]  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
-<ul>
-<li><p>Inquire as to the type of data and class of object that R tells you each of your variables are. Also ask R to tell you the length of your variables.</p>
-<ul>
-<li>What do you notice?</li>
-</ul></li>
-</ul>
-<pre class="r"><code>typeof(logicalVector)</code></pre>
-<pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre class="r"><code>class(logicalVector)</code></pre>
-<pre><code>## [1] &quot;logical&quot;</code></pre>
-<pre class="r"><code>length(logicalVector)</code></pre>
-<pre><code>## [1] 5</code></pre>
 </div>
 <div id="exercise-3.2" class="section level3">
 <h3>Exercise 3.2</h3>
@@ -687,24 +732,24 @@ logicalVector</code></pre>
 <div id="exercise-3.3" class="section level3">
 <h3>Exercise 3.3</h3>
 <ol style="list-style-type: decimal">
-<li>How many of the values in <code>Temperature</code> are higher than 27 <em>hint</em> use <code>length()</code>:</li>
+<li>How many of the values in <code>dailyHighs</code> are higher than 27:</li>
 </ol>
-<pre class="r"><code>length(Temperature[Temperature &gt; 27])</code></pre>
+<pre class="r"><code>length(dailyHighs[dailyHighs &gt; 27])</code></pre>
 <pre><code>## [1] 8</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Get a summary, similar to this, of the data in <code>Temperature</code>.</li>
 </ol>
 <p><em>Note</em> your values will be different, but the descriptive categories should be the same.</p>
-<pre class="r"><code>summary(Temperature)</code></pre>
+<pre class="r"><code>summary(dailyHighs)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   20.00   21.75   25.50   26.05   31.00   34.00</code></pre>
 </div>
 <div id="exercise-3.4" class="section level3">
 <h3>Exercise 3.4</h3>
 <p>Replace the temperatures in <code>Temperature</code> that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32, 64 and so on.</p>
-<pre class="r"><code>TemperatureMultiplied &lt;- replace(Temperature, Temperature &gt; 27, Temperature[Temperature &gt; 27] * 2) ## Vector, condition, values where this condition is true * n
+<pre class="r"><code>dailyHighsMultiplied &lt;- replace(dailyHighs, dailyHighs &gt; 27, dailyHighs[dailyHighs &gt; 27] * 2) ## Vector, condition, values where this condition is true * n
 
-TemperatureMultiplied</code></pre>
+dailyHighsMultiplied</code></pre>
 <pre><code>##  [1] 24 22 56 25 68 26 23 21 68 20 21 20 26 62 64 62 60 20 62 22</code></pre>
 </div>
 </div>

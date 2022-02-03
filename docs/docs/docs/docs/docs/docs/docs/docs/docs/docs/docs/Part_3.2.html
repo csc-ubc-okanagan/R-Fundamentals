@@ -13,8 +13,8 @@
 
 <title>Character and Categorical Data</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -391,7 +391,7 @@ div.tocify {
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>When we collect data, we also frequently collect strings of text. For example, we might collect data in a free text field where we ask participants, "what’s your favourite food?"</p>
+<p>When we collect data, we also frequently collect strings of text. For example, we might collect data in a free text field where we ask participants, "what's your favourite food?"</p>
 <p>Let’s build a potential selection of choices into a variable called <code>myFavouriteFood</code>:</p>
 <pre class="r"><code>favouriteFood &lt;- c(&quot;Costco hotdogs&quot;, &quot;Pizza&quot;, &quot;Pork and onion dumplings&quot;, &quot;Anything deep fried&quot;, &quot;Potato chips&quot;)
 
@@ -401,29 +401,31 @@ favouriteFood</code></pre>
 ## [5] &quot;Potato chips&quot;</code></pre>
 <div class="note">
 <p><strong>Note</strong></p>
-<p>Our text is contained in <code>" "</code>. Characters, or strings of text, always need to be encompassed in <code>" "</code>, which tells R, we’re dealing with natural language here, not units that we can compute, such as numbers, or a conditional test, like logical values.</p>
+<p>Our text is contained in <code>" "</code>. Characters, or strings of text, always need to be encompassed in <code>" "</code>, which tells <code>R</code> we're dealing with natural language, not units that we can compute, such as numbers, or a conditional test, like logical values.</p>
 </div>
-<p>We can ask R about both our <code>class()</code> and data type <code>typeof()</code></p>
+<p>We can ask <code>R</code> about both our <code>class()</code> and data type <code>typeof()</code></p>
 <pre class="r"><code>class(favouriteFood)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="r"><code>typeof(favouriteFood)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>We could hold larger chunks of text in a variable if we wanted, and in fact, we can use R for text analysis starting with a single work of text as a data import which we then break apart for analysis. But that’s for another workshop or some of the additional resources listed under the resources tab.</p>
+<p>We could hold larger chunks of text in a variable if we wanted, and in fact, we can use <code>R</code> for text analysis starting with a single work of text as a data import which we then break apart for analysis.</p>
 </div>
 <div id="categorical-data" class="section level2">
 <h2>Categorical Data</h2>
-<p>Often our character data is in fact categorical data. Categorical data, while represented by strings of characters, is not the same as plain old text. So, it would be nice to have a way to work with plain text categorical data as categorical data. With <code>favourFood</code>, for example, we have 5 categories, or 5 choices, for participants to select from. It is common practice to code these choices, say from 1 through 5. The numerical data on its own tells us nothing about the categories they represent. For this, we would use labels and somewhere - say in a data dictionary that accompanied our dataset - we would record something like:</p>
+<p>Often our character data is in fact categorical data. Categorical data, while represented by strings of characters, is not the same as plain old text. It would be nice to have a way to work with plain text categorical data as categorical data.</p>
+<p>With <code>favouriteFood</code> we have 5 choices that participants can select from. It is common practice to code these choices, say from 1 through 5. We then have three things that we're working with - a variable, a set of labels, and a set of codes assigned to those labels. In describing this data set - say in a data dictionary that accompanied our data - we might record something like:</p>
 <ul>
 <li>Variable: FavouriteFood</li>
 <li>Data type: character</li>
 <li>Description: A selection of 5 choices of food types.</li>
-<li>Values: “Costco hot dogs”, “Pizza”, “Pork and onion dumplings”, “Anything deep fried”, “Potato chips”</li>
+<li>Possible values: “Costco hot dogs”, “Pizza”, “Pork and onion dumplings”, “Anything deep fried”, “Potato chips”</li>
+<li>Code label assignment:</li>
 </ul>
 <table>
 <thead>
 <tr class="header">
 <th align="left">code</th>
-<th align="left">value</th>
+<th align="left">label</th>
 </tr>
 </thead>
 <tbody>
@@ -451,18 +453,27 @@ favouriteFood</code></pre>
 </table>
 <div class="question">
 <p><strong>Why might it be useful to store categorical data as integers?</strong></p>
-<p>One reason would be to think about the amount of information we’re working with. <em>Costco hot dogs</em> is comprised of thirteen letters, or thirteen pieces of information. <em>Pork and onion dumplings</em> is a whopping 21.</p>
-<p>On their own, this seems relatively trivial. But now imagine you have 10 000 survey results, and for whatever reason, respondents only like hot dogs and dumplings and split 50 50 in their preferences. This would represent 170 000 pieces of information - when we add up all the letters - that we would need to store and process. If we were only using 0s and 1s, this would be only 10 000 pieces of information to store and process, a fraction of the amount of data.</p>
-<p>When we think about using R well, we want to be thinking in part of how to avoid inefficiencies. storing categorical data as integers with referene lables is one way to do this.</p>
+<p>One reason would be to think about the amount of information we're working with. <em>Costco hot dogs</em> is comprised of thirteen letters, <em>Pork and onion dumplings</em> is a whopping 21. That’s a lot more information that <em>1</em> and <em>3</em>. Storing this information and processing this data as integer data tied to a label is much less resource heavy. We can see this by taking some large random samples from out two potential ways of storing this data</p>
+<pre class="r"><code>labels &lt;- sample(favouriteFood, 1000000, replace = TRUE)
+
+codes &lt;- sample(c(1:5), 1000000, replace = TRUE)
+
+labels.size &lt;- format(object.size(labels), units = &quot;Mb&quot;)
+
+codes.size &lt;- format(object.size(codes), units = &quot;Mb&quot;)
+
+cat(&quot;Using labels, we&#39;d be using &quot;, labels.size, &quot; worth of memory. Using numeric codes, we&#39;d be using &quot;, codes.size, &quot;, which is half as much!&quot;)</code></pre>
+<pre><code>## Using labels, we&#39;d be using  7.6 Mb  worth of memory. Using numeric codes, we&#39;d be using  3.8 Mb , which is half as much!</code></pre>
+<p>When we think about using R well, we want to be thinking in part of how to avoid inefficiencies. Storing categorical data as integers with reference labels is one way to do this.</p>
 </div>
-<p><strong>Back to R and categories</strong></p>
-<p>R provides us with a semantic class, <strong>factors</strong>, to address this; factors are - just as we suggested above as a solution - integers with labels.</p>
-<p>Let’s work through this with an example. Say we collected information on eye colour. We can capture possible values in the following vector:</p>
+<p><strong>Back to <code>R</code> and categories</strong></p>
+<p><code>R</code> provides us with a semantic class, <strong>factors</strong>, to address this; factors are–just as we suggested above as a solution–integers with labels.</p>
+<p>Say we collected information on eye colour from some survey participants. We can capture possible values in the following vector:</p>
 <pre class="r"><code>eyeColour &lt;- c(&quot;blue&quot;, &quot;green&quot;, &quot;brown&quot;, &quot;hazel&quot;, &quot;amber&quot;, &quot;grey&quot;)
 
 eyeColour</code></pre>
 <pre><code>## [1] &quot;blue&quot;  &quot;green&quot; &quot;brown&quot; &quot;hazel&quot; &quot;amber&quot; &quot;grey&quot;</code></pre>
-<p>Now let’s treat this more like true data capture, and create a random sample of eye colour from 50 participants - we’ll look more at <code>sample()</code> shortly, for now just copy the code.</p>
+<p>Now let's treat this more like true data capture, and create a random sample of eye colour from 50 participants - we'll look more at <code>sample()</code> shortly.</p>
 <pre class="r"><code>set.seed(120)
 
 eyeColour.Sample &lt;- sample(eyeColour, 50, replace = TRUE)
@@ -474,17 +485,17 @@ eyeColour.Sample</code></pre>
 ## [28] &quot;blue&quot;  &quot;hazel&quot; &quot;green&quot; &quot;hazel&quot; &quot;grey&quot;  &quot;grey&quot;  &quot;grey&quot;  &quot;green&quot; &quot;green&quot;
 ## [37] &quot;amber&quot; &quot;brown&quot; &quot;brown&quot; &quot;green&quot; &quot;green&quot; &quot;brown&quot; &quot;green&quot; &quot;blue&quot;  &quot;green&quot;
 ## [46] &quot;brown&quot; &quot;amber&quot; &quot;hazel&quot; &quot;amber&quot; &quot;brown&quot;</code></pre>
-<p>Let’s first ask R what <code>class()</code> our object is and what <code>typeof()</code> data we’re storing</p>
+<p>Let's first ask R what <code>class()</code> our object is and what <code>typeof()</code> data we're storing</p>
 <pre class="r"><code>class(eyeColour.Sample)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="r"><code>typeof(eyeColour.Sample)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<p>You’ll note that both return 'Character'. But we know that this is categorical data with text labels, so ideally, <code>class()</code> would tell us that we have a vector of a categorical variable, while <code>typeof()</code> would tell us that this is store with numeric data values.</p>
+<p>Note that both return <code>Character</code>. But we know that this is categorical data with text labels, so ideally, <code>class()</code> would tell us that we have a vector of a categorical variable, while <code>typeof()</code> would tell us that this is store with numeric data values.</p>
 <p>So, we have character data that we want held as factor, or categorical data - that is, we want our strings converted to integers where each integer has its original string as its label.</p>
 </div>
 <div id="converting-between-classes" class="section level2">
 <h2>Converting Between Classes</h2>
-<p>R allows us to convert data between classes. In the above example, we know that <code>eyeColour.Sample</code> is in fact categorical data. R stores categorical data as class <code>factor</code>. We can convert our plain text character data to categorical data with the <code>as.factor()</code> function:</p>
+<p><code>R</code> allows us to convert data between classes. <code>R</code> stores categorical data as a class called <code>factor</code>. We can convert our plain text character data to categorical data with the <code>as.factor()</code> function:</p>
 <pre class="r"><code>eyeColour.Sample &lt;- as.factor(eyeColour.Sample)
 
 eyeColour.Sample</code></pre>
@@ -494,7 +505,7 @@ eyeColour.Sample</code></pre>
 ## [37] amber brown brown green green brown green blue  green brown amber hazel
 ## [49] amber brown
 ## Levels: amber blue brown green grey hazel</code></pre>
-<p>We have now overwritten our variable <code>eyeColour.Sample</code> and when we call it, R reports on <code>levels</code>, that is, categories, and it has dropped our <code>" "</code>. Also, note that we’re no longer looking strictly at our underlying data and its raw structure, we’re looking instead at the labels associated with our data.</p>
+<p>We have now overwritten our variable <code>eyeColour.Sample</code> and when we call it, <code>R</code> reports on <code>levels</code>, that is, categories, and it has dropped our <code>" "</code>. Also, note that we're no longer looking strictly at our underlying data and its raw structure, we're looking instead at the labels associated with our data.</p>
 <p>If we ask about <code>class()</code> and <code>typeof()</code> we also now see that this is a factor, comprised of integers, which when called, is displayed with text.</p>
 <pre class="r"><code>class(eyeColour.Sample)</code></pre>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
@@ -507,25 +518,29 @@ eyeColour.Sample</code></pre>
 ## [37] amber brown brown green green brown green blue  green brown amber hazel
 ## [49] amber brown
 ## Levels: amber blue brown green grey hazel</code></pre>
-<p>We can ask R to tell us only the labels used, as well as the number of labels or categories represented using the functions <code>levels()</code> and <code>nlevels()</code></p>
+<p>We can ask <code>R</code> to tell us only the labels used, as well as the number of labels or categories represented using the functions <code>levels()</code> and <code>nlevels()</code></p>
 <pre class="r"><code>levels(eyeColour.Sample)</code></pre>
 <pre><code>## [1] &quot;amber&quot; &quot;blue&quot;  &quot;brown&quot; &quot;green&quot; &quot;grey&quot;  &quot;hazel&quot;</code></pre>
 <pre class="r"><code>nlevels(eyeColour.Sample)</code></pre>
 <pre><code>## [1] 6</code></pre>
-</div>
-<div id="asking-questions" class="section level2">
-<h2>Asking Questions</h2>
-<p>We’ve encountered a number of functions to this point that allow us to ask questions of our data and the objects holding our data. One other useful function is <code>summary()</code>, which provides an overview of our data. What <code>summary()</code> returns will depend on what you’re calling the function on.</p>
-<pre class="r"><code>summary(eyeColour.Sample)</code></pre>
-<pre><code>## amber  blue brown green  grey hazel 
-##     6     7    11    12     5     9</code></pre>
-<p>R allows us to convert between many data structures using <code>as.</code>:</p>
+<div class="note">
+<p><strong>Note</strong></p>
+<p>In older versions of <code>R</code>, on import, character data would be converted to factor. This is no longer the default behaviour. Some analyses of your data that you may undertake will only work if your character data is encoded as categorical data. There are ways to do this when importing your data, which we'll see later. After importing your data you can use <code>as.factor</code> to achieve this.</p>
+<p><code>R</code> allows us to convert between many data structures using <code>as.</code>:</p>
 <ul>
 <li><code>as.numeric</code></li>
 <li><code>as.vector</code></li>
 <li><code>as.character</code></li>
 </ul>
 <p>etc…</p>
+</div>
+</div>
+<div id="asking-questions" class="section level2">
+<h2>Asking Questions</h2>
+<p>We’ve encountered a number of functions to this point that allow us to ask questions of our data and the objects holding our data. One other useful function is <code>summary()</code>, which provides an overview of our data. What <code>summary()</code> returns will depend on what you're calling the function on.</p>
+<pre class="r"><code>summary(eyeColour.Sample)</code></pre>
+<pre><code>## amber  blue brown green  grey hazel 
+##     6     7    11    12     5     9</code></pre>
 </div>
 <div id="exercise-3.2" class="section level2">
 <h2>Exercise 3.2</h2>
@@ -536,9 +551,9 @@ eyeColour.Sample</code></pre>
 <div id="what-have-we-learned" class="section level2">
 <h2>What Have we Learned</h2>
 <ul>
-<li>R can work with plain text, which needs to be wrapped in <code>" "</code></li>
-<li>R can hold categorical data numerically while representing it with labels making it semantically significant.</li>
-<li>R can convert between classes of data</li>
+<li><code>R</code> can work with plain text, which needs to be wrapped in <code>" "</code></li>
+<li><code>R</code> can hold categorical data numerically while representing it with labels making it semantically significant.</li>
+<li><code>R</code> can convert between classes of data</li>
 </ul>
 </div>
 

@@ -13,8 +13,8 @@
 
 <title>Numeric and Logical Data</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -391,22 +391,11 @@ div.tocify {
 
 <div id="data-types" class="section level2">
 <h2>Data Types</h2>
-<p>R has 5 basic data types: numeric, complex, logical, character, and raw. Right now, we’re going to explore numeric and logical data.</p>
-</div>
-<div id="numeric-and-logical-data" class="section level2">
-<h2>Numeric and Logical Data</h2>
-<p>When using R, we are likely going to be analysing data. Understanding how R organizes, classifies, and structures your data is consequently critical to doing this well and avoiding headaches.</p>
-<div id="numeric-data" class="section level3">
-<h3>Numeric data</h3>
-<p>Numeric data in R can be further broken down into two types, integer and double</p>
-<ul>
-<li>double (Double precision floating point, ie can have a decimal)</li>
-<li>integer (Whole number, full stop)</li>
-</ul>
-<p><strong>double</strong> are numbers that can (but don’t necessarily) have decimals. That is, they can be real, whole numbers, or decimal.</p>
+<p>Data types dictate what we can and cannot do with our data. <code>R</code> has 5 basic data types: numeric, complex, logical, character, and raw. These data types form the foundation for other objects in <code>R</code>. One of these objects we've already encountered is a <code>vector</code>. We'll see a few more shortly.</p>
+<p>In this session we'll explore numeric, logical, and character data.</p>
 <div class="question">
 <p><strong>Naming variables</strong></p>
-<p>As we go through this workshop, we’ll work through concepts through variable assignment and then asking questions about our variables. When naming variables in <code>R</code>, keep in mind the following:</p>
+<p>As we go through this workshop, we'll work through concepts through variable assignment and then asking questions about our variables. When naming variables in <code>R</code>, keep in mind the following:</p>
 <ul>
 <li>Variable names should first and foremost be meaningful.</li>
 <li>They <strong>cannot</strong> start with a number or a dot followed by a number.</li>
@@ -416,6 +405,18 @@ div.tocify {
 </ul>
 <p>More details can be found with <code>?make.names</code></p>
 </div>
+</div>
+<div id="numeric-and-logical-data" class="section level2">
+<h2>Numeric and Logical Data</h2>
+<p>When using R, we are likely going to be analysing data. Understanding how R organizes, classifies, and structures data is consequently critical to doing this well and avoiding headaches.</p>
+<div id="numeric-data" class="section level3">
+<h3>Numeric data</h3>
+<p>Numeric data in R can be further broken down into two types, integer and double</p>
+<ul>
+<li>double (Double precision floating point, ie can have a decimal)</li>
+<li>integer (Whole number, full stop)</li>
+</ul>
+<p><strong>double</strong> are numbers that can (but don't necessarily) have decimals.</p>
 <p>Let’s assign a decimal and whole number to two respective variables:</p>
 <pre class="r"><code>decimalPoint &lt;- 10.1
 
@@ -430,7 +431,7 @@ noDecimalPoint</code></pre>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 <pre class="r"><code>typeof(noDecimalPoint)</code></pre>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<p>And we see that they are both returned as “double”. Curious. What if we want an integer? To designate that we want an integer - a whole number - we append the digits with an <code>L</code></p>
+<p>And we see that they are both returned as “double”. Curious. What if we want an integer? To designate that we want an integer we append the digits with an <code>L</code></p>
 <pre class="r"><code>wholeNumber &lt;- 10L
 
 wholeNumber</code></pre>
@@ -440,63 +441,57 @@ wholeNumber</code></pre>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
 <div class="note">
 <p><strong>Note</strong></p>
-<p>Without the <code>L</code>, R will create <code>wholeNumber</code> as a <code>double</code>, as we saw in <code>noDecimalPoint</code></p>
-<p>R will convert on the fly between integers and doubles - so, if we’re performing a calculation that should only result in a whole number, we need to be keenly aware of this and account for it! We’ll look at ways to ensure this in a bit.</p>
+<p>Some functions return integers and others return doubles. <code>R</code> when processing your data will convert on the fly between integers and doubles. Generally this is a good thing - we don't need to think about which data type we're creating, because there’s some fluidity. But just in case you're doing something where the distinction is important, it's good to know that you'll need to be explicit.</p>
 </div>
 </div>
 <div id="logical-values" class="section level3">
 <h3>Logical Values</h3>
 <p>We can also create logical data, that is, data that is either True or False. We could, for example, record the flipping of a coin as either heads or tails, or we could measure it as the number of times we get heads, by declaring a value of heads to be true and a value of tails to be false.</p>
-<p>We’ll assign two logical statements to a vector and assign it to a variable:</p>
-<pre class="r"><code>logicalVector &lt;- c(TRUE,FALSE)
+<p>We'll assign a few logical statements to a vector and assign it to a variable:</p>
+<pre class="r"><code>logicalVector &lt;- c(TRUE,FALSE, FALSE, TRUE, TRUE, FALSE)
 
 logicalVector</code></pre>
-<pre><code>## [1]  TRUE FALSE</code></pre>
-<p>And then we can ask about it - as we’ll see in a bit, it’s always a good idea to investigate your data and to ask questions about it to ensure that the program that you’re working with is behaving as you expect it to!</p>
+<pre><code>## [1]  TRUE FALSE FALSE  TRUE  TRUE FALSE</code></pre>
+<p>And then we can ask about it</p>
 <pre class="r"><code>typeof(logicalVector)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
+<p>In data analysis, using logical vectors can be extremely useful for subsetting data.</p>
 </div>
 </div>
 <div id="classes" class="section level2">
 <h2>Classes</h2>
-<p>In addition to using <code>typeof()</code> for inquiring about data types, we can also use <code>class()</code> to get a bit more information about an R object. Occasionally, the output of <code>typeof()</code> and <code>class()</code> are the same. The details of this should be reserved for a computer science class, but you can get a bit more information from <code>?class</code>.</p>
-<p>It can useful to think of the <code>class</code> as describing what an R object is and <code>typeof</code> telling us about the data it contains. As an analogy, we might have a book of poetry. Our object - our book - might have a class of <code>book</code> or <code>text</code> and if we inquired about the contents with <code>typeof</code> we’d get back <code>poetry</code>, or something like that.</p>
-<p>Just as we can store various types of text in various types of books, notepads etc - R can store various types data in various types of objects. The class of these objects will help us to understand how we can work with our data.</p>
+<p>In addition to using <code>typeof()</code> for inquiring about data types, we can also use <code>class()</code> to get a bit more information about an R object. Occasionally, the output of <code>typeof()</code> and <code>class()</code> are the same.</p>
+<p>It can useful to think of the <code>class</code> as describing what an R object is and <code>typeof</code> telling us about the data it contains. As an analogy, we might have a book of poetry. Our object - our book - might have a class of <code>book</code> or <code>text</code> and if we inquired about the contents with <code>typeof</code> we'd get back <code>character</code>, since it is comprised of <code>character</code> data.</p>
+<p>Just as we can store various types of text in various types of books, notepads etc - <code>R</code> can store various types data in various types of objects. The class of these objects will help us to understand how we can work with those stored data.</p>
 <div id="vectors" class="section level3">
 <h3>Vectors</h3>
-<p>A vector in R is one such object for storing data.</p>
-<p>Vectors in R are <code>atomic</code>. That is, they can only contain one data type, whether that be numeric, logical, character etc. When we made <code>myFristVector</code> we created a container that has specific rules pertaining to the data in that container, namely, it’s flat and unidirectional - think of it as being a single row or a single column - and all the data must be of the same type. In fact, we can see this with the <code>View()</code> function</p>
+<p>A vector in <code>R</code> is one such object for storing data.</p>
+<p>Vectors in R are <code>atomic</code>. That is, they can only contain one data type, whether that be numeric, logical, character etc. When we made <code>myFristVector</code> we created a container that has specific rules pertaining to the data in that container, namely, it's flat and unidirectional - think of it as being a single row or a single column - and all the data must be of the same type.</p>
+<div class="question">
+<p><strong><code>View()</code></strong></p>
+<p>We can get a better sense of the above with the <code>View()</code> function. <code>View()</code> is a great way of exploring data that mimics what we might be more used to if coming from an environment like Excel.</p>
 <pre class="r"><code>View(myFirstVector)</code></pre>
-<p>And we should remember that a vector made up of:</p>
+<p>We can get an even better sense of this if we tell <code>R</code> to treat our vector as a different class of object that we'll explore more shortly–a data frame</p>
+<pre class="r"><code>View(as.data.frame(myFirstVector))</code></pre>
+</div>
+<div class="note">
+<p><strong>Note</strong></p>
+<p>Since vectors are atomic, a vector made up of:</p>
 <ul>
 <li>integer data will be an integer vector</li>
 <li>logical values will be a logical vector</li>
 <li>character values will be a character vector</li>
 </ul>
+<p>So, when we call <code>class</code> on a vector, <code>R</code> returns the data type, but omits telling us it's a vector, so the output reads the same as <code>typeof()</code>.</p>
 </div>
 </div>
-<div id="exercise-3.1" class="section level2">
-<h2>Exercise 3.1</h2>
-<ul>
-<li>Create three variables that hold one numerical value each:
-<ul>
-<li>one integer</li>
-<li>one double, real, number</li>
-<li>one double, decimal, number</li>
-</ul></li>
-<li>Inquire as to the type of data and class of object that R tells you each of your variables are. Also ask R to tell you the length of your variables.
-<ul>
-<li>What do you notice?</li>
-<li>Do we get a valid response to the class function? If yes, why might this be? A variable with one data point is simply a vector of 1 unit.</li>
-</ul></li>
-</ul>
 </div>
 <div id="what-have-we-learned" class="section level2">
 <h2>What Have We Learned</h2>
 <ul>
-<li>R has 5 basic data types</li>
-<li>R objects may have a class that describe that object</li>
-<li>numeric data can be either integer or double precision floating point (decimal ready), and R will convert between integer and floating point when needed, which isn’t always desired!</li>
+<li><code>R</code> has 5 basic data types</li>
+<li><code>R</code> objects may have a class that describe that object</li>
+<li>Numeric data can be either integer or double precision floating point, and <code>R</code> will convert between integer and floating point when needed.</li>
 </ul>
 </div>
 

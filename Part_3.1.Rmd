@@ -10,25 +10,14 @@ output:
 ---
 ## Data Types
 
-R has 5 basic data types: numeric, complex, logical, character, and raw. Right now, we're going to explore numeric and logical data.
+Data types dictate what we can and cannot do with our data. `R` has 5 basic data types: numeric, complex, logical, character, and raw. These data types form the foundation for other objects in `R`. One of these objects we\'ve already encountered is a `vector`. We\'ll see a few more shortly.
 
-## Numeric and Logical Data
-
-When using R, we are likely going to be analysing data. Understanding how R organizes, classifies, and structures your data is consequently critical to doing this well and avoiding headaches.
-
-### Numeric data
-
-Numeric data in R can be further broken down into two types, integer and double
-
-- double (Double precision floating point, ie can have a decimal)
-- integer (Whole number, full stop)
-
-**double** are numbers that can (but don't necessarily) have decimals. That is, they can be real, whole numbers, or decimal.
+In this session we\'ll explore numeric, logical, and character data.
 
 <div class="question">
 **Naming variables**
 
-As we go through this workshop, we'll work through concepts through variable assignment and then asking questions about our variables. When naming variables in `R`, keep in mind the following:
+As we go through this workshop, we\'ll work through concepts through variable assignment and then asking questions about our variables. When naming variables in `R`, keep in mind the following:
 
 * Variable names should first and foremost be meaningful.
 * They **cannot** start with a number or a dot followed by a number.
@@ -38,6 +27,19 @@ As we go through this workshop, we'll work through concepts through variable ass
 
 More details can be found with `?make.names`
 </div>
+
+## Numeric and Logical Data
+
+When using R, we are likely going to be analysing data. Understanding how R organizes, classifies, and structures data is consequently critical to doing this well and avoiding headaches.
+
+### Numeric data
+
+Numeric data in R can be further broken down into two types, integer and double
+
+- double (Double precision floating point, ie can have a decimal)
+- integer (Whole number, full stop)
+
+**double** are numbers that can (but don\'t necessarily) have decimals.
 
 Let's assign a decimal and whole number to two respective variables:
 
@@ -59,7 +61,7 @@ typeof(decimalPoint)
 typeof(noDecimalPoint)
 ```
 
-And we see that they are both returned as "double". Curious. What if we want an integer? To designate that we want an integer - a whole number - we append the digits with an `L`
+And we see that they are both returned as "double". Curious. What if we want an integer? To designate that we want an integer we append the digits with an `L`
 
 ```{R}
 wholeNumber <- 10L
@@ -76,65 +78,73 @@ typeof(wholeNumber)
 <div class="note">
 **Note**
 
-Without the `L`, R will create `wholeNumber` as a `double`, as we saw in `noDecimalPoint`
-
-R will convert on the fly between integers and doubles - so, if we're performing a calculation that should only result in a whole number, we need to be keenly aware of this and account for it! We'll look at ways to ensure this in a bit.
+Some functions return integers and others return doubles. `R` when processing your data will convert on the fly between integers and doubles. Generally this is a good thing - we don\'t need to think about which data type we\'re creating, because there's some fluidity. But just in case you\'re doing something where the distinction is important, it\'s good to know that you\'ll need to be explicit.
 </div>
 
 ### Logical Values
 
 We can also create logical data, that is, data that is either True or False. We could, for example, record the flipping of a coin as either heads or tails, or we could measure it as the number of times we get heads, by declaring a value of heads to be true and a value of tails to be false.
 
-We'll assign two logical statements to a vector and assign it to a variable:
+We\'ll assign a few logical statements to a vector and assign it to a variable:
 
 ```{R}
-logicalVector <- c(TRUE,FALSE)
+logicalVector <- c(TRUE,FALSE, FALSE, TRUE, TRUE, FALSE)
 
 logicalVector
 ```
 
-And then we can ask about it - as we'll see in a bit, it's always a good idea to investigate your data and to ask questions about it to ensure that the program that you're working with is behaving as you expect it to!
+And then we can ask about it
 
 ```{R}
 typeof(logicalVector)
 ```
 
+In data analysis, using logical vectors can be extremely useful for subsetting data.
+
 ## Classes
 
-In addition to using `typeof()` for inquiring about data types, we can also use `class()` to get a bit more information about an R object. Occasionally, the output of `typeof()` and `class()` are the same. The details of this should be reserved for a computer science class, but you can get a bit more information from `?class`.
+In addition to using `typeof()` for inquiring about data types, we can also use `class()` to get a bit more information about an R object. Occasionally, the output of `typeof()` and `class()` are the same.
 
-It can useful to think of the `class` as describing what an R object is and `typeof` telling us about the data it contains. As an analogy, we might have a book of poetry. Our object - our book - might have a class of `book` or `text` and if we inquired about the contents with `typeof` we'd get back `poetry`, or something like that.
+It can useful to think of the `class` as describing what an R object is and `typeof` telling us about the data it contains. As an analogy, we might have a book of poetry. Our object - our book - might have a class of `book` or `text` and if we inquired about the contents with `typeof` we\'d get back `character`, since it is comprised of `character` data.
 
-Just as we can store various types of text in various types of books, notepads etc - R can store various types data in various types of objects. The class of these objects will help us to understand how we can work with our data.
+Just as we can store various types of text in various types of books, notepads etc - `R` can store various types data in various types of objects. The class of these objects will help us to understand how we can work with those stored data.
 
 ### Vectors
 
-A vector in R is one such object for storing data.
+A vector in `R` is one such object for storing data.
 
-Vectors in R are `atomic`. That is, they can only contain one data type, whether that be numeric, logical, character etc. When we made `myFristVector` we created a container that has specific rules pertaining to the data in that container, namely, it's flat and unidirectional - think of it as being a single row or a single column - and all the data must be of the same type. In fact, we can see this with the `View()` function
+Vectors in R are `atomic`. That is, they can only contain one data type, whether that be numeric, logical, character etc. When we made `myFristVector` we created a container that has specific rules pertaining to the data in that container, namely, it\'s flat and unidirectional - think of it as being a single row or a single column - and all the data must be of the same type.
+
+<div class = "question">
+**`View()`**
+
+We can get a better sense of the above with the `View()` function. `View()` is a great way of exploring data that mimics what we might be more used to if coming from an environment like Excel.
 
 ```{R}
 View(myFirstVector)
 ```
 
-And we should remember that a vector made up of:
+We can get an even better sense of this if we tell `R` to treat our vector as a different class of object that we\'ll explore more shortly--a data frame
+
+```{R}
+View(as.data.frame(myFirstVector))
+```
+</div>
+
+<div class = "note">
+**Note**
+
+Since vectors are atomic, a vector made up of:
 
 * integer data will be an integer vector
 * logical values will be a logical vector
 * character values will be a character vector
 
-## Exercise 3.1
-
-* Create three variables that hold one numerical value each:
-  * one integer
-  * one double, real, number
-  * one double, decimal, number
-* Inquire as to the type of data and class of object that R tells you each of your variables are. Also ask R to tell you the length of your variables.
-  * What do you notice?
-  * Do we get a valid response to the class function? If yes, why might this be? A variable with one data point is simply a vector of 1 unit.
+So, when we call `class` on a vector, `R` returns the data type, but omits telling us it\'s a vector, so the output reads the same as `typeof()`.
+</div>
 
 ## What Have We Learned
 
-* R has 5 basic data types
-* R objects may have a class that describe that object
-* numeric data can be either integer or double precision floating point (decimal ready), and R will convert between integer and floating point when needed, which isn't always desired!
+* `R` has 5 basic data types
+* `R` objects may have a class that describe that object
+* Numeric data can be either integer or double precision floating point, and `R` will convert between integer and floating point when needed.

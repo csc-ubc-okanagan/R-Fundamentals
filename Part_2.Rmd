@@ -10,32 +10,35 @@ output:
 ---
 ## What can you do with R
 
-Lots of things.
+Lots of things. I used to work with someone who made music with `R`.
 
-`R` is known for and widely used for **statistical computations**. But really, it\'s a **programming language**, so there is little that you can\'t do with it; you\'re not tied to using its statistical packages. You can do text and data mining and analysis, web scraping, you can write your own program from scratch, and much more.
+More commonly, `R` is known for and widely used for **statistical computations**. And this will form the foundation of our exploration of `R` in this workshop. But really, it\'s a **programming language**, so there is little that you can\'t do with it; you\'re not tied to using its statistical packages.
 
 But `R` is also more than just a programming language and tool for statistical analyses. It\'s a **community of developers and users**. This has several implications.
 
-* First, there is a large support network online. If you Google a question, you will most certainly find a solution.
-* Second, a lot of add-ons have been created for R, increasing its functionality and consequently, your ability to do novel things with the program.
+* There is a large support network online. If you Google a question, you will most certainly find a solution.
+* A lot of add-ons have been created for R, increasing its functionality and consequently, your ability to do novel things with the program.
 
-In R parlance, these add-ons are called packages.
+In `R` parlance, these add-ons are called packages. These packages include data and functions that are intended to make your work simpler.
 
-Today, we\'re going to be working almost exclusively with the base R packages, that is, the suite of tools that comes with a basic install. Base R includes a lot of pre-loaded packages by default. At the end, I\'ll point you to a few resources for additional packages that have the potential to greatly simplify your life in R. And time permitting we\'ll install and load some of these.
+In this session we\'re going to be working almost exclusively with the base `R` packages, that is, the suite of tools that comes with a basic install. Base `R` includes a lot of pre-loaded packages by default. At the end, we\'ll touch on a few resources for additional packages. And time permitting we\'ll install and load some of these.
 
-Lastly, R has certain features that make it both **very accessible to non programmers** and **very challenging to grapple**. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:
+Lastly, `R` has certain features that make it both **very accessible to non programmers**, especially for data analysis and statistical computing, and **very challenging to grapple** at the same time. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:
 
-* Because it\'s community developed, `R` has that support network, so you\'ll almost always get an answer online.
-* But, in an effort to provide solutions, `R` has also had multiple syntaxes developed, that is, `R` has more than one correct grammatical structure. So, when you\'ve learned the syntax for base R and you encounter a solution to your problem written in the Tidyverse syntax, things can be confusing.
-* R also, as we\'ll see, does some guess work - or coercion - for you when you\'re working with data types, something that can lead to unexpected results.
+* `R` out of the box provides you with all the tools you need for basic data analysis with no additional fancy footwork
+* Being community developed, `R` has that support network, so you\'ll almost always get an answer online.
+* In an effort to maintain backward compatibility of code while also providing novel solutions, `R` has given rise to multiple syntaxes, that is, `R` has more than one correct grammatical structure for how we articulate our instructions. So, when you\'ve learned the syntax for base R and you encounter a solution to your problem written in the Tidyverse syntax, things can be confusing.
+* `R` doesn't always throw you an error when it should - instead, as we\'ll see, it occasionally does some guess work - or coercion - for you when you\'re working with data types, something that can lead to unexpected results.
 
 We\'re going to touch on a number of things that you can do with R, without delving into any in too much detail - the goal here is put you in a place where you are comfortable enough to **engage in further inquiry** and to **ask questions** that will get you helpful answers.
 
-Because you can do so much with R, no single resource will every be able to answer all of your questions. We\'ll also increase the complexity of what we explore with R over the course of the next couple of hours.
+No single resource will every be able to answer all of your questions; many will be task or discipline specific and often a solution will offer a model that needs to be adapted to your specific need.
 
-### Examples
+### Functions
 
-But let\'s start with a few simple examples. Try typing the following into your console:
+Generally, in `R` you'll be working with functions--that other users and developers have built--and passing data to these functions to be processed.
+
+Let\'s start with a simple example. Type the following into your console:
 
 ```{R}
 mean(1:256)
@@ -44,39 +47,65 @@ mean(1:256)
 What\'s happened?
 
 * You\'ve calculated the arithmetic mean of the numbers 1 to 256.
-* This single sequence of numbers is a **vector** and `mean()` is a **function**.
+* This single sequence of numbers is called a **vector** and `mean()` is a **function**. 
 
-**Let\'s unpack this a bit though.**
+**Let\'s unpack this process a bit**
 
-We\'ll create a stand alone vector that we can do some descriptive stats on, that is, we\'ll create a column data. We\'ll do this with the concatenate function `c()`; concatenate as in linking things together.
+We\'ll create a stand alone vector that we can then do some descriptive stats on. We\'ll start with the concatenate function `c()`; concatenate as in linking things together.
 
 ```{R}
 c(1:256)
 ```
 
-The above is just a simple output though, to do something with the data in this vector we need to store the data somehow, so we can retrieve it, not just print it to our console. We\'re going to store it in a **variable** called myFirstVector, and we do that in R with the assignment `<-`
+The above is just a simple output though, to do something with the data in this vector we want to store the data somehow, so we can retrieve it, not just print it to our console.
+
+We\'ll store it in a **variable** `myFirstVector`; we do that in R with the assignment `<-`
 
 ```{R}
 myFirstVector <- c(1:256)
 ```
 
-This time, when you hit enter, nothing happens. But we can now recall our variable
+This time, when you hit enter, seemingly nothing happens. But we can now recall our variable
 
 ```{R}
 myFirstVector
 ```
 
-Now that we have our vector, we can calculate the mean with the `mean()` function. So, we\'ll pass `myFirstVector` to `mean()`
+Now that we have our vector - or our data as simple as it is -  we can calculate the mean with the `mean()` function. So, we\'ll pass `myFirstVector` to `mean()`
 
 ```{R}
 mean(myFirstVector)
 ```
 
-And there you go. We\'ve created a vector by assigning a series of values to a variable and calculated the mean of these values; that is, we can generate data and calculate descriptive statistics on them.
+Outcome: We\'ve created a vector by assigning a series of values to a variable and calculated the mean of these values. So, at it\'s most basic in `R` we can generate data and calculate descriptive statistics on them.
 
-### But wait, there\'s more
+But we can peal this back a little further and ask what is happening when we call a function? To explore this, we\'ll write our own function to calculate the sample mean, where $\bar{X} = (\sum xi)/n$
 
-R also allows us to ask questions about our data. 
+We\'ll store our sample mean calculation in a variable called `sampleMean` and then define the function as the sum of our input divided by the number of values in that same input. We\'ll be reliant on two other functions to achieve this, `sum` which tallies all the values we pass to it and `length` which counts the number of values.
+
+```{R}
+sampleMean <- function(theObjectHandedOver) {
+  sum(theObjectHandedOver)/length(theObjectHandedOver)
+}
+```
+
+We can then pass a vector into our function, just like we did with `mean(myFirstVector)`.
+
+```{R}
+sampleMean(myFirstVector)
+```
+
+Outcome: You can program specific tasks tailored to your needs. You can also peal back the layers of your program to investigate what\'s happening; a critical task when we think about research transparency and reproducibility.
+
+```{R}
+sampleMean
+```
+
+This is the essence of a lot of what we\'ll be exploring in this session; generating data and then passing that data to a series of functions that perform specific tasks with that data.
+
+### Asking Questions
+
+`R` has a series of functions that allow us to ask questions about our data; all good data analysis begins with knowing our data which means being able to explore it. 
 
 For example, we can look at just the beginning, or just the end of our vector using the `head()` and `tail()` functions. To do this, we pass our object, in this case `myFirstVector` to each of these functions.
 
@@ -86,10 +115,16 @@ head(myFirstVector)
 tail(myFirstVector)
 ```
 
-We can also inquire about the nature of our vector. We can ask, for example, how long it is with the `length()` function
+We can also inquire about the nature of our vector. We can ask, as we\'ve seen, how long it is with `length()`
 
 ```{R}
 length(myFirstVector)
+```
+
+Or about its range with `range()`
+
+```{R}
+range(myFirstVector)
 ```
 
 We can ask if it is a vector with `is.vector()`
@@ -109,9 +144,10 @@ typeof(myFirstVector)
 You can (among other things)
 
 * generate data and store that data in variables
-* run statistical inquiries on that data
+* pass those data to functions to, for example, run statistical inquiries on those data
+* write your own functions tailored to specific tasks
 * look at your data in a variety of ways
-* ask questions about your data
+* ask questions about your data and inquire about how `R` is classifying it
 
 ### Exercise 2.1
 
@@ -119,37 +155,41 @@ You can (among other things)
 2. Look at the first few and the last few numbers of your new vector *hint* use `head()` and `tail()`
 3. Calculate the mean of your vector *hint* use `mean()`
 
-## Getting Help in R
+## Getting Help in `R`
 
-As we mentioned, because you can do so much with R, no single resource will every be able to answer all of your questions. R is also, in part because of this, an ongoing learning experience. So, you will need to know how to get help.
+`R` is a language, and like any language it will take time to develop fluency. To get more fluent you will need to know how to get help.
 
-As it happens, there is a fair bit of help built right into R. We can find built in help pages, search for specific terms within these help pages, and search for functions and variables.
+There is a fair bit of help built right into R, and this is a great place to start.
 
 ### Function help pages
 
-This can be done typing `?functionName` into your console. For example:
+We can type a function\'s name to reveal it\'s underlying code. We can also access it\'s documentation by preceding it\'s name with a `?`--`?functionName`. For example:
+
+```{R, message = FALSE}
+?head
+```
+
+or
 
 ```{R, message = FALSE}
 ?mean
 ```
 
-or
+The output in RStudio will tell you the function name and the package it\'s included in. For example, the function `mean()` is part of the `base` package, and so you\'ll see `mean {base}`. It will also generally provide you with a description, a template for it\'s usage, the arguments that you can pass to it, and some examples of how to use it.
 
-```{R}
-?head
-```
+For example, you\'ll note that one argument we can pass to `mean()` is `trim`, which allows us to indicate a proportion from the head and tail of the data to remove from the calculation. The help page tells us that the default value for `trim` is `0` and that it accepts values up to `0.5`. A second argument is whether or not to remove missing values.
 
-The output in RStudio will tell you the function name and the package it\'s included in, for example, the function `mean()` is in the `base` package, and so you\'ll see `mean {base}`. It will also generally provide you with a description, a template for it\'s usage, the arguments that you can pass to it, and some examples of how to use it. All very helpful.
+The help page also provides us with references and other related functions that might be of interest.
 
 ### Searching help pages
 
-While a single `?` searches for the help page on a given function, two `??` does a key word search in the documentation. For example if you\'re interested in plotting some data, you might search for `plot`:
+While a single `?` searches for the help page on a given function, two `??` does a key word search in all the documentation bundled with `R`. For example if you\'re interested in plotting some data, you might search for `plot`:
 
 ```{R, results=FALSE}
 ??plot
 ```
 
-And you\'ll get back a list of vignettes, that is demonstrations of particular packages and their functions, some examples, and help pages that contain your term.
+And you\'ll get back a list of vignettes, code demonstrations, and help pages documenting specific functions in specific packages. The vignettes and code demonstrations walk you through either the capabilities or uses of a specific function. The lists display the package name followed by two colons and then the specific function.
 
 Suppose you want to know if there\'s a function for a particular task, like finding the standard deviation, in your installation of `R`. We can search for the term
 
@@ -162,12 +202,12 @@ We can then pull up one of the help pages, say for `stats::sd` and get instructi
 <div class="note">
 **Note**
 
-If you did not wrap <code>\"regression model\"</code> in quotations, it would fail to run. We\'ll talk more about using characters in R shortly.
+If you did not wrap <code>\"regression model\"</code> in quotations, it would fail to run. We\'ll talk more about using characters in <code>R</code> shortly.
 </div>
 
 ### Finding variables or functions
 
-The `apropos()` function searches for variables and functions that contain your search term.
+The `apropos()` function searches specifically for variables *and* functions that contain your search term.
 
 ```{R, results=FALSE}
 apropos("vector")
@@ -191,7 +231,8 @@ apropos("r$")
 apropos("or$")
 ```
 
-### Examples & demos
+<div class = "question">
+**Examples & demos**
 
 Many functions and features in R come with examples and demos on how they might be used. We can often get both examples and demos with the `example()` and `demo()` functions.
 
@@ -203,15 +244,12 @@ demo(graphics) ## Demonstration of the graphics capabilities in R
 demo() ## Show a list of all demos available
 ```
 
-The help built into R can help you explore, discover, and troubleshoot. However, eventually you\'ll need to get into online forums, blogs, and other reading materials to troubleshoot and discover more resources to support your particular area of research.
+The help built into `R` can help you explore, discover, and troubleshoot. However, eventually you\'ll need to get into online forums, blogs, and other reading materials to troubleshoot and discover more resources to support your particular area of research.
+</div>
 
 ### Exercise 2.2
 
 1. Find the function built in to R to calculate the median *hint* use `??`
-2. Create the following vector stored in a variable called `x` *hint* use `<-` and `c()`
-```{r, echo=FALSE}
-x <- c(1:20, 50)
-x
-```
-3. By default, `head()` and `tail()` list the first or last 6 data points. Use the help page for the `head()` and `tail()` functions to list the first and last 10 results for a search of all functions or variables that start with the letter `m`.
+2. Create a variable called `m_func_var` that stores all the functions and variables on your system that start with the letter `m`.
+3. By default, `head()` and `tail()` list the first or last 6 data points of whatever is passed to them. Use the help page for `head()` and `tail()` to list the first and last 10 results of `m_func_var`.
 

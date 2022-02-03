@@ -15,9 +15,9 @@ knitr::read_chunk("./scripts/workshop_files.R")
 
 Never used R before? This workshop will introduce you to this popular programming and statistical analysis tool.
 
-We’ll start at the beginning with installing R and end with importing data sets. In between, we’ll cover things such as getting help from within R, basic data types and how to handle them, and running computations on your data.
+We\'ll start with installing `R` and end with importing data sets. In between, we\'ll cover things such as getting help from within `R`, basic data types and how to handle them, and running computations on your data.
 
-By the end of the workshop you should feel comfortable taking a self directed deeper dive into R to support your studies or research.
+By the end of the workshop you should feel comfortable taking a self directed deeper dive into `R` to support your studies or research.
 
 Suitable for upper-level undergraduate students, graduate students, and post-doctoral fellows from all disciplines.
 
@@ -25,7 +25,7 @@ Suitable for upper-level undergraduate students, graduate students, and post-doc
 
 This is an introductory workshop intended for individuals with little to no familiarity with R or similar tools that rely on a scripted environment. It is intended as a low barrier entry into the world of using your computer to engage with data outside of graphical tools like Excel or SPSS. We will not cover statistical analyses.
 
-Instead, the hope is that you will walk away with a base set of skills and language to engage in some self directed learning that might involve more workshops on more advanced applications of R, texts available through the library or on-line, and forums where other users are aksing questions and sharing their solutions.
+Instead, the hope is that you will walk away with a base set of skills and language to engage in some self directed learning that might involve more workshops on more advanced applications of `R`, texts available through the library or on-line, and forums where other users are aksing questions and sharing their solutions.
 
 ### Schedule
 

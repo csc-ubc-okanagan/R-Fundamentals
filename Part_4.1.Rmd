@@ -16,7 +16,7 @@ Vectors are single dimension objects.
 Arrays are multidimensional. A matrix is a special case of an array that contains only 2 dimensions; they have length and width but no depth. Think of this like a an excel document that has only one sheet.
 
 * Vectors have one dimension
-* Arrays have two or more directions
+* Arrays have two or more dimensions
 * Matrices are a type of array that has only 2 dimensions
 
 Right, using our script, let's generate some data to play with.

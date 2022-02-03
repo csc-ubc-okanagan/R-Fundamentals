@@ -13,8 +13,8 @@
 
 <title>Getting Started with R</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -391,35 +391,37 @@ div.tocify {
 
 <div id="what-can-you-do-with-r" class="section level2">
 <h2>What can you do with R</h2>
-<p>Lots of things.</p>
-<p><code>R</code> is known for and widely used for <strong>statistical computations</strong>. But really, it's a <strong>programming language</strong>, so there is little that you can't do with it; you're not tied to using its statistical packages. You can do text and data mining and analysis, web scraping, you can write your own program from scratch, and much more.</p>
+<p>Lots of things. I used to work with someone who made music with <code>R</code>.</p>
+<p>More commonly, <code>R</code> is known for and widely used for <strong>statistical computations</strong>. And this will form the foundation of our exploration of <code>R</code> in this workshop. But really, it's a <strong>programming language</strong>, so there is little that you can't do with it; you're not tied to using its statistical packages.</p>
 <p>But <code>R</code> is also more than just a programming language and tool for statistical analyses. It's a <strong>community of developers and users</strong>. This has several implications.</p>
 <ul>
-<li>First, there is a large support network online. If you Google a question, you will most certainly find a solution.</li>
-<li>Second, a lot of add-ons have been created for R, increasing its functionality and consequently, your ability to do novel things with the program.</li>
+<li>There is a large support network online. If you Google a question, you will most certainly find a solution.</li>
+<li>A lot of add-ons have been created for R, increasing its functionality and consequently, your ability to do novel things with the program.</li>
 </ul>
-<p>In R parlance, these add-ons are called packages.</p>
-<p>Today, we're going to be working almost exclusively with the base R packages, that is, the suite of tools that comes with a basic install. Base R includes a lot of pre-loaded packages by default. At the end, I'll point you to a few resources for additional packages that have the potential to greatly simplify your life in R. And time permitting we'll install and load some of these.</p>
-<p>Lastly, R has certain features that make it both <strong>very accessible to non programmers</strong> and <strong>very challenging to grapple</strong>. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:</p>
+<p>In <code>R</code> parlance, these add-ons are called packages. These packages include data and functions that are intended to make your work simpler.</p>
+<p>In this session we're going to be working almost exclusively with the base <code>R</code> packages, that is, the suite of tools that comes with a basic install. Base <code>R</code> includes a lot of pre-loaded packages by default. At the end, we'll touch on a few resources for additional packages. And time permitting we'll install and load some of these.</p>
+<p>Lastly, <code>R</code> has certain features that make it both <strong>very accessible to non programmers</strong>, especially for data analysis and statistical computing, and <strong>very challenging to grapple</strong> at the same time. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:</p>
 <ul>
-<li>Because it's community developed, <code>R</code> has that support network, so you'll almost always get an answer online.</li>
-<li>But, in an effort to provide solutions, <code>R</code> has also had multiple syntaxes developed, that is, <code>R</code> has more than one correct grammatical structure. So, when you've learned the syntax for base R and you encounter a solution to your problem written in the Tidyverse syntax, things can be confusing.</li>
-<li>R also, as we'll see, does some guess work - or coercion - for you when you're working with data types, something that can lead to unexpected results.</li>
+<li><code>R</code> out of the box provides you with all the tools you need for basic data analysis with no additional fancy footwork</li>
+<li>Being community developed, <code>R</code> has that support network, so you'll almost always get an answer online.</li>
+<li>In an effort to maintain backward compatibility of code while also providing novel solutions, <code>R</code> has given rise to multiple syntaxes, that is, <code>R</code> has more than one correct grammatical structure for how we articulate our instructions. So, when you've learned the syntax for base R and you encounter a solution to your problem written in the Tidyverse syntax, things can be confusing.</li>
+<li><code>R</code> doesn’t always throw you an error when it should - instead, as we'll see, it occasionally does some guess work - or coercion - for you when you're working with data types, something that can lead to unexpected results.</li>
 </ul>
 <p>We're going to touch on a number of things that you can do with R, without delving into any in too much detail - the goal here is put you in a place where you are comfortable enough to <strong>engage in further inquiry</strong> and to <strong>ask questions</strong> that will get you helpful answers.</p>
-<p>Because you can do so much with R, no single resource will every be able to answer all of your questions. We'll also increase the complexity of what we explore with R over the course of the next couple of hours.</p>
-<div id="examples" class="section level3">
-<h3>Examples</h3>
-<p>But let's start with a few simple examples. Try typing the following into your console:</p>
+<p>No single resource will every be able to answer all of your questions; many will be task or discipline specific and often a solution will offer a model that needs to be adapted to your specific need.</p>
+<div id="functions" class="section level3">
+<h3>Functions</h3>
+<p>Generally, in <code>R</code> you’ll be working with functions–that other users and developers have built–and passing data to these functions to be processed.</p>
+<p>Let's start with a simple example. Type the following into your console:</p>
 <pre class="r"><code>mean(1:256)</code></pre>
 <pre><code>## [1] 128.5</code></pre>
 <p>What's happened?</p>
 <ul>
 <li>You've calculated the arithmetic mean of the numbers 1 to 256.</li>
-<li>This single sequence of numbers is a <strong>vector</strong> and <code>mean()</code> is a <strong>function</strong>.</li>
+<li>This single sequence of numbers is called a <strong>vector</strong> and <code>mean()</code> is a <strong>function</strong>.</li>
 </ul>
-<p><strong>Let's unpack this a bit though.</strong></p>
-<p>We'll create a stand alone vector that we can do some descriptive stats on, that is, we'll create a column data. We'll do this with the concatenate function <code>c()</code>; concatenate as in linking things together.</p>
+<p><strong>Let's unpack this process a bit</strong></p>
+<p>We'll create a stand alone vector that we can then do some descriptive stats on. We'll start with the concatenate function <code>c()</code>; concatenate as in linking things together.</p>
 <pre class="r"><code>c(1:256)</code></pre>
 <pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 ##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
@@ -436,9 +438,10 @@ div.tocify {
 ## [217] 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234
 ## [235] 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252
 ## [253] 253 254 255 256</code></pre>
-<p>The above is just a simple output though, to do something with the data in this vector we need to store the data somehow, so we can retrieve it, not just print it to our console. We're going to store it in a <strong>variable</strong> called myFirstVector, and we do that in R with the assignment <code>&lt;-</code></p>
+<p>The above is just a simple output though, to do something with the data in this vector we want to store the data somehow, so we can retrieve it, not just print it to our console.</p>
+<p>We'll store it in a <strong>variable</strong> <code>myFirstVector</code>; we do that in R with the assignment <code>&lt;-</code></p>
 <pre class="r"><code>myFirstVector &lt;- c(1:256)</code></pre>
-<p>This time, when you hit enter, nothing happens. But we can now recall our variable</p>
+<p>This time, when you hit enter, seemingly nothing happens. But we can now recall our variable</p>
 <pre class="r"><code>myFirstVector</code></pre>
 <pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 ##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
@@ -455,22 +458,39 @@ div.tocify {
 ## [217] 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234
 ## [235] 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252
 ## [253] 253 254 255 256</code></pre>
-<p>Now that we have our vector, we can calculate the mean with the <code>mean()</code> function. So, we'll pass <code>myFirstVector</code> to <code>mean()</code></p>
+<p>Now that we have our vector - or our data as simple as it is - we can calculate the mean with the <code>mean()</code> function. So, we'll pass <code>myFirstVector</code> to <code>mean()</code></p>
 <pre class="r"><code>mean(myFirstVector)</code></pre>
 <pre><code>## [1] 128.5</code></pre>
-<p>And there you go. We've created a vector by assigning a series of values to a variable and calculated the mean of these values; that is, we can generate data and calculate descriptive statistics on them.</p>
+<p>Outcome: We've created a vector by assigning a series of values to a variable and calculated the mean of these values. So, at it's most basic in <code>R</code> we can generate data and calculate descriptive statistics on them.</p>
+<p>But we can peal this back a little further and ask what is happening when we call a function? To explore this, we'll write our own function to calculate the sample mean, where <span class="math inline">\(\bar{X} = (\sum xi)/n\)</span></p>
+<p>We'll store our sample mean calculation in a variable called <code>sampleMean</code> and then define the function as the sum of our input divided by the number of values in that same input. We'll be reliant on two other functions to achieve this, <code>sum</code> which tallies all the values we pass to it and <code>length</code> which counts the number of values.</p>
+<pre class="r"><code>sampleMean &lt;- function(theObjectHandedOver) {
+  sum(theObjectHandedOver)/length(theObjectHandedOver)
+}</code></pre>
+<p>We can then pass a vector into our function, just like we did with <code>mean(myFirstVector)</code>.</p>
+<pre class="r"><code>sampleMean(myFirstVector)</code></pre>
+<pre><code>## [1] 128.5</code></pre>
+<p>Outcome: You can program specific tasks tailored to your needs. You can also peal back the layers of your program to investigate what's happening; a critical task when we think about research transparency and reproducibility.</p>
+<pre class="r"><code>sampleMean</code></pre>
+<pre><code>## function(theObjectHandedOver) {
+##   sum(theObjectHandedOver)/length(theObjectHandedOver)
+## }</code></pre>
+<p>This is the essence of a lot of what we'll be exploring in this session; generating data and then passing that data to a series of functions that perform specific tasks with that data.</p>
 </div>
-<div id="but-wait-theres-more" class="section level3">
-<h3>But wait, there's more</h3>
-<p>R also allows us to ask questions about our data.</p>
+<div id="asking-questions" class="section level3">
+<h3>Asking Questions</h3>
+<p><code>R</code> has a series of functions that allow us to ask questions about our data; all good data analysis begins with knowing our data which means being able to explore it.</p>
 <p>For example, we can look at just the beginning, or just the end of our vector using the <code>head()</code> and <code>tail()</code> functions. To do this, we pass our object, in this case <code>myFirstVector</code> to each of these functions.</p>
 <pre class="r"><code>head(myFirstVector)</code></pre>
 <pre><code>## [1] 1 2 3 4 5 6</code></pre>
 <pre class="r"><code>tail(myFirstVector)</code></pre>
 <pre><code>## [1] 251 252 253 254 255 256</code></pre>
-<p>We can also inquire about the nature of our vector. We can ask, for example, how long it is with the <code>length()</code> function</p>
+<p>We can also inquire about the nature of our vector. We can ask, as we've seen, how long it is with <code>length()</code></p>
 <pre class="r"><code>length(myFirstVector)</code></pre>
 <pre><code>## [1] 256</code></pre>
+<p>Or about its range with <code>range()</code></p>
+<pre class="r"><code>range(myFirstVector)</code></pre>
+<pre><code>## [1]   1 256</code></pre>
 <p>We can ask if it is a vector with <code>is.vector()</code></p>
 <pre class="r"><code>is.vector(myFirstVector)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
@@ -483,9 +503,10 @@ div.tocify {
 <p>You can (among other things)</p>
 <ul>
 <li>generate data and store that data in variables</li>
-<li>run statistical inquiries on that data</li>
+<li>pass those data to functions to, for example, run statistical inquiries on those data</li>
+<li>write your own functions tailored to specific tasks</li>
 <li>look at your data in a variety of ways</li>
-<li>ask questions about your data</li>
+<li>ask questions about your data and inquire about how <code>R</code> is classifying it</li>
 </ul>
 </div>
 <div id="exercise-2.1" class="section level3">
@@ -498,33 +519,35 @@ div.tocify {
 </div>
 </div>
 <div id="getting-help-in-r" class="section level2">
-<h2>Getting Help in R</h2>
-<p>As we mentioned, because you can do so much with R, no single resource will every be able to answer all of your questions. R is also, in part because of this, an ongoing learning experience. So, you will need to know how to get help.</p>
-<p>As it happens, there is a fair bit of help built right into R. We can find built in help pages, search for specific terms within these help pages, and search for functions and variables.</p>
+<h2>Getting Help in <code>R</code></h2>
+<p><code>R</code> is a language, and like any language it will take time to develop fluency. To get more fluent you will need to know how to get help.</p>
+<p>There is a fair bit of help built right into R, and this is a great place to start.</p>
 <div id="function-help-pages" class="section level3">
 <h3>Function help pages</h3>
-<p>This can be done typing <code>?functionName</code> into your console. For example:</p>
-<pre class="r"><code>?mean</code></pre>
-<p>or</p>
+<p>We can type a function's name to reveal it's underlying code. We can also access it's documentation by preceding it's name with a <code>?</code>–<code>?functionName</code>. For example:</p>
 <pre class="r"><code>?head</code></pre>
-<p>The output in RStudio will tell you the function name and the package it's included in, for example, the function <code>mean()</code> is in the <code>base</code> package, and so you'll see <code>mean {base}</code>. It will also generally provide you with a description, a template for it's usage, the arguments that you can pass to it, and some examples of how to use it. All very helpful.</p>
+<p>or</p>
+<pre class="r"><code>?mean</code></pre>
+<p>The output in RStudio will tell you the function name and the package it's included in. For example, the function <code>mean()</code> is part of the <code>base</code> package, and so you'll see <code>mean {base}</code>. It will also generally provide you with a description, a template for it's usage, the arguments that you can pass to it, and some examples of how to use it.</p>
+<p>For example, you'll note that one argument we can pass to <code>mean()</code> is <code>trim</code>, which allows us to indicate a proportion from the head and tail of the data to remove from the calculation. The help page tells us that the default value for <code>trim</code> is <code>0</code> and that it accepts values up to <code>0.5</code>. A second argument is whether or not to remove missing values.</p>
+<p>The help page also provides us with references and other related functions that might be of interest.</p>
 </div>
 <div id="searching-help-pages" class="section level3">
 <h3>Searching help pages</h3>
-<p>While a single <code>?</code> searches for the help page on a given function, two <code>??</code> does a key word search in the documentation. For example if you're interested in plotting some data, you might search for <code>plot</code>:</p>
+<p>While a single <code>?</code> searches for the help page on a given function, two <code>??</code> does a key word search in all the documentation bundled with <code>R</code>. For example if you're interested in plotting some data, you might search for <code>plot</code>:</p>
 <pre class="r"><code>??plot</code></pre>
-<p>And you'll get back a list of vignettes, that is demonstrations of particular packages and their functions, some examples, and help pages that contain your term.</p>
+<p>And you'll get back a list of vignettes, code demonstrations, and help pages documenting specific functions in specific packages. The vignettes and code demonstrations walk you through either the capabilities or uses of a specific function. The lists display the package name followed by two colons and then the specific function.</p>
 <p>Suppose you want to know if there's a function for a particular task, like finding the standard deviation, in your installation of <code>R</code>. We can search for the term</p>
 <pre class="r"><code>??&quot;standard deviation&quot;</code></pre>
 <p>We can then pull up one of the help pages, say for <code>stats::sd</code> and get instructions for using it.</p>
 <div class="note">
 <p><strong>Note</strong></p>
-<p>If you did not wrap <code>"regression model"</code> in quotations, it would fail to run. We'll talk more about using characters in R shortly.</p>
+<p>If you did not wrap <code>"regression model"</code> in quotations, it would fail to run. We'll talk more about using characters in <code>R</code> shortly.</p>
 </div>
 </div>
 <div id="finding-variables-or-functions" class="section level3">
 <h3>Finding variables or functions</h3>
-<p>The <code>apropos()</code> function searches for variables and functions that contain your search term.</p>
+<p>The <code>apropos()</code> function searches specifically for variables <em>and</em> functions that contain your search term.</p>
 <pre class="r"><code>apropos(&quot;vector&quot;)</code></pre>
 <p>We can also search for functions that start or end with specific sets of characters.</p>
 <p>To find variables and functions that start with a particular set of letters, like 'm' or 'ma' we prepend the letters with a <code>^</code></p>
@@ -535,24 +558,21 @@ apropos(&quot;^ma&quot;)</code></pre>
 <pre class="r"><code>apropos(&quot;r$&quot;)
 
 apropos(&quot;or$&quot;)</code></pre>
-</div>
-<div id="examples-demos" class="section level3">
-<h3>Examples &amp; demos</h3>
+<div class="question">
+<p><strong>Examples &amp; demos</strong></p>
 <p>Many functions and features in R come with examples and demos on how they might be used. We can often get both examples and demos with the <code>example()</code> and <code>demo()</code> functions.</p>
 <pre class="r"><code>example(plot) ## Examples using the plot function</code></pre>
 <pre class="r"><code>demo(graphics) ## Demonstration of the graphics capabilities in R</code></pre>
 <pre class="r"><code>demo() ## Show a list of all demos available</code></pre>
-<p>The help built into R can help you explore, discover, and troubleshoot. However, eventually you'll need to get into online forums, blogs, and other reading materials to troubleshoot and discover more resources to support your particular area of research.</p>
+<p>The help built into <code>R</code> can help you explore, discover, and troubleshoot. However, eventually you'll need to get into online forums, blogs, and other reading materials to troubleshoot and discover more resources to support your particular area of research.</p>
+</div>
 </div>
 <div id="exercise-2.2" class="section level3">
 <h3>Exercise 2.2</h3>
 <ol style="list-style-type: decimal">
 <li>Find the function built in to R to calculate the median <em>hint</em> use <code>??</code></li>
-<li>Create the following vector stored in a variable called <code>x</code> <em>hint</em> use <code>&lt;-</code> and <code>c()</code></li>
-</ol>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 50</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>By default, <code>head()</code> and <code>tail()</code> list the first or last 6 data points. Use the help page for the <code>head()</code> and <code>tail()</code> functions to list the first and last 10 results for a search of all functions or variables that start with the letter <code>m</code>.</li>
+<li>Create a variable called <code>m_func_var</code> that stores all the functions and variables on your system that start with the letter <code>m</code>.</li>
+<li>By default, <code>head()</code> and <code>tail()</code> list the first or last 6 data points of whatever is passed to them. Use the help page for <code>head()</code> and <code>tail()</code> to list the first and last 10 results of <code>m_func_var</code>.</li>
 </ol>
 </div>
 </div>

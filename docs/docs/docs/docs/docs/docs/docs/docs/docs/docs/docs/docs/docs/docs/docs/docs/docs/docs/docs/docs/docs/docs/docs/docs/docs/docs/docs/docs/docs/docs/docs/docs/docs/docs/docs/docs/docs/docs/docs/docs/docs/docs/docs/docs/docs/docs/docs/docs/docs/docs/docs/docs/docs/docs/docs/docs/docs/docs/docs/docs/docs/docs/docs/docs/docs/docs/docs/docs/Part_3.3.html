@@ -13,8 +13,8 @@
 
 <title>Math and Random Samples</title>
 
-<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -391,21 +391,21 @@ div.tocify {
 
 <div id="scripting" class="section level2">
 <h2>Scripting</h2>
-<p>Before we get into working with a real data set, we’re going to explore how we can create random sample data, how we can run calculations on our data, and how we can replace values in our data.</p>
+<p>Next we look at creating random samples of data in more detail, how we can run calculations on our data, and how we can replace values in our data.</p>
 <p>In additional to mathematical operators, we will learn about the following functions:</p>
 <ul>
-<li><code>sample()</code></li>
+<li><code>sample()</code> and some of it's more specific variants <code>rnorm</code> and <code>runif</code></li>
 <li><code>replace()</code></li>
 </ul>
-<p>In doing so, we’re also going to walk out of the console and move into a scripting environment.</p>
+<p>In doing so, we're also going to walk out of the console and move into a scripting environment.</p>
 <div class="question">
 <p><strong>Scripting</strong></p>
-<p>By writing our code in a script, we can save our code and don’t need to retype it every time we want to run it.</p>
+<p>By writing our code in a script, we can save our code and don't need to retype it every time we want to run it.</p>
 <p>Scripting is really the first step to creating a reproducible environment for your work that also saves you time in the long run.</p>
 </div>
-<p>So, head to your file menu, select <em>&gt; New File</em> and <em>&gt; R Script</em>.</p>
+<p>From your file menu, select <em>&gt; New File</em> and <em>&gt; R Script</em>.</p>
 <p><span class="important"><strong>This next bit is important</strong></span></p>
-<p>First things first, we’ll <strong>save it on our desktop in a folder called <code>RScripts</code></strong>. This will be important later in this workshop.</p>
+<p><strong>Save your script on your desktop in a folder called <code>RScripts</code></strong>. This will be important later in this workshop.</p>
 </div>
 <div id="simple-math" class="section level2">
 <h2>Simple math</h2>
@@ -425,18 +425,18 @@ div.tocify {
 <pre><code>## [1] 1</code></pre>
 <pre class="r"><code>4/2</code></pre>
 <pre><code>## [1] 2</code></pre>
-<p>But that’s not overly exciting. We can get a little fancier:</p>
+<p>But that's not overly exciting. We can get a little fancier:</p>
 <pre class="r"><code>3^3</code></pre>
 <pre><code>## [1] 27</code></pre>
 <pre class="r"><code>sqrt(81)</code></pre>
 <pre><code>## [1] 9</code></pre>
 <pre class="r"><code>log(1200)</code></pre>
 <pre><code>## [1] 7.090077</code></pre>
-<p>Still not terribly exciting, as this is basically just a glorified calculator. But let’s look at this in more depth.</p>
+<p>Still not terribly exciting, as this is basically just a glorified calculator. But let's look at this in more depth.</p>
 </div>
 <div id="math-on-vectors" class="section level2">
 <h2>Math on Vectors</h2>
-<p><strong>First</strong> We know how to create a vector and assign that vector to a variable. So let’s get some data prepped and try the following:</p>
+<p><strong>First</strong> We know how to create a vector and assign that vector to a variable. So let's get some data prepped and try the following:</p>
 <ol style="list-style-type: decimal">
 <li>Create 2 vectors of equal length</li>
 <li>Add them together with the results contained in a new variable.</li>
@@ -457,14 +457,49 @@ d</code></pre>
 <pre><code>## [1] 35 45 55 65 75</code></pre>
 <div class="note">
 <p><strong>Note</strong></p>
-<p>Each time we’re storing our new, computed data in a new variable.</p>
-<p>If we’re going to be running a computation on our data, for the purposes error tracking and transparency, it is advisable to generate a new variable.</p>
+<p>Each time we're storing our new, computed data in a new variable.</p>
+<p>If we're going to be running a computation on our data, for the purposes error tracking and transparency, it is advisable to generate a new variable.</p>
 </div>
-<p>This highlights an interesting feature of R. R is all about vectors and operations are performed across vectors. When we do something to our vector, R iteratively goes through each value in the vector and applies that change. In the first case, it added each corresponding value together across each vector. In the second case, it multiplied all of our values by 5. In other languages, this is often a more complicated task in which you would need to write a function to loop through each value and apply the change.</p>
-<div id="sample" class="section level3">
-<h3>Sample()</h3>
-<p><strong>Third</strong> Let’s do the same thing as in step 1 again, but this time with a random sample of numbers using the <code>sample()</code> function. We encountered <code>sample()</code> earlier. Now we’ll get a bit more familiar with how it works.</p>
-<p>The function <code>sample()</code> takes four arguments</p>
+<p>This last example highlights an interesting feature of <code>R</code>. Vectorization is built into <code>R</code> from the ground up. To multiply every value in <code>c</code> by 5 where vectorization was not a reality, we'd need to iterate the process.</p>
+<pre class="r"><code>x &lt;- vector()
+
+for (i in 1:length(c)) {
+  x[i] &lt;- c[i] * 5
+}
+
+x</code></pre>
+<pre><code>## [1] 35 45 55 65 75</code></pre>
+<p>That is, we would need to painstakingly say, "Here’s an empty object ready to hold our computed data. Now, for every value in <code>c</code>, multiply that value by 5 and then iteratively put the result into the empty object–which then starts to fill up.". This is partly why <code>R</code> is so nice, you don't need to know how to program–like how to loop through data–for basic applications! And yet, you get many of the benefits of a programming environment.</p>
+<p>There's another key takeaway here. <code>R</code> frequently recycles data values. In the above example, 5 is it's own vector of data. When we hit the end of that vector, it's quantities are recycled until it matches the length of the longer vector it's being computed against. Another example</p>
+<pre class="r"><code>short &lt;- c(1,2)
+long &lt;- c(1:10)
+
+unity &lt;- short * long
+
+short</code></pre>
+<pre><code>## [1] 1 2</code></pre>
+<pre class="r"><code>long</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>unity</code></pre>
+<pre><code>##  [1]  1  4  3  8  5 12  7 16  9 20</code></pre>
+<div id="what-have-we-learned" class="section level3">
+<h3>What have we learned</h3>
+<ul>
+<li><code>R</code> can be used as a glorified calculator</li>
+<li>Mathematical functions are performed across a vector in <code>R</code></li>
+</ul>
+</div>
+</div>
+<div id="conditions-and-testing" class="section level2">
+<h2>Conditions and Testing</h2>
+<p>Now we're going to look at how we can isolate or inquire about only a portion of our data.</p>
+<p>To do this, we're gong to build a vector of 20 random numbers between 20 and 35, pretending that these are temperatures representing daily highs over a given period of time.</p>
+<div class="note">
+<p><strong>sample()</strong></p>
+<p>Generating sample data can be a great way of preparing your analyses in advance of doing data collection. When thinking about limiting bias in research design, the more that can be planned out in advance, the less of the overall process is being determined after study implementation in an ad hoc fashion; this is of particular importance in hypothesis testing confirmatory research. When doing exploratory research or data cleaning, sampling can support refining techniques on a smaller, more manageable data set.</p>
+<p>While random sampling is a big topic, three common sampling functions that you'll find in <code>R</code> include <code>rnorm()</code> for normally distributed data generation, <code>runif()</code>, for uniformly distributed data generation, and <code>sample()</code>, for, well, basic sampling.</p>
+</div>
+<p>The <code>sample()</code> function takes four arguments</p>
 <ul>
 <li>a range to sample from</li>
 <li>the sample size</li>
@@ -472,92 +507,65 @@ d</code></pre>
 <li>a weighted probability</li>
 </ul>
 <p>We apply the arguments in this pattern <code>sample(dataSource, sampleSize, repeatsAllowed, Probabilities)</code></p>
-<p>For this example, we’ll ignore weighted probability.</p>
-<ol style="list-style-type: decimal">
-<li>Let’s take two random samples of 10 units each between 1 and 100. Sample <code>a</code> will be allowed to have duplicates, sample <code>b</code> will not</li>
-<li>Multiply the samples together.</li>
-<li>Ask R what data type you have</li>
-<li>Calculate the standard deviation of <em>3</em></li>
-</ol>
+<p>For this example, we'll ignore weighted probability.</p>
 <pre class="r"><code>set.seed(120)
 
-a &lt;- sample(1:100, 10, replace=TRUE)
-a</code></pre>
-<pre><code>##  [1] 85 67 57 38 47 23 36 34 79 98</code></pre>
-<pre class="r"><code>b &lt;- sample(1:100, 10, replace=FALSE)
-b</code></pre>
-<pre><code>##  [1] 49 71 92 77 44 11 65 35 42 96</code></pre>
-<p>Now we’ll multiply across the vector:</p>
-<pre class="r"><code>c &lt;- a * b
-c</code></pre>
-<pre><code>##  [1] 4165 4757 5244 2926 2068  253 2340 1190 3318 9408</code></pre>
-<p>Ask about the type of data we have</p>
-<pre class="r"><code>typeof(c)</code></pre>
-<pre><code>## [1] &quot;integer&quot;</code></pre>
-<p>And finally calculate the standard deviation of the result</p>
-<pre class="r"><code>sd(c)</code></pre>
-<pre><code>## [1] 2572.536</code></pre>
-<p>Before we move on, we should look at one more thing here. We should inquire about the data type of our standard deviation</p>
-<pre class="r"><code>typeof(sd(c))</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
-<p>And we should note that while our variable <code>c</code> reports that it has integer data, R has converted our integer on the fly to double. Depending on the circumstance, this could be problematic. And whereas other languages might tell you that your data type is being changed or that you can’t do what you want to do because the data types don’t match, R just takes care of things behind the scenes. This makes it easier to use, but also potentially frustrating.</p>
-</div>
-<div id="what-have-we-learned" class="section level3">
-<h3>What have we learned</h3>
-<ul>
-<li>R can be used as a glorified calculator</li>
-<li>Mathematical functions are performed across a vector in R</li>
-<li>We can create our own test data with <code>sample()</code></li>
-</ul>
-</div>
-</div>
-<div id="conditions-and-testing" class="section level2">
-<h2>Conditions and Testing</h2>
-<p>Now we’re going to look at how we can isolate or inquire about only a portion of our vector.</p>
-<p>To do this, we’re gong to build a vector of 20 random numbers between 20 and 35, and let’s pretend these are temperatures representing daily highs over a given period of time.</p>
-<pre class="r"><code>set.seed(120)
+dailyHighs &lt;- sample(20:35, 20, replace = TRUE)
 
-Temperature &lt;- sample(20:35, 20, replace = TRUE)
-
-Temperature</code></pre>
+dailyHighs</code></pre>
 <pre><code>##  [1] 24 22 28 25 34 26 23 21 34 20 21 20 26 31 32 31 30 20 31 22</code></pre>
-<p>To get a bit more familiar with our sample, we’ll test for values above a certain threshold, let’s say above 27.</p>
-<p>Our first inclination might be to type the variable with a greater than sign in the hopes that R will tell you what values are greater than 27 in the variable.</p>
+<p>To get a bit more familiar with our sample, we'll test for values above a certain threshold, let's say above 27.</p>
+<p>Our first inclination might be to type the variable with a greater than sign in the hopes that <code>R</code> will tell you what values are greater than 27 in the variable.</p>
 <p>Let’s give that a try:</p>
-<pre class="r"><code>Temperature &gt; 27</code></pre>
+<pre class="r"><code>dailyHighs &gt; 27</code></pre>
 <pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
 ## [13] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
 <p>So, this is interesting, and not exactly what we wanted.</p>
-<p>This first statement is not showing us the <strong>values</strong>, but is apparently testing the <strong>condition</strong> and telling us if the condition - <code>Temperature</code> is greater than 27 - is <code>TRUE</code> or <code>FALSE</code>.</p>
+<p>This first statement is not showing us the <strong>values</strong>, but is apparently testing the <strong>condition</strong> and telling us if the condition - <code>dailyHighs</code> is greater than 27 - is <code>TRUE</code> or <code>FALSE</code>. The output is a logical vector. We can confirm this</p>
+<pre class="r"><code>is.vector(dailyHighs &gt; 27)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <p>Let’s try this again a little differently:</p>
-<pre class="r"><code>Temperature[Temperature &gt; 27]</code></pre>
+<pre class="r"><code>dailyHighs[dailyHighs &gt; 27]</code></pre>
 <pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
-<p>That’s better. This time, we successfully asked the system to print out the values of our vector <code>Temperature</code> where <code>Temperature</code> is greater the 27.</p>
-<div id="indexing" class="section level4">
-<h4>Indexing</h4>
-<p>So what’s happening here? Welcome to indexing. R maintains an index of your data in a variable. We ask about the index using square brackets <code>[ ]</code>.</p>
-<p>If we were to type</p>
-<pre class="r"><code>Temperature[1]</code></pre>
-<pre><code>## [1] 24</code></pre>
-<p>R would return the first value in our vector. We can ask about any range within our vector. For example, the first three values:</p>
-<pre class="r"><code>Temperature[1:3]</code></pre>
-<pre><code>## [1] 24 22 28</code></pre>
-<p>Or, like above, we can ask for a range based off of a condition, such as, all values where the variable <code>Temperature</code> is greater than 27.</p>
-<pre class="r"><code>Temperature[Temperature &gt; 27] </code></pre>
-<pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
-<p>In short:</p>
-<pre class="r"><code>Temperature &gt; 27 # is testing a condition that returns a logical value of TRUE or FALSE</code></pre>
+<p>That’s better. This time, we successfully asked the system to print out the values of our vector <code>dailyHighs</code> where it is true that <code>dailyHighs</code> is greater the 27. A second approach that might this a bit more intuitive would be to store the logical vector as it's own variable and then to compare the two variables.</p>
+<pre class="r"><code>greaterThan27 &lt;- dailyHighs &gt; 27
+
+dailyHighs</code></pre>
+<pre><code>##  [1] 24 22 28 25 34 26 23 21 34 20 21 20 26 31 32 31 30 20 31 22</code></pre>
+<pre class="r"><code>greaterThan27</code></pre>
 <pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
 ## [13] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
-<pre class="r"><code>Temperature[Temperature &gt; 27] ## is inquiring about the indexed values that satisfy the condition</code></pre>
+<pre class="r"><code>dailyHighs[greaterThan27]</code></pre>
+<pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
+<div id="indexing" class="section level4">
+<h4>Indexing</h4>
+<p>What’s happening here? Indexing. <code>R</code> maintains an index of the placement of your variable values in your data object. We ask about the value at a particular index using square brackets <code>[ ]</code>.</p>
+<p>If we were to type</p>
+<pre class="r"><code>dailyHighs[1]</code></pre>
+<pre><code>## [1] 24</code></pre>
+<p><code>R</code> would return the first value in our vector. We can ask about any range within our vector. For example, the first three values:</p>
+<pre class="r"><code>dailyHighs[1:3]</code></pre>
+<pre><code>## [1] 24 22 28</code></pre>
+<p>Or, like above, we can ask for a range based off of a condition, such as, all values where the variable <code>dailyHighs</code> is greater than 27.</p>
+<pre class="r"><code>dailyHighs[dailyHighs &gt; 27]</code></pre>
+<pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
+<pre class="r"><code>dailyHighs[greaterThan27]</code></pre>
+<pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
+<p>In short:</p>
+<pre class="r"><code>dailyHighs &gt; 27 # is testing a condition that returns a logical value of TRUE or FALSE</code></pre>
+<pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+## [13] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+<pre class="r"><code>dailyHighs[dailyHighs &gt; 27] ## is inquiring about the indexed values that satisfy the condition</code></pre>
+<pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
+<pre class="r"><code>dailyHighs[greaterThan27] ## is the same as above, but storing the output of `dailyHighs &gt; 27` inside of a new variable</code></pre>
 <pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
 </div>
 </div>
 <div id="exercise-3.3" class="section level2">
 <h2>Exercise 3.3</h2>
 <ol style="list-style-type: decimal">
-<li>How many of the values in <code>Temperature</code> are higher than 27 <em>hint</em> use <code>length()</code>:</li>
-<li>Get a summary, similar to this, of the data in <code>Temperature</code>.</li>
+<li>How many of the values in <code>dailHighs</code> are higher than 27:</li>
+<li>Get a summary, similar to this, of the data in <code>dailHighs</code>.</li>
 </ol>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   20.00   21.75   25.50   26.05   31.00   34.00</code></pre>
@@ -568,7 +576,7 @@ Temperature</code></pre>
 <div id="what-have-we-learned-1" class="section level3">
 <h3>What have we learned</h3>
 <ul>
-<li>We can test a vector for a condition and get a report of <code>TRUE</code> or <code>FALSE</code></li>
+<li>We can test a vector for a condition and logical vector in return</li>
 <li>We can retrieve the values from only a portion of the data in a vector. This subset of our data can be defined by:
 <ul>
 <li>an index point or range; or</li>
@@ -579,36 +587,41 @@ Temperature</code></pre>
 </div>
 <div id="replace" class="section level2">
 <h2>Replace()</h2>
-<p>Now that we know how to isolate values in our variables, we can introduce the function <code>replace()</code>.</p>
-<p>First, we’ll simply replace the first 3 temperatures with 0. <code>replace()</code> requires three arguments:</p>
+<p>Now that we know how to isolate values in our variables, we can start to manipulate portions of our data. To do this, we'll explore the <code>replace()</code> function.</p>
+<p><code>replace()</code> requires three arguments:</p>
 <ul>
 <li>a vector</li>
 <li>a list of index values to be replaced (or as a condition of the vector)</li>
 <li>a new value for replacement (this can be a computed value)</li>
 </ul>
-<p>We apply the arguments in this pattern <code>replace(vector, list, value)</code></p>
-<pre class="r"><code>Temperature.replaced &lt;- replace(Temperature, c(1,2,3), 0)
+<p>We'll start by replacing the first 3 temperatures with 0.</p>
+<p>And we apply the arguments in this pattern <code>replace(vector, list, value)</code></p>
+<pre class="r"><code>dailyHighs.zeroStart &lt;- replace(dailyHighs, c(1,2,3), 0)
 
-Temperature.replaced</code></pre>
+dailyHighs.zeroStart</code></pre>
 <pre><code>##  [1]  0  0  0 25 34 26 23 21 34 20 21 20 26 31 32 31 30 20 31 22</code></pre>
-<p>Not very exciting. But notice an important thing here. We didn’t replace the values 1, 2, and 3 with zero, but the index points 1, 2, and 3, or, in other words, the first three data points. So, if we know where a value is in our vector, we can change it.</p>
-<p>What is one way that we can know where a value is located in our vector? We can conditionally test for it.</p>
-<p>And we’ll do this by replacing all temperatures that are greater than 27 with 0. It’s important to note here that we need to test for a condition, not just provide a list of values. If you recall, we can test if a value is above 27 with the following</p>
-<pre class="r"><code>Temperature &gt; 27</code></pre>
+<p>Outcome: Not very exciting, but if we know where a value is in our vector, we can change it.</p>
+<p>As we've seen, one way that we can know where a value is located in our vector is to conditionally test for it.</p>
+<p>And we'll do this by replacing all temperatures that are greater than 27 with 0. As quick reminder</p>
+<pre class="r"><code>dailyHighs &gt; 27 ## tests for a condition</code></pre>
 <pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
 ## [13] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
-<p>While we can get a list of values with</p>
-<pre class="r"><code>Temperature[Temperature &gt; 27]</code></pre>
+<pre class="r"><code>dailyHighs[dailyHighs &gt; 27] ## while we can get a list of values where the condition is TRUE with this</code></pre>
 <pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
 <p>Let’s try this out.</p>
-<pre class="r"><code>Temperature.Zeros &lt;- replace(Temperature, Temperature &gt; 27, 0) # in the variable Temperature, where the condition is TRUE, replace with 0
+<pre class="r"><code>dailyHighs.gt27 &lt;- replace(dailyHighs, dailyHighs &gt; 27, 0) # in the variable dailyHighs, where the condition is TRUE, replace with 0
 
-Temperature.Zeros</code></pre>
+dailyHighs.gt27</code></pre>
+<pre><code>##  [1] 24 22  0 25  0 26 23 21  0 20 21 20 26  0  0  0  0 20  0 22</code></pre>
+<p>alternatively, we use our stored variable <code>greaterThan27</code></p>
+<pre class="r"><code>dailyHighs.gt27 &lt;- replace(dailyHighs, greaterThan27, 0)
+
+dailyHighs.gt27</code></pre>
 <pre><code>##  [1] 24 22  0 25  0 26 23 21  0 20 21 20 26  0  0  0  0 20  0 22</code></pre>
 </div>
 <div id="exercise-3.4" class="section level2">
 <h2>Exercise 3.4</h2>
-<p>See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in <code>Temperature</code> that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on.</p>
+<p>See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in <code>dailyHighs</code> that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on.</p>
 <div id="what-have-we-learned-2" class="section level3">
 <h3>What have we learned</h3>
 <ul>

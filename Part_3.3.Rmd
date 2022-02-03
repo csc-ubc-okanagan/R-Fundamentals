@@ -11,28 +11,28 @@ output:
 
 ## Scripting
 
-Before we get into working with a real data set, we're going to explore how we can create random sample data, how we can run calculations on our data, and how we can replace values in our data.
+Next we look at creating random samples of data in more detail, how we can run calculations on our data, and how we can replace values in our data.
 
 In additional to mathematical operators, we will learn about the following functions:
 
-* `sample()`
+* `sample()` and some of it\'s more specific variants `rnorm` and `runif`
 * `replace()`
 
-In doing so, we're also going to walk out of the console and move into a scripting environment.
+In doing so, we\'re also going to walk out of the console and move into a scripting environment.
 
 <div class="question">
 **Scripting**
 
-By writing our code in a script, we can save our code and don't need to retype it every time we want to run it.
+By writing our code in a script, we can save our code and don\'t need to retype it every time we want to run it.
 
 Scripting is really the first step to creating a reproducible environment for your work that also saves you time in the long run.
 </div>
 
-So, head to your file menu, select *> New File* and *> R Script*. 
+From your file menu, select *> New File* and *> R Script*. 
 
 <span class="important">**This next bit is important**</span>
 
-First things first, we'll **save it on our desktop in a folder called `RScripts`**. This will be important later in this workshop.
+**Save your script on your desktop in a folder called `RScripts`**. This will be important later in this workshop.
 
 ## Simple math
 
@@ -55,7 +55,7 @@ This can be as simple as typing in
 4/2
 ```
 
-But that's not overly exciting. We can get a little fancier:
+But that\'s not overly exciting. We can get a little fancier:
 
 ```{R}
 3^3
@@ -65,11 +65,11 @@ sqrt(81)
 log(1200)
 ```
 
-Still not terribly exciting, as this is basically just a glorified calculator. But let's look at this in more depth.
+Still not terribly exciting, as this is basically just a glorified calculator. But let\'s look at this in more depth.
 
 ## Math on Vectors
 
-**First** We know how to create a vector and assign that vector to a variable. So let's get some data prepped and try the following:
+**First** We know how to create a vector and assign that vector to a variable. So let\'s get some data prepped and try the following:
 
 1. Create 2 vectors of equal length
 2. Add them together with the results contained in a new variable.
@@ -96,18 +96,59 @@ d
 <div class="note">
 **Note**
 
-Each time we're storing our new, computed data in a new variable.
+Each time we\'re storing our new, computed data in a new variable.
 
-If we're going to be running a computation on our data, for the purposes error tracking and transparency, it is advisable to generate a new variable.
+If we\'re going to be running a computation on our data, for the purposes error tracking and transparency, it is advisable to generate a new variable.
 </div>
 
-This highlights an interesting feature of R. R is all about vectors and operations are performed across vectors. When we do something to our vector, R iteratively goes through each value in the vector and applies that change. In the first case, it added each corresponding value together across each vector. In the second case, it multiplied all of our values by 5. In other languages, this is often a more complicated task in which you would need to write a function to loop through each value and apply the change.
+This last example highlights an interesting feature of `R`. Vectorization is built into `R` from the ground up. To multiply every value in `c` by 5 where vectorization was not a reality, we\'d need to iterate the process.
 
-### Sample()
+```{R}
+x <- vector()
 
-**Third** Let's do the same thing as in step 1 again, but this time with a random sample of numbers using the `sample()` function. We encountered `sample()` earlier. Now we'll get a bit more familiar with how it works.
+for (i in 1:length(c)) {
+  x[i] <- c[i] * 5
+}
 
-The function `sample()` takes four arguments
+x
+```
+
+That is, we would need to painstakingly say, \"Here's an empty object ready to hold our computed data. Now, for every value in `c`, multiply that value by 5 and then iteratively put the result into the empty object--which then starts to fill up.\". This is partly why `R` is so nice, you don\'t need to know how to program--like how to loop through data--for basic applications! And yet, you get many of the benefits of a programming environment.
+
+There\'s another key takeaway here. `R` frequently recycles data values. In the above example, 5 is it\'s own vector of data. When we hit the end of that vector, it\'s quantities are recycled until it matches the length of the longer vector it\'s being computed against. Another example
+
+```{R}
+short <- c(1,2)
+long <- c(1:10)
+
+unity <- short * long
+
+short
+long
+unity
+```
+
+
+### What have we learned
+
+* `R` can be used as a glorified calculator
+* Mathematical functions are performed across a vector in `R`
+
+## Conditions and Testing
+
+Now we\'re going to look at how we can isolate or inquire about only a portion of our data.
+
+To do this, we\'re gong to build a vector of 20 random numbers between 20 and 35, pretending that these are temperatures representing daily highs over a given period of time.
+
+<div class = "note">
+**sample()**
+
+Generating sample data can be a great way of preparing your analyses in advance of doing data collection. When thinking about limiting bias in research design, the more that can be planned out in advance, the less of the overall process is being determined after study implementation in an ad hoc fashion; this is of particular importance in hypothesis testing confirmatory research. When doing exploratory research or data cleaning, sampling can support refining techniques on a smaller, more manageable data set.
+
+While random sampling is a big topic, three common sampling functions that you\'ll find in `R` include `rnorm()` for normally distributed data generation, `runif()`, for uniformly distributed data generation, and `sample()`, for, well, basic sampling.
+</div>
+
+The `sample()` function takes four arguments
 
 * a range to sample from
 * the sample size
@@ -116,127 +157,91 @@ The function `sample()` takes four arguments
 
 We apply the arguments in this pattern `sample(dataSource, sampleSize, repeatsAllowed, Probabilities)`
 
-For this example, we'll ignore weighted probability.
-
-1. Let's take two random samples of 10 units each between 1 and 100. Sample `a` will be allowed to have duplicates, sample `b` will not
-2. Multiply the samples together.
-3. Ask R what data type you have
-4. Calculate the standard deviation of *3*
+For this example, we\'ll ignore weighted probability.
 
 ```{R}
 set.seed(120)
 
-a <- sample(1:100, 10, replace=TRUE)
-a
+dailyHighs <- sample(20:35, 20, replace = TRUE)
 
-b <- sample(1:100, 10, replace=FALSE)
-b
+dailyHighs
 ```
 
-Now we'll multiply across the vector:
+To get a bit more familiar with our sample, we\'ll test for values above a certain threshold, let\'s say above 27.
 
-```{R}
-c <- a * b
-c
-```
-
-Ask about the type of data we have
-
-```{R}
-typeof(c)
-```
-
-And finally calculate the standard deviation of the result
-```{R}
-sd(c)
-```
-
-Before we move on, we should look at one more thing here. We should inquire about the data type of our standard deviation
-
-```{R}
-typeof(sd(c))
-```
-
-And we should note that while our variable `c` reports that it has integer data, R has converted our integer on the fly to double. Depending on the circumstance, this could be problematic. And whereas other languages might tell you that your data type is being changed or that you can't do what you want to do because the data types don't match, R just takes care of things behind the scenes. This makes it easier to use, but also potentially frustrating.
-
-### What have we learned
-
-* R can be used as a glorified calculator
-* Mathematical functions are performed across a vector in R
-* We can create our own test data with `sample()`
-
-## Conditions and Testing
-
-Now we're going to look at how we can isolate or inquire about only a portion of our vector.
-
-To do this, we're gong to build a vector of 20 random numbers between 20 and 35, and let's pretend these are temperatures representing daily highs over a given period of time.
-
-```{R}
-set.seed(120)
-
-Temperature <- sample(20:35, 20, replace = TRUE)
-
-Temperature
-```
-
-To get a bit more familiar with our sample, we'll test for values above a certain threshold, let's say above 27.
-
-Our first inclination might be to type the variable with a greater than sign in the hopes that R will tell you what values are greater than 27 in the variable.
+Our first inclination might be to type the variable with a greater than sign in the hopes that `R` will tell you what values are greater than 27 in the variable.
 
 Let's give that a try:
 
 ```{R}
-Temperature > 27
+dailyHighs > 27
 ```
 
 So, this is interesting, and not exactly what we wanted.
 
-This first statement is not showing us the **values**, but is apparently testing the **condition** and telling us if the condition - `Temperature` is greater than 27 - is `TRUE` or `FALSE`.
+This first statement is not showing us the **values**, but is apparently testing the **condition** and telling us if the condition - `dailyHighs` is greater than 27 - is `TRUE` or `FALSE`. The output is a logical vector. We can confirm this
+
+```{R}
+is.vector(dailyHighs > 27)
+```
 
 Let's try this again a little differently:
 
 ```{R}
-Temperature[Temperature > 27]
+dailyHighs[dailyHighs > 27]
 ```
 
-That's better. This time, we successfully asked the system to print out the values of our vector `Temperature` where `Temperature` is greater the 27.
+That's better. This time, we successfully asked the system to print out the values of our vector `dailyHighs` where it is true that `dailyHighs` is greater the 27. A second approach that might this a bit more intuitive would be to store the logical vector as it\'s own variable and then to compare the two variables.
+
+```{R}
+greaterThan27 <- dailyHighs > 27
+
+dailyHighs
+greaterThan27
+
+dailyHighs[greaterThan27]
+```
 
 #### Indexing
 
-So what's happening here? Welcome to indexing. R maintains an index of your data in a variable. We ask about the index using square brackets `[ ]`.
+What's happening here? Indexing. `R` maintains an index of the placement of your variable values in your data object. We ask about the value at a particular index using square brackets `[ ]`.
 
 If we were to type
 
 ```{R}
-Temperature[1]
+dailyHighs[1]
 ```
 
-R would return the first value in our vector. We can ask about any range within our vector. For example, the first three values:
+`R` would return the first value in our vector. We can ask about any range within our vector. For example, the first three values:
 
 ```{R}
-Temperature[1:3]
+dailyHighs[1:3]
 ```
 
-Or, like above, we can ask for a range based off of a condition, such as, all values where the variable `Temperature` is greater than 27.
+Or, like above, we can ask for a range based off of a condition, such as, all values where the variable `dailyHighs` is greater than 27.
 
 ```{R}
-Temperature[Temperature > 27] 
+dailyHighs[dailyHighs > 27]
+
+dailyHighs[greaterThan27]
 ```
 In short:
 
 ```{R}
-Temperature > 27 # is testing a condition that returns a logical value of TRUE or FALSE
+dailyHighs > 27 # is testing a condition that returns a logical value of TRUE or FALSE
 
-Temperature[Temperature > 27] ## is inquiring about the indexed values that satisfy the condition
+dailyHighs[dailyHighs > 27] ## is inquiring about the indexed values that satisfy the condition
+
+dailyHighs[greaterThan27] ## is the same as above, but storing the output of `dailyHighs > 27` inside of a new variable
 ```
 
 ## Exercise 3.3
 
-1. How many of the values in `Temperature` are higher than 27 *hint* use `length()`:
-2. Get a summary, similar to this, of the data in `Temperature`.
+1. How many of the values in `dailHighs` are higher than 27:
+2. Get a summary, similar to this, of the data in `dailHighs`.
 
 ```{R, echo = FALSE}
-summary(Temperature)
+summary(dailyHighs)
 ```
 
 <div class="note">
@@ -247,59 +252,68 @@ Your values will be different because our sampes are different, but the descript
 
 ### What have we learned
 
-* We can test a vector for a condition and get a report of `TRUE` or `FALSE`
+* We can test a vector for a condition and logical vector in return
 * We can retrieve the values from only a portion of the data in a vector. This subset of our data can be defined by:
   * an index point or range; or
   * a condition
 
 ## Replace()
 
-Now that we know how to isolate values in our variables, we can introduce the function `replace()`.
+Now that we know how to isolate values in our variables, we can start to manipulate portions of our data. To do this, we\'ll explore the `replace()` function.
 
-First, we'll simply replace the first 3 temperatures with 0. `replace()` requires three arguments:
+`replace()` requires three arguments:
 
 * a vector
 * a list of index values to be replaced (or as a condition of the vector)
 * a new value for replacement (this can be a computed value)
 
-We apply the arguments in this pattern `replace(vector, list, value)`
+We\'ll start by replacing the first 3 temperatures with 0. 
+
+And we apply the arguments in this pattern `replace(vector, list, value)`
 
 ```{R}
-Temperature.replaced <- replace(Temperature, c(1,2,3), 0)
+dailyHighs.zeroStart <- replace(dailyHighs, c(1,2,3), 0)
 
-Temperature.replaced
+dailyHighs.zeroStart
 ```
 
-Not very exciting. But notice an important thing here. We didn't replace the values 1, 2, and 3 with zero, but the index points 1, 2, and 3, or, in other words, the first three data points. So, if we know where a value is in our vector, we can change it.
+Outcome: Not very exciting, but if we know where a value is in our vector, we can change it.
 
-What is one way that we can know where a value is located in our vector? We can conditionally test for it.
+As we\'ve seen, one way that we can know where a value is located in our vector is to conditionally test for it.
 
-And we'll do this by replacing all temperatures that are greater than 27 with 0. It's important to note here that we need to test for a condition, not just provide a list of values. If you recall, we can test if a value is above 27 with the following
+And we\'ll do this by replacing all temperatures that are greater than 27 with 0. As quick reminder
 
 ```{R}
-Temperature > 27
+dailyHighs > 27 ## tests for a condition
 ```
 
-While we can get a list of values with 
 
 ```{R}
-Temperature[Temperature > 27]
+dailyHighs[dailyHighs > 27] ## while we can get a list of values where the condition is TRUE with this
 ```
 
 Let's try this out.
 
 ```{R}
-Temperature.Zeros <- replace(Temperature, Temperature > 27, 0) # in the variable Temperature, where the condition is TRUE, replace with 0
+dailyHighs.gt27 <- replace(dailyHighs, dailyHighs > 27, 0) # in the variable dailyHighs, where the condition is TRUE, replace with 0
 
-Temperature.Zeros
+dailyHighs.gt27
+```
+
+alternatively, we use our stored variable `greaterThan27`
+
+```{R}
+dailyHighs.gt27 <- replace(dailyHighs, greaterThan27, 0)
+
+dailyHighs.gt27
 ```
 
 ## Exercise 3.4
 
-See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in `Temperature` that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on.
+See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in `dailyHighs` that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on.
 
 ```{R, echo = FALSE}
-TemperatureMultiplied <- replace(Temperature, Temperature > 27, Temperature[Temperature > 27] * 2) ## Vector, condition, values where this condition is true * n
+dailyHighsMultiplied <- replace(dailyHighs, dailyHighs > 27, dailyHighs[dailyHighs > 27] * 2) ## Vector, condition, values where this condition is true * n
 ```
 
 ### What have we learned
