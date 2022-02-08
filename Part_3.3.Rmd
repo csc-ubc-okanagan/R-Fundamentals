@@ -26,13 +26,13 @@ In doing so, we\'re also going to walk out of the console and move into a script
 By writing our code in a script, we can save our code and don\'t need to retype it every time we want to run it.
 
 Scripting is really the first step to creating a reproducible environment for your work that also saves you time in the long run.
-</div>
 
 From your file menu, select *> New File* and *> R Script*. 
 
 <span class="important">**This next bit is important**</span>
 
 **Save your script on your desktop in a folder called `RScripts`**. This will be important later in this workshop.
+</div>
 
 ## Simple math
 
@@ -63,6 +63,10 @@ But that\'s not overly exciting. We can get a little fancier:
 sqrt(81)
 
 log(1200)
+
+5%%2
+
+4%%2
 ```
 
 Still not terribly exciting, as this is basically just a glorified calculator. But let\'s look at this in more depth.
@@ -113,9 +117,11 @@ for (i in 1:length(c)) {
 x
 ```
 
-That is, we would need to painstakingly say, \"Here's an empty object ready to hold our computed data. Now, for every value in `c`, multiply that value by 5 and then iteratively put the result into the empty object--which then starts to fill up.\". This is partly why `R` is so nice, you don\'t need to know how to program--like how to loop through data--for basic applications! And yet, you get many of the benefits of a programming environment.
+That is, we would need to painstakingly say, \"Here's an empty object ready to hold our computed data. Now, for every value in `c`, multiply that value by 5 and then iteratively put the result into the empty object--which then starts to fill up\".
 
-There\'s another key takeaway here. `R` frequently recycles data values. In the above example, 5 is it\'s own vector of data. When we hit the end of that vector, it\'s quantities are recycled until it matches the length of the longer vector it\'s being computed against. Another example
+This is partly why `R` is so nice, you don\'t need to know how to program--like how to loop through data--for basic applications! And yet, you get many of the benefits of a programming environment.
+
+There\'s another key takeaway here. `R` frequently recycles data values. In the above example, 5 is it\'s own vector of data. When we hit the end of that vector, it\'s quantities are recycled until it matches the length of the longer vector it\'s being computed against. To see this perhaps a bit more clearly:
 
 ```{R}
 short <- c(1,2)
@@ -160,14 +166,18 @@ We apply the arguments in this pattern `sample(dataSource, sampleSize, repeatsAl
 For this example, we\'ll ignore weighted probability.
 
 ```{R}
-set.seed(120)
+set.seed(120) ## makes things reproducible
 
-dailyHighs <- sample(20:35, 20, replace = TRUE)
+dailyHighs <- sample(20:35, 20, replace = TRUE) # 20 samples with replacement between 20 and 35
 
 dailyHighs
 ```
 
 To get a bit more familiar with our sample, we\'ll test for values above a certain threshold, let\'s say above 27.
+
+<div class = "question">
+`R` allows testing of equivalence, using `<`, `>`, and `==`. Note that `5 = 5` is assignment, while `5 == 5` is a test.
+</div>
 
 Our first inclination might be to type the variable with a greater than sign in the hopes that `R` will tell you what values are greater than 27 in the variable.
 
@@ -179,7 +189,7 @@ dailyHighs > 27
 
 So, this is interesting, and not exactly what we wanted.
 
-This first statement is not showing us the **values**, but is apparently testing the **condition** and telling us if the condition - `dailyHighs` is greater than 27 - is `TRUE` or `FALSE`. The output is a logical vector. We can confirm this
+This first statement is not showing us the **values**, but is apparently testing the **condition** and telling us if the condition--`dailyHighs` is greater than 27--is `TRUE` or `FALSE`. The output is a logical vector. We can confirm this
 
 ```{R}
 is.vector(dailyHighs > 27)
@@ -191,15 +201,21 @@ Let's try this again a little differently:
 dailyHighs[dailyHighs > 27]
 ```
 
-That's better. This time, we successfully asked the system to print out the values of our vector `dailyHighs` where it is true that `dailyHighs` is greater the 27. A second approach that might this a bit more intuitive would be to store the logical vector as it\'s own variable and then to compare the two variables.
+That's better. This time, we successfully asked the system to print out the values of our vector `dailyHighs` where it is true that `dailyHighs` is greater the 27.
+
+An alternative approach would be to store the logical vector as it\'s own variable and then to pass that variable into `dailyHighs`.
 
 ```{R}
-greaterThan27 <- dailyHighs > 27
+greaterThan27 <- dailyHighs > 27 ## assign the logical output of the > test to "greaterThan27"
 
-dailyHighs
-greaterThan27
+dailyHighs[greaterThan27] ## print the values of dailyHighs where it is TRUE that the temps are higher than 27
+```
 
-dailyHighs[greaterThan27]
+We can explore this as a side by side too.
+
+```{R, echo = FALSE}
+sideBySide <- data.frame(dailyHighs, greaterThan27)
+sideBySide
 ```
 
 #### Indexing
@@ -237,8 +253,8 @@ dailyHighs[greaterThan27] ## is the same as above, but storing the output of `da
 
 ## Exercise 3.3
 
-1. How many of the values in `dailHighs` are higher than 27:
-2. Get a summary, similar to this, of the data in `dailHighs`.
+1. How many of the values in `dailyHighs` are higher than 27:
+2. Get a summary, similar to this, of the data in `daiylHighs`.
 
 ```{R, echo = FALSE}
 summary(dailyHighs)
@@ -310,10 +326,12 @@ dailyHighs.gt27
 
 ## Exercise 3.4
 
-See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in `dailyHighs` that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on.
+See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in `dailyHighs` that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on. Your output should look like the following:
 
 ```{R, echo = FALSE}
 dailyHighsMultiplied <- replace(dailyHighs, dailyHighs > 27, dailyHighs[dailyHighs > 27] * 2) ## Vector, condition, values where this condition is true * n
+
+dailyHighsMultiplied
 ```
 
 ### What have we learned

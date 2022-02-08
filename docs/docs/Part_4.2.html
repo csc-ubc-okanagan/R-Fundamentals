@@ -391,7 +391,7 @@ div.tocify {
 
 <div id="spreadsheet-data" class="section level2">
 <h2>Spreadsheet Data</h2>
-<p>If we’re only dealing with variables of a single data type, matrices are great. But most of us are used to looking at Excel sheets that will have some variables that are numerical, some that are categorical, and some that are character based.</p>
+<p>If we’re only dealing with variables of a single data type, matrices are great; in fact, they're very efficient if we only have one data type. But most of us are probably used to working with data that will have some variables that are numerical, some that are categorical, and some that are character based.</p>
 <p>Consider the following table of data recording the number of times a presidential candidate used the words 'will', 'shall', and 'going to' in the presidential debates, and whether or not they won or lost the popular vote:</p>
 <table>
 <colgroup>
@@ -453,7 +453,7 @@ div.tocify {
 </tr>
 </tbody>
 </table>
-<p>Luckily, R has a way for handling this spread sheet like data, called a dataframe.</p>
+<p>Luckily, <code>R</code> has a way for handling this spread sheet like data, called a dataframe.</p>
 </div>
 <div id="creating-a-dataframe" class="section level2">
 <h2>Creating a Dataframe</h2>
@@ -469,7 +469,7 @@ div.tocify {
 </div>
 <div id="targeting-a-variable" class="section level2">
 <h2>Targeting a Variable</h2>
-<p>We can target a specific variable, or vector, in a dataframe the<code>$</code> symbol using the following formula:</p>
+<p>We can target a specific variable–or vector–in a dataframe with the <code>$</code> symbol using the following formula:</p>
 <p><code>dataframeName$variableName</code></p>
 <p>For example, if we want to see the first few entries of the <code>Candidate</code> data we would enter:</p>
 <pre class="r"><code>head(presidentialElection$Candidate)</code></pre>
@@ -478,7 +478,7 @@ div.tocify {
 <div id="querying-a-dataframe" class="section level2">
 <h2>Querying a Dataframe</h2>
 <p>Since dataframes are made up of a series of vectors of equal length, we can query any column as we would any vector.</p>
-<p>We can, for example, ask about the data type or even change the data type. For example, we can ask about <code>PopularVote</code></p>
+<p>We can, for example, ask about the data type or even change the data type of a given variable. For example, we can ask about <code>PopularVote</code></p>
 <pre class="r"><code>typeof(presidentialElection$PopularVote)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>Which we see is <code>character</code>. But we know this data would probably be more useful if interpreted as categorical data. We can adjust for that</p>
@@ -502,7 +502,7 @@ typeof(presidentialElection$PopularVote)</code></pre>
 </div>
 <div id="questions" class="section level2">
 <h2>Questions</h2>
-<p>While we can run the usual questions against our dataframe, such as <code>nrow()</code> and <code>summary()</code>, one particularly useful question that we can ask is to inquire about its structure. We do that with <code>str()</code></p>
+<p>While we can run the usual questions against our dataframe, such as <code>nrow()</code> for get a sense of how many observations are in the dataset and <code>summary()</code> for some basic computed stats, this is where <code>str()</code> can be particularly useful</p>
 <pre class="r"><code>str(presidentialElection)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    6 obs. of  4 variables:
 ##  $ Year       : num  1960 1960 1976 1976 1980 ...

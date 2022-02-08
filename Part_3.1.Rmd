@@ -10,9 +10,11 @@ output:
 ---
 ## Data Types
 
-Data types dictate what we can and cannot do with our data. `R` has 5 basic data types: numeric, complex, logical, character, and raw. These data types form the foundation for other objects in `R`. One of these objects we\'ve already encountered is a `vector`. We\'ll see a few more shortly.
+Data types dictate what we can and cannot do with our data. `R` has 5 basic data types: numeric, complex, logical, character, and raw. These data types then form the foundation for other objects in `R`--some of these objects provide structure and some provide semantic meaning. One of the objects that provides structure that we\'ve already encountered is a `vector`. While an example of semantic meaning might have us explicitly indicate the numbers `20220101` represent a date in the format `yyyymmdd`.
 
-In this session we\'ll explore numeric, logical, and character data.
+One of our tasks when we load data into `R` is ensure that the object that holds, or structures, our data, is the most appropriate and that `R` properly interprets the semantic class of our data.
+
+In this session we\'ll explore numeric, logical, and character data, leaving complex and raw data for another time.
 
 <div class="question">
 **Naming variables**
@@ -30,16 +32,12 @@ More details can be found with `?make.names`
 
 ## Numeric and Logical Data
 
-When using R, we are likely going to be analysing data. Understanding how R organizes, classifies, and structures data is consequently critical to doing this well and avoiding headaches.
-
 ### Numeric data
 
-Numeric data in R can be further broken down into two types, integer and double
+Numeric data in R can be further broken down into two types, integer and double or floating point
 
-- double (Double precision floating point, ie can have a decimal)
+- double or floating point (generally speaking, can have a decimal)
 - integer (Whole number, full stop)
-
-**double** are numbers that can (but don\'t necessarily) have decimals.
 
 Let's assign a decimal and whole number to two respective variables:
 
@@ -61,7 +59,7 @@ typeof(decimalPoint)
 typeof(noDecimalPoint)
 ```
 
-And we see that they are both returned as "double". Curious. What if we want an integer? To designate that we want an integer we append the digits with an `L`
+We see that they are both returned as \"double\". Curious. What if we want an integer? To designate that we want an integer we append the digits with an `L`
 
 ```{R}
 wholeNumber <- 10L
@@ -69,7 +67,7 @@ wholeNumber <- 10L
 wholeNumber
 ```
 
-Now, if we ask about the data type, we are returned "integer":
+Now, if we ask about the data type, we are returned \"integer\":
 
 ```{R}
 typeof(wholeNumber)
@@ -79,6 +77,22 @@ typeof(wholeNumber)
 **Note**
 
 Some functions return integers and others return doubles. `R` when processing your data will convert on the fly between integers and doubles. Generally this is a good thing - we don\'t need to think about which data type we\'re creating, because there's some fluidity. But just in case you\'re doing something where the distinction is important, it\'s good to know that you\'ll need to be explicit.
+</div>
+
+<div class = "question">
+When might the difference between integers and floating point numbers be of importance to you?
+
+These data are stored a little differently and can impact things like testing equivalency. So it may be of interest to note that
+
+```{R}
+output <- 1/49 * 49 ## calculate 1/49 times 49
+
+output ## print the result
+
+identical(output, 1) ## ask if "output" is identical to 1
+
+all.equal(output, 1) ## ask if "output" and 1 are at least pretty close to the same number
+```
 </div>
 
 ### Logical Values
@@ -103,9 +117,9 @@ In data analysis, using logical vectors can be extremely useful for subsetting d
 
 ## Classes
 
-In addition to using `typeof()` for inquiring about data types, we can also use `class()` to get a bit more information about an R object. Occasionally, the output of `typeof()` and `class()` are the same.
+In addition to using `typeof()` for inquiring about data types, we can also use `class()` to get a bit more information about an `R` object. Occasionally, the output of `typeof()` and `class()` are the same.
 
-It can useful to think of the `class` as describing what an R object is and `typeof` telling us about the data it contains. As an analogy, we might have a book of poetry. Our object - our book - might have a class of `book` or `text` and if we inquired about the contents with `typeof` we\'d get back `character`, since it is comprised of `character` data.
+It can be useful to think of the `class` as describing what an R object is and `typeof` telling us about the data it contains. As an analogy, we might have a book of poetry. Our object--our book--might have a class of `book` and if we inquired about the contents with `typeof` we\'d get back `character`, since it is comprised of `character` data.
 
 Just as we can store various types of text in various types of books, notepads etc - `R` can store various types data in various types of objects. The class of these objects will help us to understand how we can work with those stored data.
 
@@ -140,11 +154,11 @@ Since vectors are atomic, a vector made up of:
 * logical values will be a logical vector
 * character values will be a character vector
 
-So, when we call `class` on a vector, `R` returns the data type, but omits telling us it\'s a vector, so the output reads the same as `typeof()`.
+When we call `class` on a vector, `R` returns the data type, but omits telling us it\'s a vector, so the output reads the same as `typeof()`.
 </div>
 
 ## What Have We Learned
 
 * `R` has 5 basic data types
-* `R` objects may have a class that describe that object
+* `R` objects may have a class that describes that object
 * Numeric data can be either integer or double precision floating point, and `R` will convert between integer and floating point when needed.

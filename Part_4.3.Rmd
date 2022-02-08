@@ -15,17 +15,23 @@ I have a sample csv file available for you [at this link](./files/SwissData.csv)
 
 ## File Formats
 
-Data are stored in a wide variety of formats, and R can handle many of these. We're going to work with a simple example today using the very common spread sheet format csv or comma separated value, in which column variables are separated by commas.
+Data are stored in a wide variety of formats, and `R` can handle many of these out of the box. We\'ll work with a simple example importing a `csv`--or comma separated value--file, in which column variables are separated by commas and rows of observations by a new line.
+
+<div class = "question">
+**Fun Fact**
+
+Encoding of new line characters has some interesting spill over effects from the era of mechanical typing. While your Unix and Linux based operating systems--including Mac OS--simply encode a new line with `\n` denoting \"line feed\", Windows base machines encode it as `\r\n', denoting \"carriage return, line feed"\ which more closely resemble a type writer where you have to not only move down a line, but also shift the carriage back to the left margin.
+</div>
 
 <div class="question">
 **Comma Seperated Values**
 
-In general, keeping your data in a plain text format like csv has many advantages including longevity of access, transferability across systems, and perhaps most importantly, encouraging good data handling practices; programs like Excel allow us to indicate information about our data using colours, to merge cells etc, all of which limit the ability of a machine to read our data.
+In general, keeping your data in a plain text format like csv has many advantages including longevity of access, transferability across systems, and perhaps most importantly, encouraging good data handling practices; programs like Excel allow us to indicate information about our data using colours, to merge cells etc, all of which limit the ability of a program to read or interpret our data.
 </div>
 
 ## Knowing where your data is
 
-Before we can import our data, we need to know what our working directory is, that is, what folder R thinks we're currently in and what folder our data is in.
+Before we can import our data, we need to know what our working directory is, that is, what folder `R` thinks we\'re currently in and what folder our data is in.
 
 We have two functions for this:
 
@@ -34,7 +40,7 @@ We have two functions for this:
 
 <span class="important">This next bit is important</span>
 
-We want to set our working directory to the same location as our script. To do this, we'll use the following code:
+We want to set our working directory to the same location as our script. To do this, we\'ll use the following code:
 
 **Mac and Linux**
 
@@ -58,40 +64,38 @@ The above will work for systems that have not had their default home directories
 
 ## Importing csv
 
-We can read a csv with the function `read.table()`. `read.table()` has several iterations, such as `read.csv()` specifically for comma separated values and `read.csv2` that accounts for the use of commas in place of decimals in certain countries, but `read.table` will allow us to explore a bit more what's happening on our import.
+We can read a csv with the function `read.table()`. `read.table()` has several iterations, such as `read.csv()` specifically for comma separated values and `read.csv2` that accounts for the use of commas in place of decimals in certain countries, but `read.table` will allow us to explore a bit more what\'s happening on our import.
 
 <div class="question">
 **Swiss data set**
 
-R comes pre-loaded with several data sets that you can play around with. The Swiss data set is one example. This is a data set of standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888. The csv generated for this workshop is derived from this dataset, with a few changes introduced.
+`R` comes pre-loaded with several data sets that you can play around with. The Swiss data set is one example. This is a data set of standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888. The csv generated for this workshop is derived from this dataset, with a few changes introduced.
 
 You can learn more about the data set with `?swiss`
 </div>
 
 ### Inital Exploration
 
-First, let's open our file in a text editor, so you can see the comma separations.
+First, we\'ll open our file in a text editor, so you can see the comma separations.
 
-Let's also open it in Excel, so you can see what it looks like in a spread sheet application.
+We\'LL also open it in Excel, so you can see what it looks like in a spread sheet application.
 
 We can see that we have a series of observations, represented as rows containing province names in Switzerland. Each observation has several variables, including things like education level and infant mortality rates.
 
-It's important to note that we have column names (variable) and row names (observations), but that these don't represent data points.
+It\'s important to note that we have column names (variables, which will also be used as our labels) and row names (which will act as row labels), but that these don't represent data points.
 
 At this point, we should have a sense of what we need to import.
 
 ### Import Options
 
-Let's explore the options we can set when reading in this file considering the above. As before, we'll start by just looking at the head.
+Let\'s explore the options we can set when reading in this file considering the above. We\'ll start by just looking at the first few lines; a way to avoid loading a large data set that we just want to get a sense of.
 
-`read.table()` provides us with several things that we can tell it on import, for instance how our data is separated - this could be comma, tab, or any value really - whether or not our data has row names, if there's a header, and very importantly, if there are values that we want to replace with NA on import.
+`read.table()` provides us with several things that we can tell it on import, for instance how our data is separated - this could be comma, tab, or any value really - whether or not our data has row names, if there's a header, and very importantly, if there are values that we want to replace with NA on import. We can also specify how many rows of data to import.
 
 You can of course get a full list of the options available with `?read.table`, but for the moment we're going to forge ahead with the following:
 
-<pre>head(read.table("SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))</pre>
-
-```{R, echo = FALSE}
-head(read.table("~/Desktop/RScripts/SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))
+```{R}
+read.table("~/Desktop/RScripts/SwissData.csv", sep = ",", row.names = 1, header = TRUE, nrows = 6, na.strings = c("NULL", "", " "))
 ```
 
 Let's work through this.
@@ -100,6 +104,7 @@ Let's work through this.
 2. Then `sep = ","` indicates the column separator used, in this case a comma.
 3. `row.names = 1` indicates that we have row names and that these appear in the first column, so, import these, but don't include them as data, just labels.
 4. `header = TRUE` indicates that we have a header row naming our variables, so again, import these, but don't include them as data points.
+5. `nrows = 6` indicates to stop reading at the 6th line of data
 5. Lastly, `na.strings = c("NULL", "", " ")` tells R to replace any NULL values, blank values, or data points that are just spaces with NA.
 
 <div class="question">
@@ -109,33 +114,31 @@ NULL values, empty cells, and random spaces routinely show up in data sets, eith
 
 </div>
 
-At this stage, everything looks good, and we should be set to import our dataset, so we'll do exactly as above, but we'll pull in the full data set and store it in a variable called `SwissData`:
+At this stage, everything looks good, and we should be set to import our dataset, so we'll do exactly as above, but we\'ll pull in the full data set and store it in a variable called `SwissData`:
 
-<pre>SwissData <- (read.table("SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))</pre>
-
-```{R, echo = FALSE}
-SwissData <- (read.table("~/Desktop/RScripts/SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ")))
+```{R}
+SwissData <- (read.table("~/Desktop/RScripts/SwissData.csv", sep = ",", row.names = 1, header = TRUE, na.strings = c("NULL", "", " ", ".")))
 ```
 
 ```{R}
 head(SwissData)
 ```
 
-The one last thing we'll do is inquire about our structure
+The one last thing we\'ll do is inquire about our structure
 
 ```{R}
 str(SwissData)
 ```
 
-And at this point, we should be able to start working with this data set using all of the tools that we've encountered so far. You should be able to look at observations that match only certain criteria, calculate descriptive stats, add data points etc all the basic elements we'd expect to be able to do with a data set. You also know how to look for and learn how to use various functions in R. And lastly, you hopefully have some of the language needed to be able use a search egine to ask 'how do I this in R' and understand some of the answers you might get on various forums or blogs.
+And at this point, we should be able to start working with this data set using all of the tools that we\ve encountered so far. You should be able to look at observations that match only certain criteria, calculate descriptive stats, add data points etc all the basic elements we\'d expect to be able to do with a data set. You also know how to look for and learn how to use various functions in `R`. And lastly, you hopefully have some of the language needed to be able use a search egine to ask 'how do I this in R' and understand some of the answers you might get on various forums or blogs.
 
 ## Next steps
 
-Up until now, we've been working through exploring, altering, and asking questions of our data with tools that are built into  base R, that is with tools that come with a basic installation.
+Up until now, we\'ve been working through exploring, altering, and asking questions of our data with tools that are built into  base `R`, that is with tools that come with a basic installation.
 
-In the introduction, we talked about R being more than a programming language, and being a **community of developers and users**.
+In the introduction, we talked about `R` being more than a programming language, and being a **community of developers and users**.
 
-This community is continually creating new tools, that is new functions, to help you do more and to do this more efficiently. These functions come bundled as packages that you can install. You'll frequently see reference to these packages.
+This community is continually creating new tools, that is new functions, to help you do more and to do this more efficiently. These functions come bundled as packages that you can install. You\'ll frequently see reference to these packages.
 
 To see what packages you have installed on you system, you can run `installed.packages()`
 
@@ -145,11 +148,11 @@ installed.packages()
 
 To know what functions are available in a give package you can run `help(package="packageName")`
 
-To install a package that you don't have, you would run `install.packages("PackageName")`
+To install a package that you don\'t have, you would run `install.packages("PackageName")`
 
 ### Tidyverse
 
-Tidyverse is a collection of R packages that is well worth exploring.
+Tidyverse is a collection of `R` packages that is well worth exploring.
 
 #### dplyr
 

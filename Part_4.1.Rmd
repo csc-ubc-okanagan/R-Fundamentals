@@ -17,20 +17,18 @@ Arrays are multidimensional. A matrix is a special case of an array that contain
 
 * Vectors have one dimension
 * Arrays have two or more dimensions
-* Matrices are a type of array that has only 2 dimensions
-
-Right, using our script, let's generate some data to play with.
+* Matrices are a specific case of an array where there are only 2 dimensions
 
 <div class="note">
 **Note**
 
-Generating all of our own data may seem a little tedious, but it's both a great way to troubleshoot, get familiar with a new concept, and once you move into online forums for support, this support will often use ad hoc generated data to provide a solution, so it's good to be familiar with the processes involved in data generation.
+Generating all of our own data may seem a little tedious, but it\'s both a great way to troubleshoot, get familiar with a new concept, and once you move into online forums for support, this support will often use ad hoc generated data to provide a solution--in fact if you\'re asking for help, you\'ll be asked to share a reprducible example, but you may not wish to do so using youractual data points--so it\'s good to be familiar with the processes involved in data generation.
 </div>
 
-Let's say we're collecting data on people, including their height and weight. To simulate a random sample let's create the following vectors:
+Imagine we\'re collecting data on people, including their height and weight. To simulate a random sample create the following vectors:
 
 ```{R}
-set.seed(120)
+set.seed(120) ## This way we know we're all getting the same values
 
 Height <- sample(120:190, 20, replace = TRUE) # A random sample of 20 data points from the range 120 to 190 where values can be replaced
 
@@ -45,11 +43,11 @@ Weight
 
 We now have two uni-dimensional objects; two vectors.
 
-Let's convert these into a two dimensional array, or matrix by combining them together into a single object that we will call `PhysCharacteristics`, because we're creative that way.
+To convert these into a two dimensional array, or matrix, we\'ll combine them together into a single object called `PhysCharacteristics`.
 
 ### cbind()
 
-To do this, we will use the function `cbind`, as in column bind; a handy function that allows us to append one vector of data onto another, which will give us a matrix with 2 variables each with 20 data points.
+To do this, we will use the function `cbind()`, as in column bind; a handy function that allows us to append one vector of data onto another, which will give us a matrix with 2 variables each with 20 data points.
 
 We will give `cbind()` two arguments, the variable names of our two vectors.
 
@@ -67,17 +65,24 @@ We could get a summary of our data if we wanted
 summary(PhysCharacteristics)
 ```
 
-<div class="note">
+<div class = "note">
 **Note**
 
-The length of each variable, that is each vector, in a matrix must be the same length. The above example works well because both `Height` and `Weight` have the same length.
+Matrices and arrays come with a limiting aspect; each column of data must be the same length. If we try to combine two objects of different lengths, we\'ll get a warning and `R` will recycle the values of the shorter object until it matches the length of the longer object.
 
-Also, matrices, like vectors, are atomic, that is, an array can only contain one data type - numeric, character, logical etc. We cannot have a matrix where one vector is numeric data and the second is character data. We have other options that we'll look at for this in a moment.
+```{R, warnings = TRUE}
+v1 <- c(1:11)
+v2 <- c(1,2)
+v3 <- cbind(v1, v2)
+v3
+```
+
+Also, matrices, like vectors, are atomic, that is, an array can only contain one data type - numeric, character, logical etc. We cannot have a matrix where one vector is numeric data and the second is character data. We have other options that we\'ll look at for this in a moment.
 </div>
 
-Let's now create a matrix, with three columns to see a few more things that we can do with matrices and arrays.
+Let\'s now create a matrix, with three columns to see a few more things that we can do with matrices and arrays.
 
-Say that we are also interested in collecting age in addition to height and weight. So, as before, let's create a sample of 20 ages from an undergraduate population, so, between 20 and 25:
+Say that we are also interested in collecting age in addition to height and weight. As before create a sample of 20 ages from an undergraduate population, so, between 20 and 25:
 
 ```{R}
 set.seed(120)
@@ -87,12 +92,12 @@ Age <- sample(20:25, 20, replace = TRUE) # A random sample of 20 data points fro
 Age
 ```
 
-We're going to employ the function `cbind()` again to join this new variable and associated data with our existing matrix.
+We\'ll employ the function `cbind()` again to join this new variable and associated data with our existing matrix.
 
 ```{R}
-PhysCharacteristics <- cbind(PhysCharacteristics, Age) 
+PhysCharacteristics <- cbind(PhysCharacteristics, Age) ## overwrite PhysCharacteristics with a merger between PhysCharacteristics and Age
 
-head(PhysCharacteristics)
+head(PhysCharacteristics) ## display the first few rows
 ```
 
 We now have three columns, one for `Height`, `Weight` and `Age` respectively. And we're finally starting to see something like a proper data set!
@@ -101,14 +106,16 @@ We now have three columns, one for `Height`, `Weight` and `Age` respectively. An
 
 In the same way that we can add columns to our data, we can also add rows to our data. We are not limited to adding a single column or a single row at a time.
 
-In the following steps, we will use `rbind()`, as in row bind, to merge two datasets together.
+In the following steps, we will use `rbind()`, as in row bind, to merge two data sets together.
 
-Say we get two datasets of height, weight, and age data, each collected by two different researchers. We already have one set `PhysCharacteristics`. Let's create a second dataset, `ResearcherTwo` to work through this.
+Say we get two data sets of height, weight, and age data, each collected by two different researchers. We already have one set `PhysCharacteristics`. We\'ll create a second, `ResearcherTwo`, to work through this.
 
-As before, we'll take two samples and `cbind` them together.
+As before, we\'ll take two samples and `cbind` them together.
 
 ```{R}
-set.seed(121)
+set.seed(121) ## not strictly necessary, but makes sure we're all in the same place
+
+## generate some data
 
 Height2 <- sample(120:190, 20, replace = TRUE)
 
@@ -116,30 +123,38 @@ Weight2 <- sample(50:90, 20, replace = TRUE)
 
 Age2 <- sample(20:25, 20, replace = TRUE)
 
+## print that data to the screen to verify
+
 Height2
 
 Weight2
 
 Age2
 
-ResearcherTwo <- cbind(Height2, Weight2, Age2)
+ResearcherTwo <- cbind(Height2, Weight2, Age2) ## column bind the data
 
-head(ResearcherTwo)
+head(ResearcherTwo) ## check things out
 ```
 
-Now, let's put them together into a new matrix called `completePhysDataSet`.
+Now we put them together into a new matrix called `completePhysDataSet`.
 
 ```{R}
 completePhysDataSet <- rbind(PhysCharacteristics, ResearcherTwo)
 ```
 
-Let's use `View()` to see if we were successful
+We\'ll use `View()` to see if we were successful
 
 ```{R}
 View(completePhysDataSet)
 ```
 
-We can also get a summary
+While we can use `summary()` to get some basic stats about our data
+
+```{R}
+summary(completePhysDataSet)
+```
+
+We can also get information about the structure of our new data object with `str()`
 
 ```{r}
 str(completePhysDataSet)
@@ -157,7 +172,7 @@ Remember, we already created a vector of eye colours from which we can generate 
 eyeColour
 ```
 
-Let's use this to generate a sample of 40 data points that we can add to our `completePhysDataSet`
+We\'ll use this to generate a sample of 40 data points that we can add to our `completePhysDataSet`
 
 ```{R}
 set.seed(120)
@@ -167,7 +182,7 @@ physData.eyeColour.sample <- sample(eyeColour, 40, replace = TRUE) # A random sa
 physData.eyeColour.sample
 ```
 
-Now, we'll add this to `completePhysDataSet` with `cbind()`
+Now, we\'ll add this to `completePhysDataSet` with `cbind()`
 
 ```{R}
 completePhysDataSet <- cbind(completePhysDataSet, physData.eyeColour.sample)
@@ -175,23 +190,23 @@ completePhysDataSet <- cbind(completePhysDataSet, physData.eyeColour.sample)
 head(completePhysDataSet)
 ```
 
-What's happened? R has adapted on the fly to allow you to do this.
+Outcome: `R` has adapted on the fly to allow you to do this.
 
-Inadvertently, however, it has converted all of your numerical data to character data! Remember we said that R is a little too easy going and let\'s you do things it probably shouldn't? This is one case in point. Instead of providing you with an error or a warning, it has coerced the other data in your matrix to conform to the data type you've added.
+Inadvertently, however, it has converted all of your numerical data to character data! Remember we said that `R` is a little too easy going and let\'s you do things it probably shouldn\'t? This is one case in point. Instead of providing you with an error or a warning, it has coerced the other data in your matrix to conform to the data type you\'ve added.
 
 You should always be careful and always inquire to see if what you intended to have happen actually happened.
 
-Let's reset things...
+Let\'s reset things... 
 
 ```{R}
-completePhysDataSet <- rbind(PhysCharacteristics, ResearcherTwo)
+completePhysDataSet <- rbind(PhysCharacteristics, ResearcherTwo) ## overwrite the variable holding the data set back to when we first added the two data sets together
 ```
 
 ## Indexing
 
 Matrices, like vectors are indexed, but now they have two axes that are indexed, rows and columns.
 
-We can work with these just as we did with vectors, but we now need to specify if we're interested in a row or a column of data - that is, a variable or an observation.
+We can work with these just as we did with vectors, but we now need to specify if we\'re interested in a row or a column of data - that is, a variable or an observation.
 
 We do this in the following way: `matrix[row, column]`.
 
@@ -200,7 +215,7 @@ So, say we wanted to see only the `Height` data. We could can do this in one of 
 ```{R}
 completePhysDataSet[, 1]
 
-completePhysDataSet[, "Height"]
+completePhysDataSet[, "Height"] ## since labels are characters, they need to wrapped in " "
 ```
 
 If we wanted to see `Height` and `Age` only, we can concatenate just as we did with our vector:
@@ -222,7 +237,7 @@ completePhysDataSet[1:3, ]
 <div class="note">
 **Note**
 
-By not indicating what row or column we're interested in, R defaults to showing us the entire row or column.
+By not indicating what row or column we're interested in, `R` defaults to showing us the entire row or column.
 </div>
 
 To see an intersection:
@@ -251,13 +266,31 @@ ncol(completePhysDataSet)
 dim(completePhysDataSet)
 ```
 
+<div class = "note">
+**Note**
+
+The output of all of these inquiries are data structures themselves. In fact, the output of the three above is a vector consisting of either a single numeric value or two numeric values.
+
+```{R}
+is.vector(nrow(completePhysDataSet))
+```
+
+This means we can use these outputs for other calculations.
+
+```{R}
+newCalculation <- nrow(completePhysDataSet) + ncol(completePhysDataSet)
+
+newCalculation
+```
+</div>
+
 ## What have we learned
 
 * We can store 2 dimensional data in a matrix
 * A matrix is atomic, that is, it can only hold one data type
 * We can combine vectors to make a matrix with `cbind()`
 * We can combine datasets together with `rbind()`
-* The vectors of an array need be of the same length
+* The vectors of an array need be of the same length, or recycling happens.
 
 ## Exercise 4.1
 

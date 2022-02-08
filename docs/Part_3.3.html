@@ -402,10 +402,10 @@ div.tocify {
 <p><strong>Scripting</strong></p>
 <p>By writing our code in a script, we can save our code and don't need to retype it every time we want to run it.</p>
 <p>Scripting is really the first step to creating a reproducible environment for your work that also saves you time in the long run.</p>
-</div>
 <p>From your file menu, select <em>&gt; New File</em> and <em>&gt; R Script</em>.</p>
 <p><span class="important"><strong>This next bit is important</strong></span></p>
 <p><strong>Save your script on your desktop in a folder called <code>RScripts</code></strong>. This will be important later in this workshop.</p>
+</div>
 </div>
 <div id="simple-math" class="section level2">
 <h2>Simple math</h2>
@@ -432,6 +432,10 @@ div.tocify {
 <pre><code>## [1] 9</code></pre>
 <pre class="r"><code>log(1200)</code></pre>
 <pre><code>## [1] 7.090077</code></pre>
+<pre class="r"><code>5%%2</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>4%%2</code></pre>
+<pre><code>## [1] 0</code></pre>
 <p>Still not terribly exciting, as this is basically just a glorified calculator. But let's look at this in more depth.</p>
 </div>
 <div id="math-on-vectors" class="section level2">
@@ -469,8 +473,9 @@ for (i in 1:length(c)) {
 
 x</code></pre>
 <pre><code>## [1] 35 45 55 65 75</code></pre>
-<p>That is, we would need to painstakingly say, "Here’s an empty object ready to hold our computed data. Now, for every value in <code>c</code>, multiply that value by 5 and then iteratively put the result into the empty object–which then starts to fill up.". This is partly why <code>R</code> is so nice, you don't need to know how to program–like how to loop through data–for basic applications! And yet, you get many of the benefits of a programming environment.</p>
-<p>There's another key takeaway here. <code>R</code> frequently recycles data values. In the above example, 5 is it's own vector of data. When we hit the end of that vector, it's quantities are recycled until it matches the length of the longer vector it's being computed against. Another example</p>
+<p>That is, we would need to painstakingly say, "Here’s an empty object ready to hold our computed data. Now, for every value in <code>c</code>, multiply that value by 5 and then iteratively put the result into the empty object–which then starts to fill up".</p>
+<p>This is partly why <code>R</code> is so nice, you don't need to know how to program–like how to loop through data–for basic applications! And yet, you get many of the benefits of a programming environment.</p>
+<p>There's another key takeaway here. <code>R</code> frequently recycles data values. In the above example, 5 is it's own vector of data. When we hit the end of that vector, it's quantities are recycled until it matches the length of the longer vector it's being computed against. To see this perhaps a bit more clearly:</p>
 <pre class="r"><code>short &lt;- c(1,2)
 long &lt;- c(1:10)
 
@@ -508,35 +513,56 @@ short</code></pre>
 </ul>
 <p>We apply the arguments in this pattern <code>sample(dataSource, sampleSize, repeatsAllowed, Probabilities)</code></p>
 <p>For this example, we'll ignore weighted probability.</p>
-<pre class="r"><code>set.seed(120)
+<pre class="r"><code>set.seed(120) ## makes things reproducible
 
-dailyHighs &lt;- sample(20:35, 20, replace = TRUE)
+dailyHighs &lt;- sample(20:35, 20, replace = TRUE) # 20 samples with replacement between 20 and 35
 
 dailyHighs</code></pre>
 <pre><code>##  [1] 24 22 28 25 34 26 23 21 34 20 21 20 26 31 32 31 30 20 31 22</code></pre>
 <p>To get a bit more familiar with our sample, we'll test for values above a certain threshold, let's say above 27.</p>
+<div class="question">
+<p><code>R</code> allows testing of equivalence, using <code>&lt;</code>, <code>&gt;</code>, and <code>==</code>. Note that <code>5 = 5</code> is assignment, while <code>5 == 5</code> is a test.</p>
+</div>
 <p>Our first inclination might be to type the variable with a greater than sign in the hopes that <code>R</code> will tell you what values are greater than 27 in the variable.</p>
 <p>Let’s give that a try:</p>
 <pre class="r"><code>dailyHighs &gt; 27</code></pre>
 <pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
 ## [13] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
 <p>So, this is interesting, and not exactly what we wanted.</p>
-<p>This first statement is not showing us the <strong>values</strong>, but is apparently testing the <strong>condition</strong> and telling us if the condition - <code>dailyHighs</code> is greater than 27 - is <code>TRUE</code> or <code>FALSE</code>. The output is a logical vector. We can confirm this</p>
+<p>This first statement is not showing us the <strong>values</strong>, but is apparently testing the <strong>condition</strong> and telling us if the condition–<code>dailyHighs</code> is greater than 27–is <code>TRUE</code> or <code>FALSE</code>. The output is a logical vector. We can confirm this</p>
 <pre class="r"><code>is.vector(dailyHighs &gt; 27)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>Let’s try this again a little differently:</p>
 <pre class="r"><code>dailyHighs[dailyHighs &gt; 27]</code></pre>
 <pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
-<p>That’s better. This time, we successfully asked the system to print out the values of our vector <code>dailyHighs</code> where it is true that <code>dailyHighs</code> is greater the 27. A second approach that might this a bit more intuitive would be to store the logical vector as it's own variable and then to compare the two variables.</p>
-<pre class="r"><code>greaterThan27 &lt;- dailyHighs &gt; 27
+<p>That’s better. This time, we successfully asked the system to print out the values of our vector <code>dailyHighs</code> where it is true that <code>dailyHighs</code> is greater the 27.</p>
+<p>An alternative approach would be to store the logical vector as it's own variable and then to pass that variable into <code>dailyHighs</code>.</p>
+<pre class="r"><code>greaterThan27 &lt;- dailyHighs &gt; 27 ## assign the logical output of the &gt; test to &quot;greaterThan27&quot;
 
-dailyHighs</code></pre>
-<pre><code>##  [1] 24 22 28 25 34 26 23 21 34 20 21 20 26 31 32 31 30 20 31 22</code></pre>
-<pre class="r"><code>greaterThan27</code></pre>
-<pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
-## [13] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
-<pre class="r"><code>dailyHighs[greaterThan27]</code></pre>
+dailyHighs[greaterThan27] ## print the values of dailyHighs where it is TRUE that the temps are higher than 27</code></pre>
 <pre><code>## [1] 28 34 34 31 32 31 30 31</code></pre>
+<p>We can explore this as a side by side too.</p>
+<pre><code>##    dailyHighs greaterThan27
+## 1          24         FALSE
+## 2          22         FALSE
+## 3          28          TRUE
+## 4          25         FALSE
+## 5          34          TRUE
+## 6          26         FALSE
+## 7          23         FALSE
+## 8          21         FALSE
+## 9          34          TRUE
+## 10         20         FALSE
+## 11         21         FALSE
+## 12         20         FALSE
+## 13         26         FALSE
+## 14         31          TRUE
+## 15         32          TRUE
+## 16         31          TRUE
+## 17         30          TRUE
+## 18         20         FALSE
+## 19         31          TRUE
+## 20         22         FALSE</code></pre>
 <div id="indexing" class="section level4">
 <h4>Indexing</h4>
 <p>What’s happening here? Indexing. <code>R</code> maintains an index of the placement of your variable values in your data object. We ask about the value at a particular index using square brackets <code>[ ]</code>.</p>
@@ -564,8 +590,8 @@ dailyHighs</code></pre>
 <div id="exercise-3.3" class="section level2">
 <h2>Exercise 3.3</h2>
 <ol style="list-style-type: decimal">
-<li>How many of the values in <code>dailHighs</code> are higher than 27:</li>
-<li>Get a summary, similar to this, of the data in <code>dailHighs</code>.</li>
+<li>How many of the values in <code>dailyHighs</code> are higher than 27:</li>
+<li>Get a summary, similar to this, of the data in <code>daiylHighs</code>.</li>
 </ol>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   20.00   21.75   25.50   26.05   31.00   34.00</code></pre>
@@ -621,7 +647,8 @@ dailyHighs.gt27</code></pre>
 </div>
 <div id="exercise-3.4" class="section level2">
 <h2>Exercise 3.4</h2>
-<p>See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in <code>dailyHighs</code> that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on.</p>
+<p>See if you can now add a bit of math into this scenario. Exactly as above, replace the temperatures in <code>dailyHighs</code> that are above 27, but this time, replace them with values that are double their own, so if you have 30, it becomes 60, 32 becomes 64 and so on. Your output should look like the following:</p>
+<pre><code>##  [1] 24 22 56 25 68 26 23 21 68 20 21 20 26 62 64 62 60 20 62 22</code></pre>
 <div id="what-have-we-learned-2" class="section level3">
 <h3>What have we learned</h3>
 <ul>

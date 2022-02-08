@@ -13,7 +13,7 @@ output:
 
 When we collect data, we also frequently collect strings of text. For example, we might collect data in a free text field where we ask participants, \"what\'s your favourite food?\"
 
-Let's build a potential selection of choices into a variable called `myFavouriteFood`:
+Let's build a potential selection of choices into a variable called `favouriteFood`:
 
 ```{R}
 favouriteFood <- c("Costco hotdogs", "Pizza", "Pork and onion dumplings", "Anything deep fried", "Potato chips")
@@ -35,18 +35,20 @@ class(favouriteFood)
 typeof(favouriteFood)
 ```
 
+<div class = "note">
 We could hold larger chunks of text in a variable if we wanted, and in fact, we can use `R` for text analysis starting with a single work of text as a data import which we then break apart for analysis.
+</div>
 
 ## Categorical Data
 
-Often our character data is in fact categorical data. Categorical data, while represented by strings of characters, is not the same as plain old text. It would be nice to have a way to work with plain text categorical data as categorical data.
+Often our character data is in fact categorical data. Categorical data, while represented by strings of characters, is not the same as prose. It would be nice to have a way to work with categorical text data as categorical data.
 
-With `favouriteFood` we have 5 choices that participants can select from. It is common practice to code these choices, say from 1 through 5. We then have three things that we\'re working with - a variable, a set of labels, and a set of codes assigned to those labels. In describing this data set - say in a data dictionary that accompanied our data - we might record something like:
+With `favouriteFood` we have 5 choices that participants can select from. It is common practice to code these choices, say from 1 through 5. We then have three things that we\'re working with--a variable, a set of labels, and a set of codes assigned to those labels. In describing this data set--say in a data dictionary that accompanied our data--we might record something like:
 
-* Variable: FavouriteFood
+* Variable: favouriteFood
 * Data type: character
 * Description: A selection of 5 choices of food types.
-* Possible values: "Costco hot dogs", "Pizza", "Pork and onion dumplings", "Anything deep fried", "Potato chips"
+* Possible values: \"Costco hot dogs\", \"Pizza\", \"Pork and onion dumplings\", \"Anything deep fried\", \"Potato chips\"
 * Code label assignment:
 
 | code | label |
@@ -60,21 +62,22 @@ With `favouriteFood` we have 5 choices that participants can select from. It is 
 <div class="question">
 **Why might it be useful to store categorical data as integers?**
 
-One reason would be to think about the amount of information we\'re working with. *Costco hot dogs* is comprised of thirteen letters, *Pork and onion dumplings* is a whopping 21. That's a lot more information that *1* and *3*. Storing this information and processing this data as integer data tied to a label is much less resource heavy. We can see this by taking some large random samples from out two potential ways of storing this data
+One reason would be to think about the amount of information we\'re working with. *Costco hot dogs* is comprised of thirteen letters, *Pork and onion dumplings* is a whopping 21. That's a lot more information than *1* and *3*. Storing this information and processing this data as integer data tied to a label is much less resource heavy. We can see this by taking some large random samples from out two potential ways of storing this data
 
 ```{R}
-labels <- sample(favouriteFood, 1000000, replace = TRUE)
+labels <- sample(favouriteFood, 1000000, replace = TRUE) ## take a million samples from favouriteFood
 
-codes <- sample(c(1:5), 1000000, replace = TRUE)
+codes <- sample(c(1:5), 1000000, replace = TRUE) ## take a million samples from the integer codes representing favouritFood
 
-labels.size <- format(object.size(labels), units = "Mb")
+labels.size <- format(object.size(labels), units = "Mb") ## calculate the amount of storage space needed to hold the labels
 
-codes.size <- format(object.size(codes), units = "Mb")
+codes.size <- format(object.size(codes), units = "Mb") ## calculate the amount of storage space needed to hold the integer codes
 
-cat("Using labels, we'd be using ", labels.size, " worth of memory. Using numeric codes, we'd be using ", codes.size, ", which is half as much!")
+## print the difference to the screen
+cat(paste0("Using labels, we'd be using ", labels.size, " worth of memory. Using numeric codes, we'd be using ", codes.size, ", which is half as much!"))
 ```
 
-When we think about using R well, we want to be thinking in part of how to avoid inefficiencies. Storing categorical data as integers with reference labels is one way to do this.
+When we think about using `R` well, we want to be thinking in part of how to avoid inefficiencies. Storing categorical data as integers with reference labels is one way to do this.
 </div>
 
 **Back to `R` and categories**
@@ -89,17 +92,17 @@ eyeColour <- c("blue", "green", "brown", "hazel", "amber", "grey")
 eyeColour
 ```
 
-Now let\'s treat this more like true data capture, and create a random sample of eye colour from 50 participants - we\'ll look more at `sample()` shortly.
+Now let\'s treat this more like true data capture, and create a random sample of eye colour from 50 participants--we\'ll look more at `sample()` shortly.
 
 ```{R}
-set.seed(120)
+set.seed(120) ## make the example reproducible
 
-eyeColour.Sample <- sample(eyeColour, 50, replace = TRUE)
+eyeColour.Sample <- sample(eyeColour, 50, replace = TRUE) ## take a sample
 
-eyeColour.Sample
+eyeColour.Sample ## print the sample to the screen
 ```
 
-Let\'s first ask R what `class()` our object is and what `typeof()` data we\'re storing
+Let\'s first ask `R` what `class()` our object is and what `typeof()` data we\'re storing
 
 ```{R}
 class(eyeColour.Sample)
@@ -109,7 +112,7 @@ typeof(eyeColour.Sample)
 
 Note that both return `Character`. But we know that this is categorical data with text labels, so ideally, `class()` would tell us that we have a vector of a categorical variable, while `typeof()` would tell us that this is store with numeric data values.
 
-So, we have character data that we want held as factor, or categorical data - that is, we want our strings converted to integers where each integer has its original string as its label.
+So, we have character data that we want held as factor, or categorical data--that is, we want our strings converted to integers where each integer has its original string as its label.
 
 ## Converting Between Classes
 
@@ -141,6 +144,12 @@ levels(eyeColour.Sample)
 nlevels(eyeColour.Sample)
 ```
 
+<div class = "question">
+`eyeColour.Sample` is nominal categorical data. Sometimes categorical data has an inherent order, such as storm classifications or education levels. Calling the help page for `factor`--`?factor` tells us we can use `as.ordered()` or `is.ordered()` to specify that our categorical data is ordinal.
+
+We should then investigate if the order being used by `R` is in fact the order we intend! The `levels()` function will allow you to re-order your ordinal data.
+</div>
+
 <div class = "note">
 **Note**
 
@@ -161,11 +170,17 @@ We've encountered a number of functions to this point that allow us to ask quest
 
 ```{R}
 summary(eyeColour.Sample)
+
+set.seed(120) ## make the example reproducible
+
+eyeColour.Sample.Char <- sample(eyeColour, 50, replace = TRUE) ## take a sample
+
+summary(eyeColour.Sample.Char) ## print the sample to the screen
 ```
 
 ## Exercise 3.2
 
-1. Find all the `as.` functions available in R
+1. Find all the `as.` functions available in `R`
 
 ## What Have we Learned
 

@@ -11,7 +11,7 @@ output:
 
 ## Spreadsheet Data
 
-If we're only dealing with variables of a single data type, matrices are great. But most of us are used to looking at Excel sheets that will have some variables that are numerical, some that are categorical, and some that are character based.
+If we're only dealing with variables of a single data type, matrices are great; in fact, they\'re very efficient if we only have one data type. But most of us are probably used to working with data that will have some variables that are numerical, some that are categorical, and some that are character based.
 
 Consider the following table of data recording the number of times a presidential candidate used the words \'will\', \'shall\', and \'going to\' in the presidential debates, and whether or not they won or lost the popular vote:
 
@@ -25,7 +25,7 @@ Consider the following table of data recording the number of times a presidentia
 | 1980 | Carter    | L                                    | 18                                    |
 | ...  | ...       | ...                                  | ...                                   |
 
-Luckily, R has a way for handling this spread sheet like data, called a dataframe.
+Luckily, `R` has a way for handling this spread sheet like data, called a dataframe.
 
 ## Creating a Dataframe
 
@@ -48,7 +48,7 @@ View(presidentialElection)
 
 ## Targeting a Variable
 
-We can target a specific variable, or vector, in a dataframe the`$` symbol using the following formula:
+We can target a specific variable--or vector--in a dataframe with the `$` symbol using the following formula:
 
 `dataframeName$variableName`
 
@@ -61,7 +61,7 @@ head(presidentialElection$Candidate)
 ## Querying a Dataframe
 Since dataframes are made up of a series of vectors of equal length, we can query any column as we would any vector.
 
-We can, for example, ask about the data type or even change the data type. For example, we can ask about `PopularVote`
+We can, for example, ask about the data type or even change the data type of a given variable. For example, we can ask about `PopularVote`
 
 ```{R}
 typeof(presidentialElection$PopularVote)
@@ -91,7 +91,7 @@ presidentialElection[2,"Candidate"]
 
 ## Questions
 
-While we can run the usual questions against our dataframe, such as `nrow()` and `summary()`, one particularly useful question that we can ask is to inquire about its structure. We do that with `str()`
+While we can run the usual questions against our dataframe, such as `nrow()` for get a sense of how many observations are in the dataset and `summary()` for some basic computed stats, this is where `str()` can be particularly useful
 
 ```{R}
 str(presidentialElection)
