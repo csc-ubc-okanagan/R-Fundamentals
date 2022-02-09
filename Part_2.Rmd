@@ -23,7 +23,9 @@ In this session we\'re going to be working almost exclusively with the base `R` 
 
 ### Life with `R`
 
-`R` has certain features that make it both **very accessible to non programmers**, especially for data analysis and statistical computing, and **very challenging to grapple** at the same time. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:
+As a programming language, `R` has certain features that make it both **very accessible to non programmers**, especially for data analysis and statistical computing, and **very challenging to grapple** at the same time. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:
+
+**The Good**
 
 * Being scripted, `R` Allows for
   * Routinization of tedious tasks
@@ -31,6 +33,9 @@ In this session we\'re going to be working almost exclusively with the base `R` 
   * Transparency
 * Out of the box, `R` provides you with all the tools you need for basic data analysis with no additional fancy footwork
 * Being community developed, `R` has that support network, so you\'ll almost always get an answer online.
+
+**The Bad**
+
 * `R` has given rise to multiple syntaxes--there is more than one correct grammatical structure for how we articulate our instructions. When you\'ve learned the syntax for base `R` and you encounter a solution to your problem written in the Tidyverse syntax, things can be confusing.
 * If your syntax isn\'t exactly correct, your code won\'t run.
 * `R` doesn\'t always throw you an error when it should--instead it occasionally does some guess work, or coercion, for you when you\'re working, something that can lead to unexpected results.
@@ -58,7 +63,7 @@ What\'s happened?
 
 **Let\'s unpack this process a bit**
 
-We\'ll create a stand alone vector that we can then do some descriptive stats on. We\'ll start with the concatenate function `c()`; concatenate as in linking things together.
+We\'ll create a stand alone vector that we can then do some descriptive stats on. We\'ll start with the concatenate function `c()`; concatenate as in linking, or combining, things together.
 
 ```{R}
 c(1:256)
@@ -66,7 +71,7 @@ c(1:256)
 
 The above is just a simple output though, to do something with the data in this vector we want to store the data somehow, so we can retrieve it, not just print it to our console.
 
-We\'ll store it in a **variable** `myFirstVector`; we do that in R with the assignment `<-`
+We\'ll store it in a **variable** `myFirstVector`; we do that in R with the assignment `<-`. This is an `R` quirck. You could use `=`. But no one does.
 
 ```{R}
 myFirstVector <- c(1:256)
@@ -93,8 +98,18 @@ $\bar{X} = (\sum xi)/n$
 We\'ll store our sample mean calculation in a variable called `sampleMean` and then define the function as the sum of our input divided by the number of values in that same input. We\'ll be reliant on two other functions to achieve this, `sum` which tallies all the values we pass to it and `length` which counts the number of values.
 
 ```{R}
-sampleMean <- function(theObjectHandedOver) {
-  sum(theObjectHandedOver)/length(theObjectHandedOver)
+# line by line, here's what we're doing:
+# give the function a name and indicate what we'll pass to it
+# calculate the sum of all values in the object we pass in
+# calculate how many values are in the object we pass in
+# run the calculation
+# return the calculation
+
+sampleMean <- function(vector) { 
+  sum <- sum(vector) 
+  length <- length(vector) 
+  result <- sum/length 
+  return(result) 
 }
 ```
 

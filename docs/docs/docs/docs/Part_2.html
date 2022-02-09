@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Getting Started with R</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R Fundamentals</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Part_1.html">Part 1: Installation</a>
+</li>
+<li>
+  <a href="Part_2.html">Part 2: Introduction</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part 3: Data Types
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Part_3.1.html">3.1 Numbers and Logical Values</a>
+    </li>
+    <li>
+      <a href="Part_3.2.html">3.2 Characters and Categories</a>
+    </li>
+    <li>
+      <a href="Part_3.3.html">3.3 Math and Random Samples</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Part 4: Matrices and Dataframes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Part_4.1.html">4.1 Matrix Data</a>
+    </li>
+    <li>
+      <a href="Part_4.2.html">4.2 Dataframes</a>
+    </li>
+    <li>
+      <a href="Part_4.3.html">4.3 Importing Data</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Part_5_Exercises.html">Exercises</a>
+</li>
+<li>
+  <a href="Resources.html">Resources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Getting Started with R</h1>
+
+</div>
+
+
+<div id="what-can-you-do-with-r" class="section level2">
+<h2>What can you do with R</h2>
+<p>Lots of things. I used to work with someone who programmed music with it.</p>
+<p>More commonly, <code>R</code> is known for and widely used for <strong>statistical computations</strong>. And this will form the foundation of our exploration of <code>R</code> in this session. But really, it's a <strong>programming language</strong>, so there is little that you can't do with it; you're not tied to using its statistical packages.</p>
+<p><code>R</code> is also more than just a programming language and tool for statistical analyses. It's a <strong>community of developers and users</strong>. This has several implications.</p>
+<ul>
+<li>There is a large support network online. If you Google a question, you will most certainly find a solution.</li>
+<li>A lot of add-ons have been created for R, increasing its functionality and consequently, your ability to do novel things with the program. In <code>R</code> parlance, these add-ons are called packages. These packages include data and functions that are intended to make your work simpler.</li>
+</ul>
+<p>In this session we're going to be working almost exclusively with the base <code>R</code> packages–the suite of tools that comes with a basic install.</p>
+<div id="life-with-r" class="section level3">
+<h3>Life with <code>R</code></h3>
+<p><code>R</code> has certain features that make it both <strong>very accessible to non programmers</strong>, especially for data analysis and statistical computing, and <strong>very challenging to grapple</strong> at the same time. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:</p>
+<ul>
+<li>Being scripted, <code>R</code> Allows for
+<ul>
+<li>Routinization of tedious tasks</li>
+<li>Computational reproducibility</li>
+<li>Transparency</li>
+</ul></li>
+<li>Out of the box, <code>R</code> provides you with all the tools you need for basic data analysis with no additional fancy footwork</li>
+<li>Being community developed, <code>R</code> has that support network, so you'll almost always get an answer online.</li>
+<li><code>R</code> has given rise to multiple syntaxes–there is more than one correct grammatical structure for how we articulate our instructions. When you've learned the syntax for base <code>R</code> and you encounter a solution to your problem written in the Tidyverse syntax, things can be confusing.</li>
+<li>If your syntax isn't exactly correct, your code won't run.</li>
+<li><code>R</code> doesn't always throw you an error when it should–instead it occasionally does some guess work, or coercion, for you when you're working, something that can lead to unexpected results.</li>
+</ul>
+<div class="note">
+<p>We're going to touch on a number of things that you can do with R, without delving into any in too much detail - the goal here is put you in a place where you are comfortable enough to <strong>engage in further inquiry</strong> and to <strong>ask questions</strong> that will get you helpful answers.</p>
+<p>No single resource will every be able to answer all of your questions; many will be task or discipline specific and often a solution will offer a model that needs to be adapted to your specific need.</p>
+</div>
+</div>
+<div id="functions" class="section level3">
+<h3>Functions</h3>
+<p>Generally, in <code>R</code> you’ll be working with functions–that other users and developers have built–and passing data to these functions to be processed.</p>
+<p>Let's start with a simple example. Type the following into your console:</p>
+<pre class="r"><code>mean(1:256)</code></pre>
+<pre><code>## [1] 128.5</code></pre>
+<p>What's happened?</p>
+<ul>
+<li>You've calculated the arithmetic mean of the numbers 1 to 256.</li>
+<li>In <code>R</code>, this sequence of numbers is called a <strong>vector</strong> and <code>mean()</code> is a <strong>function</strong>.</li>
+</ul>
+<p><strong>Let's unpack this process a bit</strong></p>
+<p>We'll create a stand alone vector that we can then do some descriptive stats on. We'll start with the concatenate function <code>c()</code>; concatenate as in linking things together.</p>
+<pre class="r"><code>c(1:256)</code></pre>
+<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+##  [91]  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107 108
+## [109] 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126
+## [127] 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144
+## [145] 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162
+## [163] 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180
+## [181] 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198
+## [199] 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216
+## [217] 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234
+## [235] 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252
+## [253] 253 254 255 256</code></pre>
+<p>The above is just a simple output though, to do something with the data in this vector we want to store the data somehow, so we can retrieve it, not just print it to our console.</p>
+<p>We'll store it in a <strong>variable</strong> <code>myFirstVector</code>; we do that in R with the assignment <code>&lt;-</code></p>
+<pre class="r"><code>myFirstVector &lt;- c(1:256)</code></pre>
+<p>This time, when you hit enter, seemingly nothing happens. But we can now recall our variable</p>
+<pre class="r"><code>myFirstVector</code></pre>
+<pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+##  [91]  91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 106 107 108
+## [109] 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126
+## [127] 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144
+## [145] 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162
+## [163] 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180
+## [181] 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198
+## [199] 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216
+## [217] 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234
+## [235] 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252
+## [253] 253 254 255 256</code></pre>
+<p>Now that we have our vector–or our data as simple as it is–we can calculate the mean with the <code>mean()</code> function. So, we'll pass <code>myFirstVector</code> to <code>mean()</code></p>
+<pre class="r"><code>mean(myFirstVector)</code></pre>
+<pre><code>## [1] 128.5</code></pre>
+<p>Outcome: We've created a vector by assigning a series of values to a variable and calculated the mean of these values. So, from a data analysis point of view, at it's most basic we can generate data and calculate descriptive statistics on them.</p>
+<p>But we can peal this back a little further and ask, what is happening when we call a function? To explore this, we'll write our own function to calculate the sample mean, where</p>
+<p><span class="math inline">\(\bar{X} = (\sum xi)/n\)</span></p>
+<p>We'll store our sample mean calculation in a variable called <code>sampleMean</code> and then define the function as the sum of our input divided by the number of values in that same input. We'll be reliant on two other functions to achieve this, <code>sum</code> which tallies all the values we pass to it and <code>length</code> which counts the number of values.</p>
+<pre class="r"><code>sampleMean &lt;- function(theObjectHandedOver) {
+  sum(theObjectHandedOver)/length(theObjectHandedOver)
+}</code></pre>
+<p>We can then pass a vector into our function, just like we did with <code>mean(myFirstVector)</code>.</p>
+<pre class="r"><code>sampleMean(myFirstVector)</code></pre>
+<pre><code>## [1] 128.5</code></pre>
+<p>Outcome: You can program specific tasks tailored to your needs.</p>
+<p>You can also peal back the layers of your program to investigate what's happening; a critical task when we think about research transparency and reproducibility.</p>
+<pre class="r"><code>sampleMean</code></pre>
+<pre><code>## function(theObjectHandedOver) {
+##   sum(theObjectHandedOver)/length(theObjectHandedOver)
+## }</code></pre>
+<p>This is the essence of a lot of what we'll be exploring in this session; generating data and then passing that data to a series of functions that perform specific tasks with that data.</p>
+</div>
+<div id="asking-questions" class="section level3">
+<h3>Asking Questions</h3>
+<p><code>R</code> has a series of functions that allow us to ask questions about our data; all good data analysis begins with knowing our data which means being able to explore it.</p>
+<p>For example, we can look at just the beginning, or just the end of our vector using the <code>head()</code> and <code>tail()</code> functions. To do this, we pass our object, in this case <code>myFirstVector</code> to each of these functions.</p>
+<pre class="r"><code>head(myFirstVector)</code></pre>
+<pre><code>## [1] 1 2 3 4 5 6</code></pre>
+<pre class="r"><code>tail(myFirstVector)</code></pre>
+<pre><code>## [1] 251 252 253 254 255 256</code></pre>
+<p>We can also inquire about the nature of our vector. We can ask, as we've seen, how long it is with <code>length()</code></p>
+<pre class="r"><code>length(myFirstVector)</code></pre>
+<pre><code>## [1] 256</code></pre>
+<p>Or about its range with <code>range()</code></p>
+<pre class="r"><code>range(myFirstVector)</code></pre>
+<pre><code>## [1]   1 256</code></pre>
+<p>We can ask if it is a vector with <code>is.vector()</code></p>
+<pre class="r"><code>is.vector(myFirstVector)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>We can ask what type of data it contains with <code>typeof()</code></p>
+<pre class="r"><code>typeof(myFirstVector)</code></pre>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+</div>
+<div id="so-what-can-you-do-with-r" class="section level3">
+<h3>So what can you do with R?</h3>
+<p>You can (among other things)</p>
+<ul>
+<li>generate data and store that data in variables</li>
+<li>pass those data to functions to, for example, run statistical inquiries on those data</li>
+<li>write your own functions tailored to specific tasks</li>
+<li>look at your data in a variety of ways</li>
+<li>ask questions about your data and inquire about how <code>R</code> is classifying it</li>
+</ul>
+</div>
+<div id="exercise-2.1" class="section level3">
+<h3>Exercise 2.1</h3>
+<ol style="list-style-type: decimal">
+<li>Create a vector called <code>myNumbers</code> with 201 values ranging from 100 to 300</li>
+<li>Look at the first few and the last few numbers of your new vector`</li>
+<li>Calculate the mean of your vector</li>
+</ol>
+</div>
+</div>
+<div id="getting-help-in-r" class="section level2">
+<h2>Getting Help in <code>R</code></h2>
+<p><code>R</code> is a language, and like any language it will take time to develop fluency. To get more fluent you will need to know how to get help.</p>
+<p>There is a fair bit of help built right into R, and this is a great place to start.</p>
+<div id="function-help-pages" class="section level3">
+<h3>Function help pages</h3>
+<p>We can type a function's name to reveal it's underlying code. We can also access it's documentation by preceding it's name with a <code>?</code>–<code>?functionName</code>. For example:</p>
+<pre class="r"><code>?head</code></pre>
+<p>or</p>
+<pre class="r"><code>?mean</code></pre>
+<p>The output in RStudio will tell you the function name and the package it's included in. For example, the function <code>mean()</code> is part of the <code>base</code> package, and so you'll see <code>mean {base}</code>. It will also generally provide you with a description, a template for it's usage, the arguments that you can pass to it, and some examples of how to use it.</p>
+<p>For example, you'll note that one argument we can pass to <code>mean()</code> is <code>trim</code>, which allows us to indicate a proportion from the head and tail of the data to remove from the calculation. The help page tells us that the default value for <code>trim</code> is <code>0</code> and that it accepts values up to <code>0.5</code>. A second argument is whether or not to remove missing values.</p>
+<p>The help page also provides us with references and other related functions that might be of interest.</p>
+</div>
+<div id="searching-help-pages" class="section level3">
+<h3>Searching help pages</h3>
+<p>While a single <code>?</code> searches for the help page on a given function, two <code>??</code> does a key word search in all the documentation bundled with <code>R</code>. For example if you're interested in plotting some data, you might search for <code>plot</code>:</p>
+<pre class="r"><code>??plot</code></pre>
+<p>And you'll get back a list of vignettes, code demonstrations, and help pages documenting specific functions in specific packages. The vignettes and code demonstrations walk you through either the capabilities or uses of a specific function. The lists display the package name followed by two colons and then the specific function.</p>
+<p>Suppose you want to know if there's a function for a particular task, like finding the standard deviation, in your installation of <code>R</code>. We can search for the term</p>
+<pre class="r"><code>??&quot;standard deviation&quot;</code></pre>
+<p>We can then pull up one of the help pages, say for <code>stats::sd</code> and get instructions for using it.</p>
+<div class="note">
+<p><strong>Note</strong></p>
+<p>If you did not wrap <code>"regression model"</code> in quotations, it would fail to run. We'll talk more about using characters in <code>R</code> shortly.</p>
+</div>
+</div>
+<div id="finding-variables-or-functions" class="section level3">
+<h3>Finding variables or functions</h3>
+<p>The <code>apropos()</code> function searches specifically for variables <em>and</em> functions that contain your search term.</p>
+<pre class="r"><code>apropos(&quot;vector&quot;)</code></pre>
+<p>We can also search for functions that start or end with specific sets of characters.</p>
+<p>To find variables and functions that start with a particular set of letters, like 'm' or 'ma' we prepend the letters with a <code>^</code></p>
+<pre class="r"><code>apropos(&quot;^m&quot;)
+
+apropos(&quot;^ma&quot;)</code></pre>
+<p>To find variables and functions that end in a particular set of letters, like 'r' or 'or' we append the letters with a <code>$</code></p>
+<pre class="r"><code>apropos(&quot;r$&quot;)
+
+apropos(&quot;or$&quot;)</code></pre>
+<div class="question">
+<p><strong>Examples &amp; demos</strong></p>
+<p>Many functions and features in R come with examples and demos on how they might be used. We can often get both examples and demos with the <code>example()</code> and <code>demo()</code> functions.</p>
+<pre class="r"><code>example(plot) ## Examples using the plot function</code></pre>
+<pre class="r"><code>demo(graphics) ## Demonstration of the graphics capabilities in R</code></pre>
+<pre class="r"><code>demo() ## Show a list of all demos available</code></pre>
+</div>
+<p>The help built into <code>R</code> can help you explore, discover, and troubleshoot. However, eventually you'll need to get into online forums, blogs, and other reading materials to troubleshoot and discover more resources to support your particular area of research.</p>
+</div>
+<div id="exercise-2.2" class="section level3">
+<h3>Exercise 2.2</h3>
+<ol style="list-style-type: decimal">
+<li>Find the function built in to <code>R</code> to calculate the median</li>
+<li>Create a variable called <code>m_func_var</code> that stores all the functions and variables on your system that start with the letter <code>m</code>.</li>
+<li>By default, <code>head()</code> and <code>tail()</code> list the first or last 6 data points of whatever is passed to them. Use the help page for <code>head()</code> and <code>tail()</code> to list the first and last 10 results of <code>m_func_var</code>.</li>
+</ol>
+</div>
+</div>
+
+<div id="footer">
+    <hr />
+    <p>Built and rendered curtousy of <a href="https://rmarkdown.rstudio.com/index.html" target ="blank">RMarkdown from RStudio</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

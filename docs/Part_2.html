@@ -401,7 +401,8 @@ div.tocify {
 <p>In this session we're going to be working almost exclusively with the base <code>R</code> packages–the suite of tools that comes with a basic install.</p>
 <div id="life-with-r" class="section level3">
 <h3>Life with <code>R</code></h3>
-<p><code>R</code> has certain features that make it both <strong>very accessible to non programmers</strong>, especially for data analysis and statistical computing, and <strong>very challenging to grapple</strong> at the same time. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:</p>
+<p>As a programming language, <code>R</code> has certain features that make it both <strong>very accessible to non programmers</strong>, especially for data analysis and statistical computing, and <strong>very challenging to grapple</strong> at the same time. This makes it both relatively low barrier, but on the flip side, it makes it very easy to use it poorly. A few to note:</p>
+<p><strong>The Good</strong></p>
 <ul>
 <li>Being scripted, <code>R</code> Allows for
 <ul>
@@ -411,6 +412,9 @@ div.tocify {
 </ul></li>
 <li>Out of the box, <code>R</code> provides you with all the tools you need for basic data analysis with no additional fancy footwork</li>
 <li>Being community developed, <code>R</code> has that support network, so you'll almost always get an answer online.</li>
+</ul>
+<p><strong>The Bad</strong></p>
+<ul>
 <li><code>R</code> has given rise to multiple syntaxes–there is more than one correct grammatical structure for how we articulate our instructions. When you've learned the syntax for base <code>R</code> and you encounter a solution to your problem written in the Tidyverse syntax, things can be confusing.</li>
 <li>If your syntax isn't exactly correct, your code won't run.</li>
 <li><code>R</code> doesn't always throw you an error when it should–instead it occasionally does some guess work, or coercion, for you when you're working, something that can lead to unexpected results.</li>
@@ -432,7 +436,7 @@ div.tocify {
 <li>In <code>R</code>, this sequence of numbers is called a <strong>vector</strong> and <code>mean()</code> is a <strong>function</strong>.</li>
 </ul>
 <p><strong>Let's unpack this process a bit</strong></p>
-<p>We'll create a stand alone vector that we can then do some descriptive stats on. We'll start with the concatenate function <code>c()</code>; concatenate as in linking things together.</p>
+<p>We'll create a stand alone vector that we can then do some descriptive stats on. We'll start with the concatenate function <code>c()</code>; concatenate as in linking, or combining, things together.</p>
 <pre class="r"><code>c(1:256)</code></pre>
 <pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 ##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
@@ -450,7 +454,7 @@ div.tocify {
 ## [235] 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252
 ## [253] 253 254 255 256</code></pre>
 <p>The above is just a simple output though, to do something with the data in this vector we want to store the data somehow, so we can retrieve it, not just print it to our console.</p>
-<p>We'll store it in a <strong>variable</strong> <code>myFirstVector</code>; we do that in R with the assignment <code>&lt;-</code></p>
+<p>We'll store it in a <strong>variable</strong> <code>myFirstVector</code>; we do that in R with the assignment <code>&lt;-</code>. This is an <code>R</code> quirck. You could use <code>=</code>. But no one does.</p>
 <pre class="r"><code>myFirstVector &lt;- c(1:256)</code></pre>
 <p>This time, when you hit enter, seemingly nothing happens. But we can now recall our variable</p>
 <pre class="r"><code>myFirstVector</code></pre>
@@ -476,8 +480,18 @@ div.tocify {
 <p>But we can peal this back a little further and ask, what is happening when we call a function? To explore this, we'll write our own function to calculate the sample mean, where</p>
 <p><span class="math inline">\(\bar{X} = (\sum xi)/n\)</span></p>
 <p>We'll store our sample mean calculation in a variable called <code>sampleMean</code> and then define the function as the sum of our input divided by the number of values in that same input. We'll be reliant on two other functions to achieve this, <code>sum</code> which tallies all the values we pass to it and <code>length</code> which counts the number of values.</p>
-<pre class="r"><code>sampleMean &lt;- function(theObjectHandedOver) {
-  sum(theObjectHandedOver)/length(theObjectHandedOver)
+<pre class="r"><code># line by line, here&#39;s what we&#39;re doing:
+# give the function a name and indicate what we&#39;ll pass to it
+# calculate the sum of all values in the object we pass in
+# calculate how many values are in the object we pass in
+# run the calculation
+# return the calculation
+
+sampleMean &lt;- function(vector) { 
+  sum &lt;- sum(vector) 
+  length &lt;- length(vector) 
+  result &lt;- sum/length 
+  return(result) 
 }</code></pre>
 <p>We can then pass a vector into our function, just like we did with <code>mean(myFirstVector)</code>.</p>
 <pre class="r"><code>sampleMean(myFirstVector)</code></pre>
@@ -485,8 +499,11 @@ div.tocify {
 <p>Outcome: You can program specific tasks tailored to your needs.</p>
 <p>You can also peal back the layers of your program to investigate what's happening; a critical task when we think about research transparency and reproducibility.</p>
 <pre class="r"><code>sampleMean</code></pre>
-<pre><code>## function(theObjectHandedOver) {
-##   sum(theObjectHandedOver)/length(theObjectHandedOver)
+<pre><code>## function(vector) { 
+##   sum &lt;- sum(vector) 
+##   length &lt;- length(vector) 
+##   result &lt;- sum/length 
+##   return(result) 
 ## }</code></pre>
 <p>This is the essence of a lot of what we'll be exploring in this session; generating data and then passing that data to a series of functions that perform specific tasks with that data.</p>
 </div>

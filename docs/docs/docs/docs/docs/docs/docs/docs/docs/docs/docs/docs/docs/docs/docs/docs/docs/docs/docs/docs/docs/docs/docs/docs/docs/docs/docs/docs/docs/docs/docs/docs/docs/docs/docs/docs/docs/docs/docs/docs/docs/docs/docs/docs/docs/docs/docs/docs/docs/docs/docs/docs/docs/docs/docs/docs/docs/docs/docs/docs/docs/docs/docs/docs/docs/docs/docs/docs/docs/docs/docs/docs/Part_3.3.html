@@ -465,13 +465,13 @@ d</code></pre>
 <p>If we're going to be running a computation on our data, for the purposes error tracking and transparency, it is advisable to generate a new variable.</p>
 </div>
 <p>This last example highlights an interesting feature of <code>R</code>. Vectorization is built into <code>R</code> from the ground up. To multiply every value in <code>c</code> by 5 where vectorization was not a reality, we'd need to iterate the process.</p>
-<pre class="r"><code>x &lt;- vector()
+<pre class="r"><code>x &lt;- vector() # create an empty vector to hold our results
 
-for (i in 1:length(c)) {
-  x[i] &lt;- c[i] * 5
+for (i in 1:length(c)) { # for each element from 1 through to the length of c
+  x[i] &lt;- c[i] * 5 # multiply that element by 5 and pop it into x sequentially 
 }
 
-x</code></pre>
+x # print the results</code></pre>
 <pre><code>## [1] 35 45 55 65 75</code></pre>
 <p>That is, we would need to painstakingly say, "Here’s an empty object ready to hold our computed data. Now, for every value in <code>c</code>, multiply that value by 5 and then iteratively put the result into the empty object–which then starts to fill up".</p>
 <p>This is partly why <code>R</code> is so nice, you don't need to know how to program–like how to loop through data–for basic applications! And yet, you get many of the benefits of a programming environment.</p>

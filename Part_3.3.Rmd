@@ -108,13 +108,13 @@ If we\'re going to be running a computation on our data, for the purposes error 
 This last example highlights an interesting feature of `R`. Vectorization is built into `R` from the ground up. To multiply every value in `c` by 5 where vectorization was not a reality, we\'d need to iterate the process.
 
 ```{R}
-x <- vector()
+x <- vector() # create an empty vector to hold our results
 
-for (i in 1:length(c)) {
-  x[i] <- c[i] * 5
+for (i in 1:length(c)) { # for each element from 1 through to the length of c
+  x[i] <- c[i] * 5 # multiply that element by 5 and pop it into x sequentially 
 }
 
-x
+x # print the results
 ```
 
 That is, we would need to painstakingly say, \"Here's an empty object ready to hold our computed data. Now, for every value in `c`, multiply that value by 5 and then iteratively put the result into the empty object--which then starts to fill up\".
