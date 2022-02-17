@@ -397,11 +397,7 @@ div.tocify {
 <h2>File Formats</h2>
 <p>Data are stored in a wide variety of formats, and <code>R</code> can handle many of these out of the box. We'll work with a simple example importing a <code>csv</code>–or comma separated value–file, in which column variables are separated by commas and rows of observations by a new line.</p>
 <div class="question">
-<p><strong>Fun Fact</strong></p>
-<p>Encoding of new line characters has some interesting spill over effects from the era of mechanical typing. While your Unix and Linux based operating systems–including Mac OS–simply encode a new line with <code>\n</code> denoting "line feed", Windows base machines encode it as `’, denoting "carriage return, line feed” which more closely resemble a type writer where you have to not only move down a line, but also shift the carriage back to the left margin.</p>
-</div>
-<div class="question">
-<p><strong>Comma Seperated Values</strong></p>
+<p><strong>Comma Separated Values</strong></p>
 <p>In general, keeping your data in a plain text format like csv has many advantages including longevity of access, transferability across systems, and perhaps most importantly, encouraging good data handling practices; programs like Excel allow us to indicate information about our data using colours, to merge cells etc, all of which limit the ability of a program to read or interpret our data.</p>
 </div>
 </div>
@@ -419,12 +415,10 @@ div.tocify {
 <pre>setwd("~/Desktop/RScripts")</pre>
 <p><strong>Windows</strong></p>
 <pre>setwd("~/Desktop/RScripts")</pre>
-<p>if that doesn’t work, you can try</p>
-<pre>setwd("~/../Desktop/RScripts")</pre>
 <div class="note">
-<p><strong>Note</strong></p>
-<p>Every system has a default home directory. We can access that directory with the <code>~</code>. On Mac OS and Linux, this is generally your user folder and on Windows it should be your user folder, but may be your documents folder.</p>
-<p>The above will work for systems that have not had their default home directories changed.</p>
+<p><strong>Directories</strong></p>
+<p>Every system has a default home directory. We can access that directory with the <code>~</code>. On Mac OS this should take you to <code>/users/username</code>, on Windows to <code>\user\username</code> and on Linux <code>/home/username</code>.</p>
+<p>The above will work for this session on systems that have not had their default home directories changed.</p>
 </div>
 </div>
 <div id="importing-csv" class="section level2">

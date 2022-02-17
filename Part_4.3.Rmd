@@ -17,14 +17,8 @@ I have a sample csv file available for you [at this link](./files/SwissData.csv)
 
 Data are stored in a wide variety of formats, and `R` can handle many of these out of the box. We\'ll work with a simple example importing a `csv`--or comma separated value--file, in which column variables are separated by commas and rows of observations by a new line.
 
-<div class = "question">
-**Fun Fact**
-
-Encoding of new line characters has some interesting spill over effects from the era of mechanical typing. While your Unix and Linux based operating systems--including Mac OS--simply encode a new line with `\n` denoting \"line feed\", Windows base machines encode it as `\r\n', denoting \"carriage return, line feed"\ which more closely resemble a type writer where you have to not only move down a line, but also shift the carriage back to the left margin.
-</div>
-
 <div class="question">
-**Comma Seperated Values**
+**Comma Separated Values**
 
 In general, keeping your data in a plain text format like csv has many advantages including longevity of access, transferability across systems, and perhaps most importantly, encouraging good data handling practices; programs like Excel allow us to indicate information about our data using colours, to merge cells etc, all of which limit the ability of a program to read or interpret our data.
 </div>
@@ -50,16 +44,12 @@ We want to set our working directory to the same location as our script. To do t
 
 <pre>setwd("~/Desktop/RScripts")</pre>
 
-if that doesn't work, you can try
-
-<pre>setwd("~/../Desktop/RScripts")</pre>
-
 <div class="note">
-**Note**
+**Directories**
 
-Every system has a default home directory. We can access that directory with the `~`. On Mac OS and Linux, this is generally your user folder and on Windows it should be your user folder, but may be your documents folder.
+Every system has a default home directory. We can access that directory with the `~`. On Mac OS this should take you to `/users/username`, on Windows to `\user\username` and on Linux `/home/username`.
 
-The above will work for systems that have not had their default home directories changed.
+The above will work for this session on systems that have not had their default home directories changed.
 </div>
 
 ## Importing csv
