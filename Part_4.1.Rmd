@@ -57,7 +57,7 @@ PhysCharacteristics <- cbind(Height, Weight)
 head(PhysCharacteristics)
 ```
 
-Great, now we have a gird of data.
+Great, now we have a grid of data.
 
 We could get a summary of our data if we wanted
 

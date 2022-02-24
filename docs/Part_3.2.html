@@ -465,8 +465,8 @@ labels.size &lt;- format(object.size(labels), units = &quot;Mb&quot;) ## calcula
 codes.size &lt;- format(object.size(codes), units = &quot;Mb&quot;) ## calculate the amount of storage space needed to hold the integer codes
 
 ## print the difference to the screen
-cat(paste0(&quot;Using labels, we&#39;d be using &quot;, labels.size, &quot; worth of memory. Using numeric codes, we&#39;d be using &quot;, codes.size, &quot;, which is half as much!&quot;))</code></pre>
-<pre><code>## Using labels, we&#39;d be using 7.6 Mb worth of memory. Using numeric codes, we&#39;d be using 3.8 Mb, which is half as much!</code></pre>
+paste0(&quot;Using labels, we&#39;d be using &quot;, labels.size, &quot; worth of memory. Using numeric codes, we&#39;d be using &quot;, codes.size, &quot;, which is half as much!&quot;)</code></pre>
+<pre><code>## [1] &quot;Using labels, we&#39;d be using 7.6 Mb worth of memory. Using numeric codes, we&#39;d be using 3.8 Mb, which is half as much!&quot;</code></pre>
 <p>When we think about using <code>R</code> well, we want to be thinking in part of how to avoid inefficiencies. Storing categorical data as integers with reference labels is one way to do this.</p>
 </div>
 <p><strong>Back to <code>R</code> and categories</strong></p>

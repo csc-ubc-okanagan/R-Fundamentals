@@ -67,63 +67,11 @@ median(x)
 
 ### Exercise 3.1
 
-* Create three variables that hold one numerical value each:
-  * one integer
+Find all the `as.` functions available in R. Note that a `.` is a special character in a regular expression search, so to search for the `.` we need to comment it out to override it's \'specialness\'. We do so with a `\`. However, `\` is also a special character, so we need to comment it out too, with an additional `\`.
 
 ```{R}
-integer <- 1L
-
-integer
-```  
-  
-  * one double, real, number
-  
-```{R}
-double <- 2
-
-double
+apropos("^as\\.")
 ```
-  
-  * one double, decimal, number
-  
-```{R}
-decimal <- 3.1
-
-decimal
-```
-  
-* Inquire as to the type of data and class of object that R tells you each of your variables are. Also ask R to tell you the length of your variables.
-  * What do you notice?
-  * Do we get a valid response to the class function? If yes, why might this be? A variable with one data point is simply a vector of 1 unit.
-
-```{R}
-typeof(integer)
-
-class(integer)
-
-length(integer)
-
-typeof(double)
-
-class(double)
-
-length(double)
-
-typeof(decimal)
-
-class(decimal)
-
-length(decimal)
-```  
-
-### Exercise 3.2
-
-Find all the `as.` functions available in R
-
-```{R}
-apropos("^as")
-```
-
 
 ### Exercise 3.3
 

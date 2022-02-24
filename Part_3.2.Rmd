@@ -74,7 +74,7 @@ labels.size <- format(object.size(labels), units = "Mb") ## calculate the amount
 codes.size <- format(object.size(codes), units = "Mb") ## calculate the amount of storage space needed to hold the integer codes
 
 ## print the difference to the screen
-cat(paste0("Using labels, we'd be using ", labels.size, " worth of memory. Using numeric codes, we'd be using ", codes.size, ", which is half as much!"))
+paste0("Using labels, we'd be using ", labels.size, " worth of memory. Using numeric codes, we'd be using ", codes.size, ", which is half as much!")
 ```
 
 When we think about using `R` well, we want to be thinking in part of how to avoid inefficiencies. Storing categorical data as integers with reference labels is one way to do this.

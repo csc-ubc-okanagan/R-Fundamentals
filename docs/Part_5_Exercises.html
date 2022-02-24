@@ -528,206 +528,68 @@ m_func_var</code></pre>
 <h2>Part 3</h2>
 <div id="exercise-3.1" class="section level3">
 <h3>Exercise 3.1</h3>
-<ul>
-<li>Create three variables that hold one numerical value each:
-<ul>
-<li>one integer</li>
-</ul></li>
-</ul>
-<pre class="r"><code>integer &lt;- 1L
-
-integer</code></pre>
-<pre><code>## [1] 1</code></pre>
-<ul>
-<li>one double, real, number</li>
-</ul>
-<pre class="r"><code>double &lt;- 2
-
-double</code></pre>
-<pre><code>## [1] 2</code></pre>
-<ul>
-<li>one double, decimal, number</li>
-</ul>
-<pre class="r"><code>decimal &lt;- 3.1
-
-decimal</code></pre>
-<pre><code>## [1] 3.1</code></pre>
-<ul>
-<li>Inquire as to the type of data and class of object that R tells you each of your variables are. Also ask R to tell you the length of your variables.
-<ul>
-<li>What do you notice?</li>
-<li>Do we get a valid response to the class function? If yes, why might this be? A variable with one data point is simply a vector of 1 unit.</li>
-</ul></li>
-</ul>
-<pre class="r"><code>typeof(integer)</code></pre>
-<pre><code>## [1] &quot;integer&quot;</code></pre>
-<pre class="r"><code>class(integer)</code></pre>
-<pre><code>## [1] &quot;integer&quot;</code></pre>
-<pre class="r"><code>length(integer)</code></pre>
-<pre><code>## [1] 1</code></pre>
-<pre class="r"><code>typeof(double)</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
-<pre class="r"><code>class(double)</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-<pre class="r"><code>length(double)</code></pre>
-<pre><code>## [1] 1</code></pre>
-<pre class="r"><code>typeof(decimal)</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
-<pre class="r"><code>class(decimal)</code></pre>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-<pre class="r"><code>length(decimal)</code></pre>
-<pre><code>## [1] 1</code></pre>
-</div>
-<div id="exercise-3.2" class="section level3">
-<h3>Exercise 3.2</h3>
-<p>Find all the <code>as.</code> functions available in R</p>
-<pre class="r"><code>apropos(&quot;^as&quot;)</code></pre>
-<pre><code>##   [1] &quot;as&quot;                                   
-##   [2] &quot;as.array&quot;                             
-##   [3] &quot;as.array.default&quot;                     
-##   [4] &quot;as.call&quot;                              
-##   [5] &quot;as.character&quot;                         
-##   [6] &quot;as.character.condition&quot;               
-##   [7] &quot;as.character.Date&quot;                    
-##   [8] &quot;as.character.default&quot;                 
-##   [9] &quot;as.character.error&quot;                   
-##  [10] &quot;as.character.factor&quot;                  
-##  [11] &quot;as.character.hexmode&quot;                 
-##  [12] &quot;as.character.numeric_version&quot;         
-##  [13] &quot;as.character.octmode&quot;                 
-##  [14] &quot;as.character.POSIXt&quot;                  
-##  [15] &quot;as.character.srcref&quot;                  
-##  [16] &quot;as.complex&quot;                           
-##  [17] &quot;as.data.frame&quot;                        
-##  [18] &quot;as.data.frame.array&quot;                  
-##  [19] &quot;as.data.frame.AsIs&quot;                   
-##  [20] &quot;as.data.frame.character&quot;              
-##  [21] &quot;as.data.frame.complex&quot;                
-##  [22] &quot;as.data.frame.data.frame&quot;             
-##  [23] &quot;as.data.frame.Date&quot;                   
-##  [24] &quot;as.data.frame.default&quot;                
-##  [25] &quot;as.data.frame.difftime&quot;               
-##  [26] &quot;as.data.frame.factor&quot;                 
-##  [27] &quot;as.data.frame.integer&quot;                
-##  [28] &quot;as.data.frame.list&quot;                   
-##  [29] &quot;as.data.frame.logical&quot;                
-##  [30] &quot;as.data.frame.matrix&quot;                 
-##  [31] &quot;as.data.frame.model.matrix&quot;           
-##  [32] &quot;as.data.frame.noquote&quot;                
-##  [33] &quot;as.data.frame.numeric&quot;                
-##  [34] &quot;as.data.frame.numeric_version&quot;        
-##  [35] &quot;as.data.frame.ordered&quot;                
-##  [36] &quot;as.data.frame.POSIXct&quot;                
-##  [37] &quot;as.data.frame.POSIXlt&quot;                
-##  [38] &quot;as.data.frame.raw&quot;                    
-##  [39] &quot;as.data.frame.table&quot;                  
-##  [40] &quot;as.data.frame.ts&quot;                     
-##  [41] &quot;as.data.frame.vector&quot;                 
-##  [42] &quot;as.Date&quot;                              
-##  [43] &quot;as.Date.character&quot;                    
-##  [44] &quot;as.Date.default&quot;                      
-##  [45] &quot;as.Date.factor&quot;                       
-##  [46] &quot;as.Date.numeric&quot;                      
-##  [47] &quot;as.Date.POSIXct&quot;                      
-##  [48] &quot;as.Date.POSIXlt&quot;                      
-##  [49] &quot;as.dendrogram&quot;                        
-##  [50] &quot;as.difftime&quot;                          
-##  [51] &quot;as.dist&quot;                              
-##  [52] &quot;as.double&quot;                            
-##  [53] &quot;as.double.difftime&quot;                   
-##  [54] &quot;as.double.POSIXlt&quot;                    
-##  [55] &quot;as.environment&quot;                       
-##  [56] &quot;as.expression&quot;                        
-##  [57] &quot;as.expression.default&quot;                
-##  [58] &quot;as.factor&quot;                            
-##  [59] &quot;as.formula&quot;                           
-##  [60] &quot;as.function&quot;                          
-##  [61] &quot;as.function.default&quot;                  
-##  [62] &quot;as.graphicsAnnot&quot;                     
-##  [63] &quot;as.hclust&quot;                            
-##  [64] &quot;as.hexmode&quot;                           
-##  [65] &quot;as.integer&quot;                           
-##  [66] &quot;as.list&quot;                              
-##  [67] &quot;as.list.data.frame&quot;                   
-##  [68] &quot;as.list.Date&quot;                         
-##  [69] &quot;as.list.default&quot;                      
-##  [70] &quot;as.list.difftime&quot;                     
-##  [71] &quot;as.list.environment&quot;                  
-##  [72] &quot;as.list.factor&quot;                       
-##  [73] &quot;as.list.function&quot;                     
-##  [74] &quot;as.list.numeric_version&quot;              
-##  [75] &quot;as.list.POSIXct&quot;                      
-##  [76] &quot;as.list.POSIXlt&quot;                      
-##  [77] &quot;as.logical&quot;                           
-##  [78] &quot;as.logical.factor&quot;                    
-##  [79] &quot;as.matrix&quot;                            
-##  [80] &quot;as.matrix.data.frame&quot;                 
-##  [81] &quot;as.matrix.default&quot;                    
-##  [82] &quot;as.matrix.noquote&quot;                    
-##  [83] &quot;as.matrix.POSIXlt&quot;                    
-##  [84] &quot;as.name&quot;                              
-##  [85] &quot;as.null&quot;                              
-##  [86] &quot;as.null.default&quot;                      
-##  [87] &quot;as.numeric&quot;                           
-##  [88] &quot;as.numeric_version&quot;                   
-##  [89] &quot;as.octmode&quot;                           
-##  [90] &quot;as.ordered&quot;                           
-##  [91] &quot;as.package_version&quot;                   
-##  [92] &quot;as.pairlist&quot;                          
-##  [93] &quot;as.person&quot;                            
-##  [94] &quot;as.personList&quot;                        
-##  [95] &quot;as.POSIXct&quot;                           
-##  [96] &quot;as.POSIXct.Date&quot;                      
-##  [97] &quot;as.POSIXct.default&quot;                   
-##  [98] &quot;as.POSIXct.numeric&quot;                   
-##  [99] &quot;as.POSIXct.POSIXlt&quot;                   
-## [100] &quot;as.POSIXlt&quot;                           
-## [101] &quot;as.POSIXlt.character&quot;                 
-## [102] &quot;as.POSIXlt.Date&quot;                      
-## [103] &quot;as.POSIXlt.default&quot;                   
-## [104] &quot;as.POSIXlt.factor&quot;                    
-## [105] &quot;as.POSIXlt.numeric&quot;                   
-## [106] &quot;as.POSIXlt.POSIXct&quot;                   
-## [107] &quot;as.qr&quot;                                
-## [108] &quot;as.raster&quot;                            
-## [109] &quot;as.raw&quot;                               
-## [110] &quot;as.relistable&quot;                        
-## [111] &quot;as.roman&quot;                             
-## [112] &quot;as.single&quot;                            
-## [113] &quot;as.single.default&quot;                    
-## [114] &quot;as.stepfun&quot;                           
-## [115] &quot;as.symbol&quot;                            
-## [116] &quot;as.table&quot;                             
-## [117] &quot;as.table.default&quot;                     
-## [118] &quot;as.ts&quot;                                
-## [119] &quot;as.vector&quot;                            
-## [120] &quot;as.vector.factor&quot;                     
-## [121] &quot;as&lt;-&quot;                                 
-## [122] &quot;asDateBuilt&quot;                          
-## [123] &quot;asin&quot;                                 
-## [124] &quot;asinh&quot;                                
-## [125] &quot;askYesNo&quot;                             
-## [126] &quot;asMethodDefinition&quot;                   
-## [127] &quot;asNamespace&quot;                          
-## [128] &quot;asOneSidedFormula&quot;                    
-## [129] &quot;aspell&quot;                               
-## [130] &quot;aspell_package_C_files&quot;               
-## [131] &quot;aspell_package_R_files&quot;               
-## [132] &quot;aspell_package_Rd_files&quot;              
-## [133] &quot;aspell_package_vignettes&quot;             
-## [134] &quot;aspell_write_personal_dictionary_file&quot;
-## [135] &quot;asplit&quot;                               
-## [136] &quot;asS3&quot;                                 
-## [137] &quot;asS4&quot;                                 
-## [138] &quot;assertCondition&quot;                      
-## [139] &quot;assertError&quot;                          
-## [140] &quot;assertWarning&quot;                        
-## [141] &quot;assign&quot;                               
-## [142] &quot;assignClassDef&quot;                       
-## [143] &quot;assignInMyNamespace&quot;                  
-## [144] &quot;assignInNamespace&quot;                    
-## [145] &quot;assignMethodsMetaData&quot;                
-## [146] &quot;assocplot&quot;</code></pre>
+<p>Find all the <code>as.</code> functions available in R. Note that a <code>.</code> is a special character in a regular expression search, so to search for the <code>.</code> we need to comment it out to override it’s 'specialness'. We do so with a <code>\</code>. However, <code>\</code> is also a special character, so we need to comment it out too, with an additional <code>\</code>.</p>
+<pre class="r"><code>apropos(&quot;^as\\.&quot;)</code></pre>
+<pre><code>##   [1] &quot;as.array&quot;                      &quot;as.array.default&quot;             
+##   [3] &quot;as.call&quot;                       &quot;as.character&quot;                 
+##   [5] &quot;as.character.condition&quot;        &quot;as.character.Date&quot;            
+##   [7] &quot;as.character.default&quot;          &quot;as.character.error&quot;           
+##   [9] &quot;as.character.factor&quot;           &quot;as.character.hexmode&quot;         
+##  [11] &quot;as.character.numeric_version&quot;  &quot;as.character.octmode&quot;         
+##  [13] &quot;as.character.POSIXt&quot;           &quot;as.character.srcref&quot;          
+##  [15] &quot;as.complex&quot;                    &quot;as.data.frame&quot;                
+##  [17] &quot;as.data.frame.array&quot;           &quot;as.data.frame.AsIs&quot;           
+##  [19] &quot;as.data.frame.character&quot;       &quot;as.data.frame.complex&quot;        
+##  [21] &quot;as.data.frame.data.frame&quot;      &quot;as.data.frame.Date&quot;           
+##  [23] &quot;as.data.frame.default&quot;         &quot;as.data.frame.difftime&quot;       
+##  [25] &quot;as.data.frame.factor&quot;          &quot;as.data.frame.integer&quot;        
+##  [27] &quot;as.data.frame.list&quot;            &quot;as.data.frame.logical&quot;        
+##  [29] &quot;as.data.frame.matrix&quot;          &quot;as.data.frame.model.matrix&quot;   
+##  [31] &quot;as.data.frame.noquote&quot;         &quot;as.data.frame.numeric&quot;        
+##  [33] &quot;as.data.frame.numeric_version&quot; &quot;as.data.frame.ordered&quot;        
+##  [35] &quot;as.data.frame.POSIXct&quot;         &quot;as.data.frame.POSIXlt&quot;        
+##  [37] &quot;as.data.frame.raw&quot;             &quot;as.data.frame.table&quot;          
+##  [39] &quot;as.data.frame.ts&quot;              &quot;as.data.frame.vector&quot;         
+##  [41] &quot;as.Date&quot;                       &quot;as.Date.character&quot;            
+##  [43] &quot;as.Date.default&quot;               &quot;as.Date.factor&quot;               
+##  [45] &quot;as.Date.numeric&quot;               &quot;as.Date.POSIXct&quot;              
+##  [47] &quot;as.Date.POSIXlt&quot;               &quot;as.dendrogram&quot;                
+##  [49] &quot;as.difftime&quot;                   &quot;as.dist&quot;                      
+##  [51] &quot;as.double&quot;                     &quot;as.double.difftime&quot;           
+##  [53] &quot;as.double.POSIXlt&quot;             &quot;as.environment&quot;               
+##  [55] &quot;as.expression&quot;                 &quot;as.expression.default&quot;        
+##  [57] &quot;as.factor&quot;                     &quot;as.formula&quot;                   
+##  [59] &quot;as.function&quot;                   &quot;as.function.default&quot;          
+##  [61] &quot;as.graphicsAnnot&quot;              &quot;as.hclust&quot;                    
+##  [63] &quot;as.hexmode&quot;                    &quot;as.integer&quot;                   
+##  [65] &quot;as.list&quot;                       &quot;as.list.data.frame&quot;           
+##  [67] &quot;as.list.Date&quot;                  &quot;as.list.default&quot;              
+##  [69] &quot;as.list.difftime&quot;              &quot;as.list.environment&quot;          
+##  [71] &quot;as.list.factor&quot;                &quot;as.list.function&quot;             
+##  [73] &quot;as.list.numeric_version&quot;       &quot;as.list.POSIXct&quot;              
+##  [75] &quot;as.list.POSIXlt&quot;               &quot;as.logical&quot;                   
+##  [77] &quot;as.logical.factor&quot;             &quot;as.matrix&quot;                    
+##  [79] &quot;as.matrix.data.frame&quot;          &quot;as.matrix.default&quot;            
+##  [81] &quot;as.matrix.noquote&quot;             &quot;as.matrix.POSIXlt&quot;            
+##  [83] &quot;as.name&quot;                       &quot;as.null&quot;                      
+##  [85] &quot;as.null.default&quot;               &quot;as.numeric&quot;                   
+##  [87] &quot;as.numeric_version&quot;            &quot;as.octmode&quot;                   
+##  [89] &quot;as.ordered&quot;                    &quot;as.package_version&quot;           
+##  [91] &quot;as.pairlist&quot;                   &quot;as.person&quot;                    
+##  [93] &quot;as.personList&quot;                 &quot;as.POSIXct&quot;                   
+##  [95] &quot;as.POSIXct.Date&quot;               &quot;as.POSIXct.default&quot;           
+##  [97] &quot;as.POSIXct.numeric&quot;            &quot;as.POSIXct.POSIXlt&quot;           
+##  [99] &quot;as.POSIXlt&quot;                    &quot;as.POSIXlt.character&quot;         
+## [101] &quot;as.POSIXlt.Date&quot;               &quot;as.POSIXlt.default&quot;           
+## [103] &quot;as.POSIXlt.factor&quot;             &quot;as.POSIXlt.numeric&quot;           
+## [105] &quot;as.POSIXlt.POSIXct&quot;            &quot;as.qr&quot;                        
+## [107] &quot;as.raster&quot;                     &quot;as.raw&quot;                       
+## [109] &quot;as.relistable&quot;                 &quot;as.roman&quot;                     
+## [111] &quot;as.single&quot;                     &quot;as.single.default&quot;            
+## [113] &quot;as.stepfun&quot;                    &quot;as.symbol&quot;                    
+## [115] &quot;as.table&quot;                      &quot;as.table.default&quot;             
+## [117] &quot;as.ts&quot;                         &quot;as.vector&quot;                    
+## [119] &quot;as.vector.factor&quot;</code></pre>
 </div>
 <div id="exercise-3.3" class="section level3">
 <h3>Exercise 3.3</h3>
